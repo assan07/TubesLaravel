@@ -1,0 +1,285 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #8696fe, #c4b0ff);
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.register-container {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.left-section {
+    color: white;
+    display: flex;
+   
+    min-height: 100vh;
+    z-index: -10;
+}
+
+.left-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -2;
+}
+
+.left-content {
+    z-index: -2;
+    padding: 2rem;
+}
+.image-container img {
+    width: 50%;
+    height: 50%;
+}
+.left-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.left-section p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.university-icon {
+    font-size: 6rem;
+    margin-bottom: 2rem;
+    opacity: 0.8;
+    margin-left: 100px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+.right-section {
+    /* background: rgba(255, 255, 255, 0.95); */
+    backdrop-filter: blur(10px);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 10;
+}
+
+.register-card {
+    background: white;
+    border-radius: 20px;
+    /* box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1); */
+    padding: 3rem;
+    width: 100%;
+    max-width: 500px;
+    border: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.register-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    /* background: linear-gradient(90deg, #667eea, #764ba2); */
+}
+
+.register-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.register-header h2 {
+    color: #333;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.register-header p {
+    color: #666;
+    font-size: 1rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+    position: relative;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #333;
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+}
+
+.form-control {
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    background: white;
+}
+
+.input-group {
+    position: relative;
+}
+
+.input-group-text {
+    background: transparent;
+    border: 2px solid #e1e5e9;
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    color: #666;
+}
+
+.input-group .form-control {
+    border-left: none;
+    border-radius: 0 12px 12px 0;
+}
+
+.password-toggle {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.btn-register {
+    /* background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); */
+    border: none;
+    border-radius: 12px;
+    padding: 0.875rem 2rem;
+    font-weight: 600;
+    font-size: 1rem;
+    width: 100%;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-register:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
+.btn-register:active {
+    transform: translateY(0);
+}
+
+.login-link {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.login-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.login-link a:hover {
+    color: #764ba2;
+}
+
+.form-check {
+    margin: 1.5rem 0;
+}
+
+.form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+}
+
+.form-check-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.25rem rgba(102, 126, 234, 0.25);
+}
+
+.invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+}
+
+.form-control.is-invalid {
+    border-color: #dc3545;
+}
+
+.form-control.is-valid {
+    border-color: #28a745;
+}
+
+/* Loading spinner */
+.spinner-border-sm {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .left-section {
+        display: none;
+    }
+
+    .register-card {
+        margin: 1rem;
+        padding: 2rem;
+    }
+
+    .left-section h1 {
+        font-size: 2rem;
+    }
+
+    .university-icon {
+        font-size: 4rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .register-card {
+        padding: 1.5rem;
+    }
+
+    .register-header h2 {
+        font-size: 1.5rem;
+    }
+}
