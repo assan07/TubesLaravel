@@ -16,3 +16,13 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/logout', [MahasiswaAuthController::class, 'logout']);
 });
+
+// Route for the Mahasiswa regstration room page
+Route::get('/registrasi-kamar', function () {
+    return view('mahasiswa.pendaftaranKamar');
+});
+
+// Route for Account Information page
+Route::get('/informasi-akun', function () {
+    return view('mahasiswa.informasiAkunMahasiswa');
+});

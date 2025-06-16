@@ -7,11 +7,13 @@
     <title>@yield('title', 'Sistem Asrama Unidayan')</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/styles.min.css') }}">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/css/main/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/sidebarmenu.css') }}">
     <link rel="stylesheet" href="@yield('css')">
 </head>
 

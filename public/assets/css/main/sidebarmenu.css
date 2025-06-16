@@ -1,0 +1,20 @@
+.card-sidebar-buttom {
+    background: linear-gradient(135deg, #8696fe, #c4b0ff);
+    border: none;
+    border-radius: 2rem 2rem 0 0;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    height: 11rem;
+    margin-top: 7rem;
+    margin-bottom: 1rem;
+}
+
+.sub-card-buttom {
+    color: black;
+    font-weight: 600;
+}
+.sub-card-buttom strong {
+    font-weight: 900;
+}
+.sub-card-buttom p {
+    font-weight: 500;
+}

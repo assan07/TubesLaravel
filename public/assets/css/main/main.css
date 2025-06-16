@@ -1,0 +1,8 @@
+.body-wrapper {
+    background: linear-gradient(145deg, #aaccff1d, #d2c7f52c);
+}
+
+/* header */
+.app-header {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}   
