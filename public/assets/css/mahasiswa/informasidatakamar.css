@@ -1,0 +1,17 @@
+.card-room{
+    height: 10rem;
+}
+
+.sub-card{
+    height: 8rem;
+}
+
+@media (min-width: 320px) and (max-width: 440px ) {
+    .card-room-guy{
+        display: flex;
+        flex-direction: column;
+    }
+    .card-room-girl{
+        flex-direction: column;
+    }
+}
