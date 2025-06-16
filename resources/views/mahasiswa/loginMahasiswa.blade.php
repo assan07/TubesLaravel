@@ -58,7 +58,7 @@
                                 @endif --}}
 
                                 <!-- Login Form -->
-                                <form method="POST" action="#" id="loginForm">
+                                <form method="POST" action="/login/user" id="loginForm">
                                     @csrf
 
                                     <!-- Email/NIM Input -->
@@ -140,10 +140,10 @@
                                     <div class="text-center">
                                         <p class="text-muted mb-0">
                                             Belum punya akun?
-                                            {{-- <a href="{{ route('mahasiswa.register') }}"
+                                            <a href='/register'
                                                 class="text-primary text-decoration-none fw-medium">
                                                 Daftar Sekarang
-                                            </a> --}}
+                                            </a>
                                         </p>
                                     </div>
                                 </form>

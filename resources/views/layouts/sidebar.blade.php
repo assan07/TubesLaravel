@@ -19,8 +19,8 @@
                 </li>
                 {{-- Student Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('dataroom*') ? 'active bg-primary rounded' : '' }}"
-                        href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request::is('data-kamar*') ? 'active' : '' }}" href="/data-kamar"
+                        aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-bed"></i>
                         </span>
@@ -31,7 +31,8 @@
 
                 {{-- Books Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('registrationroom*')  ? 'active bg-primary rounded' : '' }}" href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('registrationroom*') ? 'active bg-primary rounded' : '' }}"
+                        href="#" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-door-enter"></i>
                         </span>
@@ -42,7 +43,8 @@
 
                 {{-- Author Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('payment*')  ? 'active bg-primary rounded' : '' }}" href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('payment*') ? 'active bg-primary rounded' : '' }}"
+                        href="#" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-cash"></i>
                         </span>
