@@ -18,7 +18,9 @@ function togglePassword(fieldId) {
 document
     .getElementById("registerForm")
     .addEventListener("submit", function (e) {
-        e.preventDefault();
+        if (!isValid) {
+            e.preventDefault(); // Hanya cegah submit kalau tidak valid
+        }
 
         // Reset previous validation
         clearValidation();
@@ -112,20 +114,8 @@ document
             spinner.classList.remove("d-none");
             submitBtn.disabled = true;
 
-            // Simulate form submission (replace with actual form submission)
-            setTimeout(() => {
-                alert(
-                    "Pendaftaran berhasil! Silakan cek email Anda untuk verifikasi."
-                );
-
-                // Reset form
-                this.reset();
-
-                // Reset button state
-                btnText.textContent = "Daftar Sekarang";
-                spinner.classList.add("d-none");
-                submitBtn.disabled = false;
-            }, 2000);
+            console.log("Validasi lolos, akan submit form...");
+            document.getElementById("registerForm").submit();
         }
     });
 
