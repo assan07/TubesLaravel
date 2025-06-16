@@ -1,18 +1,18 @@
 <?php
 
+use App\Http\Controllers\MahasiswaAuthController;
 use Illuminate\Support\Facades\Route;
 
-// Route for the Mahasiswa login page
-Route::get('/', function () {
-    return view('mahasiswa.loginMahasiswa');
-});
+Route::get('/', [MahasiswaAuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login/user', [MahasiswaAuthController::class, 'login']);
 
-// Route for the Mahasiswa registration page
-Route::get('/register', function () {
-    return view('mahasiswa.registerMahasiswa');
-});
+Route::get('/register', [MahasiswaAuthController::class, 'showRegisterForm']);
+Route::post('/register/user', [MahasiswaAuthController::class, 'register']);
 
-// Route for the Information Data Room Hostel page
-Route::get('/data-kamar', function () {
-    return view('mahasiswa.informasiDataKamar');
+Route::middleware('auth')->group(function () {
+    Route::get('/data-kamar', function () {
+        return view('mahasiswa.informasiDataKamar'); // contoh dashboard
+    });
+
+    Route::get('/logout', [MahasiswaAuthController::class, 'logout']);
 });

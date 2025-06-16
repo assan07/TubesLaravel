@@ -48,7 +48,7 @@
                             <p>Lengkapi data diri Anda untuk membuat akun</p>
                         </div>
 
-                        <form id="registerForm" action="#" method="POST">
+                        <form id="registerForm" action="/register/user" method="POST">
                             @csrf
 
                             <!-- Nama Mahasiswa -->
@@ -56,8 +56,11 @@
                                 <label for="nama" class="form-label">
                                     <i class="fas fa-user me-2"></i>Nama Lengkap
                                 </label>
-                                <input type="text" class="form-control" id="nama" name="nama" required>
-                                <div class="invalid-feedback"></div>
+                                <input type="text" class="form-control @error('nama') is-invalid @enderror"
+                                    id="nama" name="nama" value="{{ old('nama') }}">
+                                @error('nama')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- NIM -->
@@ -65,8 +68,11 @@
                                 <label for="nim" class="form-label">
                                     <i class="fas fa-id-card me-2"></i>NIM (Nomor Induk Mahasiswa)
                                 </label>
-                                <input type="text" class="form-control" id="nim" name="nim" required>
-                                <div class="invalid-feedback"></div>
+                                <input type="text" class="form-control @error('nim') is-invalid @enderror"
+                                    id="nim" name="nim" value="{{ old('nim') }}">
+                                @error('nim')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Email -->
@@ -74,8 +80,11 @@
                                 <label for="email" class="form-label">
                                     <i class="fas fa-envelope me-2"></i>Email
                                 </label>
-                                <input type="email" class="form-control" id="email" name="email" required>
-                                <div class="invalid-feedback"></div>
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" value="{{ old('email') }}">
+                                @error('email')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
 
                             <!-- Password -->
@@ -84,12 +93,15 @@
                                     <i class="fas fa-lock me-2"></i>Password
                                 </label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control" id="password" name="password" required>
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                     <button type="button" class="password-toggle" onclick="togglePassword('password')">
                                         <i class="fas fa-eye" id="password-icon"></i>
                                     </button>
                                 </div>
-                                <div class="invalid-feedback"></div>
                             </div>
 
                             <!-- Konfirmasi Password -->
@@ -98,19 +110,23 @@
                                     <i class="fas fa-lock me-2"></i>Konfirmasi Password
                                 </label>
                                 <div class="position-relative">
-                                    <input type="password" class="form-control" id="password_confirmation"
-                                        name="password_confirmation" required>
+                                    <input type="password"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                                        id="password_confirmation" name="password_confirmation">
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                     <button type="button" class="password-toggle"
                                         onclick="togglePassword('password_confirmation')">
                                         <i class="fas fa-eye" id="password_confirmation-icon"></i>
                                     </button>
                                 </div>
-                                <div class="invalid-feedback"></div>
                             </div>
 
                             <!-- Terms and Conditions -->
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="terms" name="terms" required>
+                                <input class="form-check-input" type="checkbox" name="terms" id="terms" required
+                                    {{ old('terms') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="terms">
                                     Saya setuju dengan <a href="#" class="text-decoration-none">Syarat dan
                                         Ketentuan</a> yang berlaku
@@ -125,7 +141,7 @@
 
                             <!-- Login Link -->
                             <div class="login-link">
-                                <p>Sudah punya akun? <a href="#">Masuk di sini</a></p>
+                                <p>Sudah punya akun? <a href="/">Masuk di sini</a></p>
                             </div>
                         </form>
                     </div>
