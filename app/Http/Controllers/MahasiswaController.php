@@ -50,7 +50,7 @@ class MahasiswaController extends Controller
         if ($request->hasFile('photo_mahasiswa')) {
             $file = $request->file('photo_mahasiswa');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->storeAs('public/foto_mahasiswa', $filename);
+            $file->storeAs('foto_mahasiswa', $filename, 'public');
             $mahasiswa->foto = $filename;
         }
 
