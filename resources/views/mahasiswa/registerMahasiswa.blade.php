@@ -48,14 +48,12 @@
                             <p>Lengkapi data diri Anda untuk membuat akun</p>
                         </div>
 
-                        <form id="registerForm" action="/register/user" method="POST">
+                        <form id="registerForm" action="{{ url('/register/user') }}" method="POST">
                             @csrf
 
-                            <!-- Nama Mahasiswa -->
+                            {{-- Nama --}}
                             <div class="form-group">
-                                <label for="nama" class="form-label">
-                                    <i class="fas fa-user me-2"></i>Nama Lengkap
-                                </label>
+                                <label for="nama"><i class="fas fa-user me-2"></i>Nama Lengkap</label>
                                 <input type="text" class="form-control @error('nama') is-invalid @enderror"
                                     id="nama" name="nama" value="{{ old('nama') }}">
                                 @error('nama')
@@ -64,11 +62,9 @@
                                 <div class="invalid-feedback js-error" id="nama-error"></div>
                             </div>
 
-                            <!-- NIM -->
+                            {{-- NIM --}}
                             <div class="form-group">
-                                <label for="nim" class="form-label">
-                                    <i class="fas fa-id-card me-2"></i>NIM (Nomor Induk Mahasiswa)
-                                </label>
+                                <label for="nim"><i class="fas fa-id-card me-2"></i>NIM</label>
                                 <input type="text" class="form-control @error('nim') is-invalid @enderror"
                                     id="nim" name="nim" value="{{ old('nim') }}">
                                 @error('nim')
@@ -77,11 +73,9 @@
                                 <div class="invalid-feedback js-error" id="nim-error"></div>
                             </div>
 
-                            <!-- Email -->
+                            {{-- Email --}}
                             <div class="form-group">
-                                <label for="email" class="form-label">
-                                    <i class="fas fa-envelope me-2"></i>Email
-                                </label>
+                                <label for="email"><i class="fas fa-envelope me-2"></i>Email</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror"
                                     id="email" name="email" value="{{ old('email') }}">
                                 @error('email')
@@ -90,51 +84,50 @@
                                 <div class="invalid-feedback js-error" id="email-error"></div>
                             </div>
 
-                            <!-- Password -->
+                            {{-- Password --}}
+
                             <div class="form-group">
-                                <label for="password" class="form-label">
-                                    <i class="fas fa-lock me-2"></i>Password
-                                </label>
-                                <div class="position-relative">
+                                <label for="password"><i class="fas fa-lock me-2"></i>Password</label>
+                                <div class="position-relative w-100">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password">
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <div class="invalid-feedback js-error" id="password-error"></div>
                                     <button type="button" class="password-toggle" onclick="togglePassword('password')">
                                         <i class="fas fa-eye" id="password-icon"></i>
                                     </button>
                                 </div>
-                                @error('password')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class="invalid-feedback js-error" id="password-error"></div>
                             </div>
 
-                            <!-- Konfirmasi Password -->
+
+                            {{-- Konfirmasi Password --}}
                             <div class="form-group">
-                                <label for="password_confirmation" class="form-label">
-                                    <i class="fas fa-lock me-2"></i>Konfirmasi Password
-                                </label>
-                                <div class="position-relative">
+                                <label for="password_confirmation"><i class="fas fa-lock me-2"></i>Konfirmasi
+                                    Password</label>
+                                <div class="position-relative w-100">
                                     <input type="password"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
-                                        id="password_confirmation" name="password_confirmation">
+                                        id="password_confirmation" name="password_confirmation"
+                                        autocomplete="new-password">
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                    <div class="invalid-feedback js-error" id="password_confirmation-error"></div>
                                     <button type="button" class="password-toggle"
                                         onclick="togglePassword('password_confirmation')">
                                         <i class="fas fa-eye" id="password_confirmation-icon"></i>
                                     </button>
                                 </div>
-                                @error('password_confirmation')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                                <div class="invalid-feedback js-error" id="password_confirmation-error"></div>
                             </div>
 
-                            <!-- Terms and Conditions -->
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="terms" id="terms"
-                                    required {{ old('terms') ? 'checked' : '' }}>
+                            {{-- Terms --}}
+                            <div class="form-check my-3">
+                                <input class="form-check-input" type="checkbox" name="terms" id="terms" required
+                                    {{ old('terms') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="terms">
-                                    Saya setuju dengan <a href="#" class="text-decoration-none">Syarat dan
-                                        Ketentuan</a> yang berlaku
+                                    Saya setuju dengan <a href="#">Syarat dan Ketentuan</a>
                                 </label>
                             </div>
 
@@ -146,9 +139,10 @@
 
                             <!-- Login Link -->
                             <div class="login-link">
-                                <p>Sudah punya akun? <a href="/">Masuk di sini</a></p>
+                                <p>Sudah punya akun? <a href="{{ route('login') }}">Masuk di sini</a></p>
                             </div>
                         </form>
+
                     </div>
                 </div>
             </div>
