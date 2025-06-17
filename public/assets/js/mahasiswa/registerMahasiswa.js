@@ -18,14 +18,13 @@ function togglePassword(fieldId) {
 document
     .getElementById("registerForm")
     .addEventListener("submit", function (e) {
-        if (!isValid) {
-            e.preventDefault(); // Hanya cegah submit kalau tidak valid
-        }
+        e.preventDefault();
 
         // Reset previous validation
         clearValidation();
 
-        let isValid = true;
+        // Initialize validation flag
+        var isValid = true;
 
         // Get form fields
         const nama = document.getElementById("nama").value.trim();
@@ -106,40 +105,60 @@ document
 
         if (isValid) {
             // Show loading state
-            const submitBtn = document.getElementById("submitBtn");
-            const btnText = submitBtn.querySelector(".btn-text");
-            const spinner = submitBtn.querySelector(".spinner-border");
+            var submitBtn = document.getElementById("submitBtn");
+            var btnText = submitBtn.querySelector(".btn-text");
+            var spinner = submitBtn.querySelector(".spinner-border");
 
             btnText.textContent = "Mendaftar...";
             spinner.classList.remove("d-none");
             submitBtn.disabled = true;
 
-            console.log("Validasi lolos, akan submit form...");
-            document.getElementById("registerForm").submit();
+            // Simulate form submission (replace with actual form submission)
+            setTimeout(function () {
+                alert(
+                    "Pendaftaran berhasil! Silakan cek email Anda untuk verifikasi."
+                );
+
+                // Reset form
+                document.getElementById("registerForm").reset();
+                clearValidation();
+
+                // Reset button state
+                btnText.textContent = "Daftar Sekarang";
+                spinner.classList.add("d-none");
+                submitBtn.disabled = false;
+            }, 2000);
         }
     });
 
 function showError(fieldId, message) {
-    const field = document.getElementById(fieldId);
-    const feedback = field.parentNode.querySelector(".invalid-feedback");
+    var field = document.getElementById(fieldId);
+    var feedback = document.getElementById(fieldId + "-error");
 
-    field.classList.add("is-invalid");
-    feedback.textContent = message;
+    if (field) {
+        field.classList.add("is-invalid");
+    }
+
+    if (feedback) {
+        feedback.textContent = message;
+        feedback.style.display = "block";
+    }
 }
 
 function clearValidation() {
-    const fields = [
-        "nama",
-        "nim",
-        "email",
-        "password",
-        "password_confirmation",
-    ];
-    fields.forEach((fieldId) => {
-        const field = document.getElementById(fieldId);
-        field.classList.remove("is-invalid", "is-valid");
-        const feedback = field.parentNode.querySelector(".invalid-feedback");
-        if (feedback) feedback.textContent = "";
+    var fields = ["nama", "nim", "email", "password", "password_confirmation"];
+    fields.forEach(function (fieldId) {
+        var field = document.getElementById(fieldId);
+        var feedback = document.getElementById(fieldId + "-error");
+
+        if (field) {
+            field.classList.remove("is-invalid", "is-valid");
+        }
+
+        if (feedback) {
+            feedback.textContent = "";
+            feedback.style.display = "none";
+        }
     });
 }
 
@@ -159,7 +178,7 @@ document.getElementById("nim").addEventListener("input", function () {
 });
 
 document.getElementById("email").addEventListener("input", function () {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (emailRegex.test(this.value)) {
         this.classList.remove("is-invalid");
         this.classList.add("is-valid");
@@ -179,7 +198,7 @@ document.getElementById("password").addEventListener("input", function () {
 document
     .getElementById("password_confirmation")
     .addEventListener("input", function () {
-        const password = document.getElementById("password").value;
+        var password = document.getElementById("password").value;
         if (this.value === password && password !== "") {
             this.classList.remove("is-invalid");
             this.classList.add("is-valid");

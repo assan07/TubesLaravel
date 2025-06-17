@@ -7,7 +7,7 @@
     <title>Register Mahasiswa - Sistem Asrama Unidayan</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/styles.min.css') }}">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -61,6 +61,7 @@
                                 @error('nama')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="invalid-feedback js-error" id="nama-error"></div>
                             </div>
 
                             <!-- NIM -->
@@ -73,6 +74,7 @@
                                 @error('nim')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="invalid-feedback js-error" id="nim-error"></div>
                             </div>
 
                             <!-- Email -->
@@ -85,6 +87,7 @@
                                 @error('email')
                                     <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
+                                <div class="invalid-feedback js-error" id="email-error"></div>
                             </div>
 
                             <!-- Password -->
@@ -95,13 +98,14 @@
                                 <div class="position-relative">
                                     <input type="password" class="form-control @error('password') is-invalid @enderror"
                                         id="password" name="password">
-                                    @error('password')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                     <button type="button" class="password-toggle" onclick="togglePassword('password')">
                                         <i class="fas fa-eye" id="password-icon"></i>
                                     </button>
                                 </div>
+                                @error('password')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <div class="invalid-feedback js-error" id="password-error"></div>
                             </div>
 
                             <!-- Konfirmasi Password -->
@@ -113,20 +117,21 @@
                                     <input type="password"
                                         class="form-control @error('password_confirmation') is-invalid @enderror"
                                         id="password_confirmation" name="password_confirmation">
-                                    @error('password_confirmation')
-                                        <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
                                     <button type="button" class="password-toggle"
                                         onclick="togglePassword('password_confirmation')">
                                         <i class="fas fa-eye" id="password_confirmation-icon"></i>
                                     </button>
                                 </div>
+                                @error('password_confirmation')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
+                                <div class="invalid-feedback js-error" id="password_confirmation-error"></div>
                             </div>
 
                             <!-- Terms and Conditions -->
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="terms" id="terms" required
-                                    {{ old('terms') ? 'checked' : '' }}>
+                                <input class="form-check-input" type="checkbox" name="terms" id="terms"
+                                    required {{ old('terms') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="terms">
                                     Saya setuju dengan <a href="#" class="text-decoration-none">Syarat dan
                                         Ketentuan</a> yang berlaku

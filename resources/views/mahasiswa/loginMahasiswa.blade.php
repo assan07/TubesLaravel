@@ -7,7 +7,7 @@
     <title>Login Mahasiswa - Sistem Asrama Unidayan</title>
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/styles.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/styles.min.css') }}">
 
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -35,27 +35,6 @@
                         <div class="card shadow-lg border-0 rounded-4">
                             <div class="card-body p-4">
                                 <h4 class="card-title text-center mb-4 fw-semibold">Login Mahasiswa</h4>
-
-                                <!-- Alert untuk Error Messages -->
-                                {{-- @if ($errors->any())
-                                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                                        <i class="fas fa-exclamation-circle me-2"></i>
-                                        <ul class="mb-0 list-unstyled">
-                                            @foreach ($errors->all() as $error)
-                                                <li>{{ $error }}</li>
-                                            @endforeach
-                                        </ul>
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    </div>
-                                @endif
-
-                                @if (session('success'))
-                                    <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                        <i class="fas fa-check-circle me-2"></i>
-                                        {{ session('success') }}
-                                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                                    </div>
-                                @endif --}}
 
                                 <!-- Login Form -->
                                 <form method="POST" action="/login/user" id="loginForm">
@@ -102,7 +81,7 @@
                                         </div>
                                         @error('password')
                                             <div class="invalid-feedback d-block">
-                                                {{-- <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }} --}}
+                                                <i class="fas fa-exclamation-triangle me-1"></i>{{ $message }}
                                             </div>
                                         @enderror
                                     </div>
@@ -140,8 +119,7 @@
                                     <div class="text-center">
                                         <p class="text-muted mb-0">
                                             Belum punya akun?
-                                            <a href='/register'
-                                                class="text-primary text-decoration-none fw-medium">
+                                            <a href='/register' class="text-primary text-decoration-none fw-medium">
                                                 Daftar Sekarang
                                             </a>
                                         </p>
