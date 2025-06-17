@@ -29,7 +29,7 @@
                                  <div class="col-md-4 d-flex flex-column align-items-center">
                                      <div class="profile-photo">
                                          <img id="profileImage"
-                                             src="{{ $mahasiswa && $mahasiswa->foto ? asset('foto_mahasiswa/' . $mahasiswa->foto) : asset('default-profile.png') }}"
+                                             src="{{ $mahasiswa && $mahasiswa->foto ? asset('storage/foto_mahasiswa/' . $mahasiswa->foto) : asset('default-profile.png') }}"
                                              alt="Foto Profil" class="img-fluid rounded-circle"
                                              style="width: 150px; height: 150px; object-fit: cover;" />
                                          <p class="mt-2" id="nameMahasiswaSession">
