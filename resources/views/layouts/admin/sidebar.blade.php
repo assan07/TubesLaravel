@@ -20,73 +20,53 @@
                 </li>
                 {{-- End Home Panel --}}
 
-                {{-- Data Room Panel --}}
+                {{-- Manage Room Data Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('data-kamar*') ? 'active' : '' }}" href="/data-kamar"
-                        aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request::is('admin/kelola-data-kamar*') ? 'active' : '' }}"
+                        href="/admin/kelola-data-kamar" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-bed"></i>
                         </span>
-                        <span class="hide-menu">Data Kamar</span>
+                        <span class="hide-menu">Kelola Data Kamar</span>
                     </a>
                 </li>
-                {{-- End Data Room Panel --}}
+                {{-- End Manage Room Data Panel --}}
 
-                {{-- Registration Room Panel --}}
+                {{-- Manage Residents Data Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('registrasi-kamar*') ? 'active bg-primary rounded' : '' }}"
-                        href="/registrasi-kamar" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('admin/registrasi-kamar*') ? 'active bg-primary rounded' : '' }}"
+                        href="/admin/kelola-data-penghuni" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-door-enter"></i>
                         </span>
-                        <span class="hide-menu">Pendaftaran Kamar</span>
+                        <span class="hide-menu">Kelola Data Penghuni</span>
                     </a>
                 </li>
-                {{-- End Registration Room Panel --}}
+                {{-- End Manage Residents Data Panel --}}
 
-                {{-- Paymen Panel --}}
+                {{-- Manage Account Data Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('payment*') ? 'active bg-primary rounded' : '' }}"
-                        href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('admin/kelola-data-akun*') ? 'active bg-primary rounded' : '' }}"
+                        href="/admin/kelola-data-akun" aria-expanded="false" aria-current="page">
                         <span>
-                            <i class="ti ti-cash"></i>
+                            <i class="ti ti-user-exclamation"></i>
                         </span>
-                        <span class="hide-menu">Pembayaran</span>
+                        <span class="hide-menu">Kelola Data Akun</span>
                     </a>
                 </li>
-                {{-- End Payment Panel --}}
+                {{-- End Manage Account Data Panel --}}
 
-                {{-- Account Panel --}}
-                <li class="nav-small-cap">
-                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
-                    <span class="hide-menu">Account</span>
-                </li>
-                {{-- End Account Panel --}}
-
-                {{-- My Account Panel --}}
+                {{-- Registration File Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('informasi-akun*') ? 'active bg-primary rounded' : '' }}"
-                        href="/informasi-akun" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('admin/kelola-berkas-pendaftran*') ? 'active bg-primary rounded' : '' }}"
+                        href="/admin/kelola-berkas-pendaftran" aria-expanded="false" aria-current="page">
                         <span>
-                            <i class="ti ti-user-check"></i>
+                            <i class="ti ti-pencil-plus"></i>
                         </span>
-                        <span class="hide-menu">My Account</span>
+                        <span class="hide-menu">Cek Berkas Pendaftaran</span>
                     </a>
                 </li>
-                {{-- End My Account Panel --}}
-
-                {{-- Logout Panel --}}
-                <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('logout*') ? 'active bg-primary rounded' : '' }}"
-                        href="/logout" aria-expanded="false" aria-current="page">
-                        <span>
-                            <i class="ti ti-logout"></i>
-                        </span>
-                        <span class="hide-menu">Logout</span>
-                    </a>
-                </li>
-                {{-- End Logout Panel --}}
-
+                {{-- End Registration File Panel --}}
 
             </ul>
 

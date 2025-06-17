@@ -1,0 +1,176 @@
+body {
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.login-container {
+    background: linear-gradient(135deg, #8696fe, #c4b0ff);
+    min-height: 100vh;
+}
+
+.login-card-container {
+    animation: slideInLeft 0.8s ease-out;
+    max-width: 450px;
+    z-index: 10;
+}
+
+.card {
+    border-radius: 20px !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1) !important;
+    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.form-control {
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    transform: translateY(-2px);
+}
+
+.input-group-text {
+    border-radius: 12px 0 0 12px;
+    padding: 15px;
+    background: #f8f9fa;
+    border: 1px solid #ced4da;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-primary:hover {
+    animation: colorChange 1.2s ease-in-out;
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+}
+@keyframes colorChange {
+    0% {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    50% {
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    }
+
+    100% {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+}
+
+.btn-primary:active {
+    transform: translateY(0);
+}
+
+.image-overlay {
+    z-index: 1;
+}
+
+.image-container img {
+    z-index: -5;
+    width: 50%;
+    height: 50%;
+    margin-left: 580px;
+    animation: alternate-reverse 10s infinite;
+}
+
+.welcome-content {
+    z-index: 2;
+    position: relative;
+}
+
+.text-shadow {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.feature-item {
+    display: inline-block;
+    margin: 0 15px;
+    font-size: 14px;
+    opacity: 0.9;
+}
+
+.logo-container {
+    animation: pulse 2s infinite;
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.05);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+.alert {
+    border-radius: 12px;
+    border: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        background: #fff;
+    }
+
+    .card {
+        box-shadow: none !important;
+        border: 1px solid #e0e0e0;
+    }
+
+    .container-fluid {
+        padding: 20px;
+    }
+}
+
+/* Loading Animation */
+.btn-loading .spinner-border {
+    width: 1rem;
+    height: 1rem;
+}
+
+/* Custom Scrollbar for Mobile */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
