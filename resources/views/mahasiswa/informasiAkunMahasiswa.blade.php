@@ -21,14 +21,19 @@
                  <div class="container">
                      <h3 class="mb-4">Data Mahasiswa</h3>
                      <div class="card p-4">
-                         <form id="profile-form" method="POST" action="POST" enctype="multipart/form-data">
+                         <form id="profile-form" method="POST" action="{{ url('/informasi-akun/store') }}"
+                             enctype="multipart/form-data">
+                             @csrf
                              <div class="row">
                                  <!-- Profile Photo -->
                                  <div class="col-md-4 d-flex flex-column align-items-center">
                                      <div class="profile-photo">
-                                         <img id="profileImage" src="" alt="Foto Profil" />
+                                         <img id="profileImage"
+                                             src="{{ $mahasiswa && $mahasiswa->foto ? asset('foto_mahasiswa/' . $mahasiswa->foto) : asset('default-profile.png') }}"
+                                             alt="Foto Profil" class="img-fluid rounded-circle"
+                                             style="width: 150px; height: 150px; object-fit: cover;" />
                                          <p class="mt-2" id="nameMahasiswaSession">
-                                             <i class="fas fa-user"></i> Hasan
+                                             <i class="fas fa-user"></i> {{ $user->nama }}
                                          </p>
                                      </div>
                                      <button type="button" class="btn btn-info mt-2"
@@ -48,14 +53,14 @@
                                          <div class="col-md-6">
                                              <label for="fullName"><i class="fas fa-user"></i> Nama Lengkap</label>
                                              <input type="text" class="form-control" id="namaMahasiswa"
-                                                 name="namaMahasiswa" placeholder="Nama Lengkap" required />
+                                                 name="namaMahasiswa" value="{{ $user->nama }}" required readonly />
                                          </div>
                                          <!-- NIM Mahasiswa -->
                                          <div class="col-md-6">
                                              <label for="nim"><i class="fas fa-id-card"></i> Nomor Induk
                                                  Mahasiswa</label>
                                              <input type="text" class="form-control" id="nim" name="nim"
-                                                 placeholder="Nomor Induk Mahasiswa" required readonly />
+                                                 value="{{ $user->nim }}" readonly />
                                          </div>
                                      </div>
 
@@ -65,14 +70,16 @@
                                          <div class="col-md-6">
                                              <label for="phone"><i class="fas fa-phone"></i> No. Handphone</label>
                                              <input type="text" class="form-control" id="phoneMahasiswa"
-                                                 name="phoneMahasiswa" placeholder="No. Handphone" required />
+                                                 name="phoneMahasiswa" placeholder="No. Handphone"
+                                                 value="{{ old('phoneMahasiswa', $mahasiswa->phone ?? '') }}" required />
                                          </div>
                                          <!-- Prodi Mahasiswa -->
                                          <div class="col-md-6">
                                              <label for="prodi"><i class="fas fa-user-graduate"></i> Program
                                                  Studi</label>
                                              <input type="text" class="form-control" id="prodiMahasiswa"
-                                                 name="prodiMahasiswa" placeholder="Program Studi" required />
+                                                 name="prodiMahasiswa" placeholder="Program Studi"
+                                                 value="{{ old('prodiMahasiswa', $mahasiswa->prodi ?? '') }}" required />
                                          </div>
                                      </div>
 
@@ -82,7 +89,7 @@
                                          <div class="col-md-6">
                                              <label for="email"><i class="fas fa-envelope"></i> Email</label>
                                              <input type="email" class="form-control" id="emailMahasiswa"
-                                                 name="emailMahasiswa" placeholder="Email Mahasiswa" required />
+                                                 name="emailMahasiswa" value="{{ $user->email }}" required readonly />
                                          </div>
 
                                          <!-- Payment Cycle -->
@@ -90,11 +97,15 @@
                                              <label for="gender"><i class="fa-solid fa-person-half-dress"></i> Jenis
                                                  Kelamin</label>
                                              <select class="form-control" id="paymentCycle" name="paymentCycle">
-                                                 <option value="" disabled selected>
-                                                     Pilih Jenis Kelamin
-                                                 </option>
-                                                 <option value="lakilaki">Laki-Laki</option>
-                                                 <option value="perempuan">Perempuan</option>
+                                                 <option value="" disabled
+                                                     {{ old('paymentCycle', $mahasiswa->gender ?? '') == '' ? 'selected' : '' }}>
+                                                     Pilih Jenis Kelamin</option>
+                                                 <option value="lakilaki"
+                                                     {{ old('paymentCycle', $mahasiswa->gender ?? '') == 'lakilaki' ? 'selected' : '' }}>
+                                                     Laki-Laki</option>
+                                                 <option value="perempuan"
+                                                     {{ old('paymentCycle', $mahasiswa->gender ?? '') == 'perempuan' ? 'selected' : '' }}>
+                                                     Perempuan</option>
                                              </select>
                                          </div>
                                      </div>
@@ -107,23 +118,12 @@
                                                  Semester</label>
                                              <select class="form-control" id="semesterMahasiswa" name="semesterMahasiswa"
                                                  required>
-                                                 <option value="" disabled selected>
-                                                     Semester yang sedang ditempuh
-                                                 </option>
-                                                 <option value="1">I</option>
-                                                 <option value="2">II</option>
-                                                 <option value="3">III</option>
-                                                 <option value="4">IV</option>
-                                                 <option value="5">V</option>
-                                                 <option value="6">VI</option>
-                                                 <option value="7">VII</option>
-                                                 <option value="8">VIII</option>
-                                                 <option value="9">IX</option>
-                                                 <option value="10">X</option>
-                                                 <option value="11">XI</option>
-                                                 <option value="12">XII</option>
-                                                 <option value="13">XIII</option>
-                                                 <option value="14">XIV</option>
+                                                 @for ($i = 1; $i <= 14; $i++)
+                                                     <option value="{{ $i }}"
+                                                         {{ old('semesterMahasiswa', $mahasiswa->semester ?? '') == $i ? 'selected' : '' }}>
+                                                         {{ $i }}
+                                                     </option>
+                                                 @endfor
                                              </select>
                                          </div>
 
@@ -131,7 +131,8 @@
                                          <div class="col-md-6">
                                              <label for="age"><i class="fa-solid fa-user-tie"></i> Umur</label>
                                              <input type="text" class="form-control" id="age" name="age"
-                                                 placeholder="Umur Mahasiswa" readonly />
+                                                 placeholder="Umur Mahasiswa"
+                                                 value="{{ old('age', $mahasiswa->umur ?? '') }}" />
                                          </div>
                                      </div>
 
@@ -139,8 +140,8 @@
                                      <div class="mb-3">
                                          <label for="address"><i class="fas fa-map-marker-alt"></i> Alamat</label>
                                          <textarea class="form-control" id="addressMahasiswa" name="addressMahasiswa" rows="3" placeholder="Alamat"
-                                             required>
-                  </textarea>
+                                             required>{{ old('addressMahasiswa', $mahasiswa->alamat ?? '') }}</textarea>
+                                         </textarea>
                                      </div>
 
                                      <!-- Button Save -->
