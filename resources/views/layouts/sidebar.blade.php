@@ -78,7 +78,7 @@
                 {{-- Logout Panel --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Request()->is('logout*') ? 'active bg-primary rounded' : '' }}"
-                        href="#" aria-expanded="false" aria-current="page">
+                        href="/logout" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-logout"></i>
                         </span>
