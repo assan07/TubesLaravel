@@ -34,8 +34,8 @@
 
                 {{-- Registration Room Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('registrationroom*') ? 'active bg-primary rounded' : '' }}"
-                        href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('registrasi-kamar*') ? 'active bg-primary rounded' : '' }}"
+                        href="/registrasi-kamar" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-door-enter"></i>
                         </span>
@@ -65,8 +65,8 @@
 
                 {{-- My Account Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('my-ccount*') ? 'active bg-primary rounded' : '' }}"
-                        href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('informasi-akun*') ? 'active bg-primary rounded' : '' }}"
+                        href="/informasi-akun" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-user-check"></i>
                         </span>

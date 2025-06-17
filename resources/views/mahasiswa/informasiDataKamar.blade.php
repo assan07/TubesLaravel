@@ -1,4 +1,4 @@
- @extends('layouts.app')
+ @extends('layouts.mahasiswa.app')
 
  @section('title', 'Informasi Data Kamar - Sistem Asrama Unidayan')
  @section('css')
