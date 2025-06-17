@@ -56,6 +56,39 @@
                 </li>
                 {{-- End Payment Panel --}}
 
+                <<<<<<< HEAD:resources/views/layouts/mahasiswa/sidebar.blade.php======={{-- Account Panel --}} <li
+                    class="nav-small-cap">
+                    <i class="ti ti-dots nav-small-cap-icon fs-4"></i>
+                    <span class="hide-menu">Account</span>
+                    </li>
+                    {{-- End Account Panel --}}
+
+                    {{-- My Account Panel --}}
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request()->is('informasi-akun*') ? 'active bg-primary rounded' : '' }}"
+                            href="/informasi-akun" aria-expanded="false" aria-current="page">
+                            <span>
+                                <i class="ti ti-user-check"></i>
+                            </span>
+                            <span class="hide-menu">My Account</span>
+                        </a>
+                    </li>
+                    {{-- End My Account Panel --}}
+
+                    {{-- Logout Panel --}}
+                    <li class="sidebar-item">
+                        <a class="sidebar-link {{ Request()->is('logout*') ? 'active bg-primary rounded' : '' }}"
+                            href="/logout" aria-expanded="false" aria-current="page">
+                            <span>
+                                <i class="ti ti-logout"></i>
+                            </span>
+                            <span class="hide-menu">Logout</span>
+                        </a>
+                    </li>
+                    {{-- End Logout Panel --}}
+
+
+                    >>>>>>> ae9435211a9d1a7973473b966169643180e0b88e:resources/views/layouts/sidebar.blade.php
             </ul>
 
             <div class="card-sidebar-buttom d-flex flex-column flex-wrap-reverse p-lg-2 p-md-1 p-1">
