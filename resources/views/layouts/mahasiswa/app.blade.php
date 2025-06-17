@@ -23,13 +23,13 @@
         data-sidebar-position="fixed" data-header-position="fixed">
 
         {{-- Sidebar Start --}}
-        @include('layouts.sidebar')
+        @include('layouts.mahasiswa.sidebar')
         {{-- Sidebar End --}}
 
         <!--  Page Wrapper -->
         {{-- Header Start --}}
         <div class="body-wrapper">
-            @include('layouts.header')
+            @include('layouts.mahasiswa.header')
             {{-- Header End --}}
             <div class="container-fluid">
                 @yield('main-content')
