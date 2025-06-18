@@ -1,4 +1,6 @@
 @extends('layouts.mahasiswa.app')
+@section('csrf_token')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @section('title', 'Profile Mahasiswa - Sistem Asrama Unidayan')
 @section('css')
@@ -22,27 +24,33 @@
                 <div class="container">
                     <h3 class="mb-4">Data Mahasiswa</h3>
                     <div class="card p-4">
-                        <form id="profile-form" method="POST" action="{{ url('/informasi-akun/store') }}"
-                            enctype="multipart/form-data">
+                        <form id="profile-form" method="POST" action="{{ route('store.informasi-akun') }}"
+                            enctype="multipart/form-data" data-delete-url="{{ route('delete.photo') }}"
+                            data-csrf-token="{{ csrf_token() }}"
+                            data-default-image="{{ asset('assets/images/profile/user-1.jpg') }}">
                             @csrf
                             <div class="row">
                                 <!-- Profile Photo -->
                                 <div class="col-md-4 d-flex flex-column align-items-center">
                                     <div class="profile-photo">
                                         <img id="profileImage"
-                                            src="{{ $mahasiswa && $mahasiswa->foto ? asset('storage/foto_mahasiswa/' . $mahasiswa->foto) : asset('default-profile.png') }}"
+                                            src="{{ $mahasiswa && $mahasiswa->foto ? asset('assets/images/mahasiswa/photoProfile/' . $mahasiswa->foto) : asset('assets/images/profile/user-1.jpg') }}"
                                             alt="Foto Profil" class="img-fluid rounded-circle"
                                             style="width: 150px; height: 150px; object-fit: cover;" />
-                                        <p class="mt-2" id="nameMahasiswaSession">
-                                            <i class="fas fa-user"></i> {{ $user->nama }}
-                                        </p>
+
                                     </div>
+                                    {{-- button upload foto --}}
                                     <button type="button" class="btn btn-info mt-2"
                                         onclick="$('#photoInputMahasiswa').click()">
                                         <i class="fas fa-camera"></i> Unggah Foto
                                     </button>
                                     <input type="file" id="photoInputMahasiswa" name="photo_mahasiswa"
                                         style="display: none" onchange="previewImage(event)" />
+                                    {{-- button delete foto --}}
+                                    <button type="button" id="deletePhotoBtn" class="btn btn-danger mt-2"
+                                        onclick="deletePhotoProfile()">
+                                        <i class="fas fa-trash-alt"></i> Hapus Foto
+                                    </button>
                                 </div>
 
                                 <!-- Data Mahasiswa -->
@@ -122,7 +130,7 @@
                                                 @for ($i = 1; $i <= 14; $i++)
                                                     <option value="{{ $i }}"
                                                         {{ old('semesterMahasiswa', $mahasiswa->semester ?? '') == $i ? 'selected' : '' }}>
-                                                        {{ $i }}
+                                                        Semester {{ $i }} ({{ toRomawi($i) }})
                                                     </option>
                                                 @endfor
                                             </select>
@@ -163,5 +171,10 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        <!-- SweetAlert2 CDN -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script src="{{ asset('assets/js/mahasiswa/editProfileMahaiswa.js') }}"></script>
+    @endpush
 
 @endsection

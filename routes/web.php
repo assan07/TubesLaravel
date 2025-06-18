@@ -26,7 +26,9 @@ Route::middleware('auth')->group(function () {
 
     // Route for Account Information page
     Route::get('/informasi-akun', [MahasiswaController::class, 'showProfile']);
-    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store']);
+    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store']) ->name('store.informasi-akun');
+    Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile'])->name('delete.photo');
+
 
     Route::get('/logout', [MahasiswaAuthController::class, 'logout']);
 });
