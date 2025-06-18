@@ -33,18 +33,14 @@
                                         <td>Email</td>
                                         <td>Mahasiswa</td>
                                         <td>
-                                            <span class="badge bg-success">Aktif</span>
+                                            <span class="badge bg-success">Approve</span>
                                             {{-- nanti di statusnya ini di ganti lewat view edit --}}
                                         </td>
                                         <td>
-                                            <a href="/admin/kelola-data-akun/edit-data-akun"
-                                                class="btn btn-warning btn-sm">Edit</a>
-                                            <form action="#" method="POST"
-                                                style="display:inline;">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger btn-sm">Hapus</button>
-                                            </form>
+
+                                            <button type="button" class="btn btn-success btn-sm">Approve</button>
+                                            <button type="submit" class="btn btn-warning btn-sm">Pandding</button>
+
                                         </td>
                                     </tr>
 
