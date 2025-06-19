@@ -30,7 +30,7 @@
                                         <td>1</td>
                                         <td>Hasan</td>
                                         <td>123456789</td>
-                                        <td>Email</td>
+                                        <td>hasan@gmail.com</td>
                                         <td>Mahasiswa</td>
                                         <td>
                                             <span class="badge bg-success">Approve</span>
@@ -40,6 +40,7 @@
 
                                             <button type="button" class="btn btn-success btn-sm">Approve</button>
                                             <button type="submit" class="btn btn-warning btn-sm">Pandding</button>
+                                            <button type="submit" class="btn btn-danger btn-sm">Reject</button>
 
                                         </td>
                                     </tr>

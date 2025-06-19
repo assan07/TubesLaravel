@@ -83,7 +83,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-
                                 <tr>
                                     <td>1</td>
                                     <td>Hasan</td>
@@ -91,9 +90,21 @@
                                     <td>Laki-Laki</td>
                                     <td>12 Juni 2025</td>
                                     <td>
-                                        <span class="badge bg-success btn-sm">Terkonfirmasi</span>
+                                        <span class="badge bg-success btn-sm">Approve</span>
                                     <td>
-                                        <a href="#" class="btn btn-primary btn-sm">Cek Berkas</a>
+                                        <a href="{{ url('/admin/kelola-berkas-pendaftran/laki-laki/detail') }}" class="btn btn-primary btn-sm">Cek Berkas</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>Siti</td>
+                                    <td>22650063</td>
+                                    <td>Perempuan</td>
+                                    <td>12 Juli 2025</td>
+                                    <td>
+                                        <span class="badge bg-warning btn-sm">Pendding</span>
+                                    <td>
+                                        <a href="{{ url('/admin/kelola-berkas-pendaftran/perempuan/detail') }}" class="btn btn-primary btn-sm">Cek Berkas</a>
                                     </td>
                                 </tr>
 
