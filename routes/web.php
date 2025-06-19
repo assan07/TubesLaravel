@@ -38,11 +38,11 @@ Route::middleware('auth')->group(function () {
 // End Route for Mahasiswa
 // ==========================
 
-// ==========================
+// ===========================================================================================
 // Route for Admin
 // ==========================
 Route::get('/admin/login', function () {
-    return view('admin.loginAdmin');
+    return view('admin.auth.loginAdmin');
 });
 
 Route::get('/admin/dashboard', function () {
@@ -50,31 +50,63 @@ Route::get('/admin/dashboard', function () {
 });
 
 Route::get('/admin/kelola-data-kamar', function () {
-    return view('admin.kelolaDataKamar');
+    return view('admin.dataKamar.kelolaDataKamar');
+});
+
+Route::get('admin/kelola-data-kamar/tambah-kamar', function(){
+    return view('admin.dataKamar.tambahKamar');
+});
+
+Route::get('admin/kelola-data-kamar/data-kamar/laki-laki', function(){
+    return view('admin.dataKamar.dataKamarLakilaki');
+});
+
+Route::get('admin/kelola-data-kamar/data-kamar/perempuan', function(){
+    return view('admin.dataKamar.dataKamarPerempuan');
+});
+
+Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/detail', function(){
+    return view('admin.dataKamar.detailDataKamarPerempuan');
+});
+
+Route::get('admin/kelola-data-kamar/data-kamar/perempuan/detail', function(){
+    return view('admin.dataKamar.detailDataKamarPerempuan');
+});
+
+Route::get('admin/kelola-data-kamar/data-kamar/perempuan/edit', function(){
+    return view('admin.dataKamar.editDataKamarPerempuan');
+});
+
+Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/edit', function(){
+    return view('admin.dataKamar.editDataKamarLakilaki');
 });
 
 Route::get('/admin/kelola-data-penghuni', function () {
-    return view('admin.kelolaDataPenghuni');
+    return view('admin.dataPenghuni.kelolaDataPenghuni');
 });
 
 Route::get('/admin/kelola-data-akun', function () {
-    return view('admin.kelolaDataAkun');
+    return view('admin.dataAkun.kelolaDataAkun');
 });
 
 Route::get('/admin/kelola-berkas-pendaftran', function () {
-    return view('admin.kelolaDataBerkas');
+    return view('admin.dataBerkas.kelolaDataBerkas');
 });
 
 Route::get('/admin/kelola-berkas-pendaftran/laki-laki', function () {
-    return view('admin.kelolaDataBerkasLakilaki');
+    return view('admin.dataBerkas.kelolaDataBerkasLakilaki');
 });
 
-Route::get('/admin/kelola-berkas-pendaftran/laki-laki/detail', function ($id) {
-    return view('admin.detailBerkasPendaftaranLakilaki');
+Route::get('/admin/kelola-berkas-pendaftran/laki-laki/detail', function () {
+    return view('admin.dataBerkas.detailBerkasPendaftaranLakilaki');
 });
 
 Route::get('/admin/kelola-berkas-pendaftran/perempuan', function () {
-    return view('admin.kelolaDataBerkasPerempuan');
+    return view('admin.dataBerkas.kelolaDataBerkasPerempuan');
+});
+
+Route::get('/admin/kelola-berkas-pendaftran/perempuan/detail', function () {
+    return view('admin.dataBerkas.detailBerkasPendaftaranPerempuan');
 });
 
 
@@ -82,7 +114,7 @@ Route::get('/admin/kelola-berkas-pendaftran/perempuan', function () {
 // End Route for Admin
 // ==========================
 
-// ==========================
+// ====================================================================
 // Route for Bendahara
 // ==========================
 
