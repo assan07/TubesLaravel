@@ -10,56 +10,29 @@
         <div class="card-info-regis-room d-flex gap-2">
             <div class="card-info-gay card w-100">
                 <div class="card-header">
-                    <h3 class="card-title text-center">Kelola Data Berkas Pendaftar Laki-Laki</h3>
+                    <h3 class="card-title text-center">Kelola Data Berkas Pendaftar Perempuan</h3>
                     <div class="card-info d-flex flex-column gap-3">
                         <div class="card-room-gay row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
                             <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                                 <div
-                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">40</h1>
+                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center" style="height: 7rem;">
+                                    <h1 style="font-weight: bolder; " >40</h1>
                                 </div>
                                 <strong>Pendaftar Baru</strong>
                             </div>
                             <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
                                 <div
-                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
+                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center" style="height: 7rem;">
                                     <h1 style="font-weight: bolder">21</h1>
                                 </div>
                                 <strong>Terkonfimasi</strong>
                             </div>
                         </div>
-                        <a href="/admin/kelola-berkas-pendaftran/laki-laki" class="btn btn-info w-100 ">Detail</a>
+                     
                     </div>
                 </div>
             </div>
             {{-- end card info regist guy --}}
-
-            {{-- card info regist girl --}}
-            <div class="card-info-girl card  w-100">
-                <div class="card-header">
-                    <h3 class="card-title text-center">Kelola Data Berkas Pendaftar Perempuan</h3>
-                    <div class="card-info d-flex flex-column gap-3">
-                        <div class="card-room-girl row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
-                            <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div
-                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">40</h1>
-                                </div>
-                                <strong>Pendaftar Baru</strong>
-                            </div>
-                            <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div
-                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">21</h1>
-                                </div>
-                                <strong>Terkonfimasi</strong>
-                            </div>
-                        </div>
-                        <a href="/admin/kelola-berkas-pendaftran/perempuan" class="btn btn-info w-100 ">Detail</a>
-                    </div>
-                </div>
-            </div>
-            {{-- end card info regist girl --}}
         </div>
         {{-- end card info regist --}}
 
@@ -86,9 +59,9 @@
 
                                 <tr>
                                     <td>1</td>
-                                    <td>Hasan</td>
+                                    <td>Siti</td>
                                     <td>22650062</td>
-                                    <td>Laki-Laki</td>
+                                    <td>Perempuan</td>
                                     <td>12 Juni 2025</td>
                                     <td>
                                         <span class="badge bg-success btn-sm">Terkonfirmasi</span>
