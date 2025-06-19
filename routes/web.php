@@ -61,13 +61,23 @@ Route::get('/admin/kelola-data-akun', function () {
     return view('admin.kelolaDataAkun');
 });
 
-Route::get('/admin/kelola-data-akun/edit-data-akun', function(){
-    return view('admin.editDataAkun');
-});
-
 Route::get('/admin/kelola-berkas-pendaftran', function () {
     return view('admin.kelolaDataBerkas');
 });
+
+Route::get('/admin/kelola-berkas-pendaftran/laki-laki', function () {
+    return view('admin.kelolaDataBerkasLakilaki');
+});
+
+Route::get('/admin/kelola-berkas-pendaftran/laki-laki/detail', function ($id) {
+    return view('admin.detailBerkasPendaftaranLakilaki');
+});
+
+Route::get('/admin/kelola-berkas-pendaftran/perempuan', function () {
+    return view('admin.kelolaDataBerkasPerempuan');
+});
+
+
 // ==========================
 // End Route for Admin
 // ==========================
