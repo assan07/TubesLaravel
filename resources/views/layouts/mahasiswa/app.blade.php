@@ -19,7 +19,8 @@
 </head>
 
 <body>
-   <!--  Body Wrapper -->
+
+    <!--  Body Wrapper -->
     <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
         data-sidebar-position="fixed" data-header-position="fixed">
 
@@ -50,6 +51,10 @@
 
     <!-- Custom JS -->
     @stack('scripts')
+
+    {{-- Flasher Sweetalert --}}
+    {{-- @flasher_render --}}
+    <x-flasher.notifications />
 
 </body>
 

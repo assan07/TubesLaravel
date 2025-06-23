@@ -23,7 +23,7 @@ class ViewComposerServiceProvider extends ServiceProvider
     {
         View::composer('layouts.mahasiswa.header', function ($view) {
             $user = Auth::user();
-            $mahasiswa = null; // Initialize to null
+            $mahasiswa = null; 
             if ($user) {
                 $mahasiswa = $user->mahasiswa;
             }

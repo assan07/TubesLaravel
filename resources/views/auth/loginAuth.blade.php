@@ -27,7 +27,7 @@
                             {{-- <div class="logo-container mb-3">
                                     <i class="fas fa-building fa-3x text-primary"></i>
                                 </div> --}}
-                            <h2 class="fw-bold text-dark mb-2">Selamat Datang</h2>
+                            <h2 class="fw-bold text-dark mb-2">Selamat Datang test</h2>
                             <p class="text-muted">Sistem Manajemen Asrama Mahasiswa Unidayan</p>
                         </div>
 
@@ -35,10 +35,12 @@
                         <div class="card shadow-lg border-0 rounded-4">
                             <div class="card-body p-4">
                                 <h4 class="card-title text-center mb-4 fw-semibold">Login Mahasiswa</h4>
-
+                                {{-- Debug Sementara --}}
                                 <!-- Login Form -->
                                 <form method="POST" action="/login/user" id="loginForm">
                                     @csrf
+
+                                    <input type="hidden" name="role" value="{{ $role }}">
 
                                     <!-- Email/NIM Input -->
                                     <div class="mb-3">
@@ -87,19 +89,20 @@
                                     </div>
 
                                     <!-- Remember Me & Forgot Password -->
-                                    <div class="d-flex justify-content-between align-items-center mb-4">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember"
-                                                id="remember">
-                                            <label class="form-check-label text-sm" for="remember">
-                                                Ingat Saya
-                                            </label>
+                                    @if ($role === 'mahasiswa')
+                                        <div class="d-flex justify-content-between align-items-center mb-4">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="remember"
+                                                    id="remember">
+                                                <label class="form-check-label text-sm" for="remember">
+                                                    Ingat Saya
+                                                </label>
+                                            </div>
+                                            <a href="#" class="text-decoration-none text-primary text-sm">
+                                                Lupa Password?
+                                            </a>
                                         </div>
-                                        {{-- <a href="{{ route('password.request') }}"
-                                            class="text-decoration-none text-primary text-sm">
-                                            Lupa Password?
-                                        </a> --}}
-                                    </div>
+                                    @endif
 
                                     <!-- Login Button -->
                                     <div class="d-grid mb-3">
@@ -116,14 +119,16 @@
                                     </div>
 
                                     <!-- Register Link -->
-                                    <div class="text-center">
-                                        <p class="text-muted mb-0">
-                                            Belum punya akun?
-                                            <a href='/register' class="text-primary text-decoration-none fw-medium">
-                                                Daftar Sekarang
-                                            </a>
-                                        </p>
-                                    </div>
+                                    @if ($role === 'mahasiswa')
+                                        <div class="text-center">
+                                            <p class="text-muted mb-0">
+                                                Belum punya akun?
+                                                <a href='/register' class="text-primary text-decoration-none fw-medium">
+                                                    Daftar Sekarang
+                                                </a>
+                                            </p>
+                                        </div>
+                                    @endif
                                 </form>
                             </div>
                             <!-- Additional Info -->

@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class MahasiswaAuthController extends Controller
+class AuthController extends Controller
 {
     public function showRegisterForm()
     {
@@ -58,29 +58,41 @@ class MahasiswaAuthController extends Controller
         return redirect('/')->with('success', 'Registrasi berhasil. Silakan login.');
     }
 
-    public function showLoginForm()
+    public function showLoginForm($role)
     {
-        return view('mahasiswa.loginMahasiswa');
+        if (!in_array($role, ['mahasiswa', 'admin', 'bendahara'])) {
+            abort(404, 'Not Faund');
+        }
+
+        return view('auth.loginAuth', compact('role'));
     }
 
     public function login(Request $request)
     {
         $request->validate([
-            'nim' => 'required|string', // field ini bisa berupa email atau nim
+            'nim' => 'required|string',
             'password' => 'required|string',
+            'role' => 'required|in:mahasiswa,admin,bendahara',
         ]);
 
-        $loginInput = $request->input('nim'); // ini bisa NIM atau email
+        $loginInput = $request->input('nim');
         $loginType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'nim';
 
         $credentials = [
-            $loginType => $loginInput,
-            'password' => $request->input('password'),
+            $loginType,
+            'password' => $request->password,
+            'role' => $request->role
         ];
 
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
-            return redirect()->intended('/data-kamar'); // sesuaikan dengan tujuan setelah login
+            // Arahkan ke dashboard sesuai role
+
+             return match ($request->role) {
+                'admin' => redirect()->route('admin.dashboard'),
+                'bendahara' => redirect()->route('bendahara.dashboard'),
+                default => redirect()->route('mahasiswa.dashboard'),
+            };
         }
 
         return back()->withErrors([

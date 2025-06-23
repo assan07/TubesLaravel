@@ -6,6 +6,7 @@ use App\Helpers\GlobalHelpers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mahasiswa;
+use Flasher\Laravel\Facade\Flasher;
 
 
 class MahasiswaController extends Controller
@@ -52,21 +53,14 @@ class MahasiswaController extends Controller
         $mahasiswa->alamat = $request->addressMahasiswa;
 
         if ($request->hasFile('photo_mahasiswa')) {
-
-            $file = $request->file('photo_mahasiswa');
-            $nimMahasiswa = $user->nim;
-            $filename = time() . '_' . $nimMahasiswa . '_' . $file->getClientOriginalName();
-
-            // Simpan langsung ke folder public/assets/images/mahasiswa/photoProfile
-            $destinationPath = public_path('assets/images/mahasiswa/photoProfile');
-            $file->move($destinationPath, $filename);
-
-            $mahasiswa->foto = $filename;
+            $file = $request->file('photo_mahasiswa')->store('mahasiswa/profileMahasiswa');
+            $mahasiswa->foto = $file;
         }
 
         $mahasiswa->save();
-
-        return redirect()->back()->with('success', 'Data berhasil disimpan.');
+        
+        Flasher::addSuccess('Data berhasil disimpas000000n!');
+        return redirect()->back();
     }
 
     // Function to delete the profile photo
