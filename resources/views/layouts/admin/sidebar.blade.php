@@ -22,7 +22,7 @@
 
                 {{-- Manage Room Data Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request::is('admin/kelola-data-kamar*') ? 'active' : '' }}"
+                    <a class="sidebar-link {{ Request::is('kelola-data-kamar*') ? 'active' : '' }}"
                         href="/admin/kelola-data-kamar" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-bed"></i>
@@ -46,8 +46,8 @@
 
                 {{-- Manage Account Data Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('admin/kelola-data-akun*') ? 'active bg-primary rounded' : '' }}"
-                        href="/admin/kelola-data-akun" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('kelola-data-akun*') ? 'active bg-primary rounded' : '' }}"
+                        href="/kelola-data-akun" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-user-exclamation"></i>
                         </span>

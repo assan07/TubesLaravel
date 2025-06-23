@@ -1,11 +1,12 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\DashboardController;
-use Illuminate\Support\Facades\Auth;
 
 // ==========================
 // Route for Mahasiswa
@@ -60,6 +61,11 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     Route::get('/kelola-data-kamar', function () {
         return view('admin.dataKamar.kelolaDataKamar');
     });
+
+    Route::get('/kelola-data-akun', [AdminController::class, 'kelolaAkun']);
+    Route::put('/akun/{id}/approve', [AdminController::class, 'approveAkun']);
+    Route::put('/akun/{id}/pending', [AdminController::class, 'pendingAkun']);
+    Route::delete('/akun/{id}', [AdminController::class, 'rejectAkun']);
 });
 
 // ======================= BENDAHARA ============================
