@@ -58,47 +58,52 @@ class AuthController extends Controller
         return redirect('/')->with('success', 'Registrasi berhasil. Silakan login.');
     }
 
-    public function showLoginForm($role)
+    public function showLoginForm()
     {
-        if (!in_array($role, ['mahasiswa', 'admin', 'bendahara'])) {
-            abort(404, 'Not Faund');
-        }
-
-        return view('auth.loginAuth', compact('role'));
+        return view('auth.loginAuth');
     }
+
 
     public function login(Request $request)
     {
+        // Validasi input
         $request->validate([
             'nim' => 'required|string',
             'password' => 'required|string',
-            'role' => 'required|in:mahasiswa,admin,bendahara',
         ]);
 
+        // Tentukan apakah input berupa email atau NIM
         $loginInput = $request->input('nim');
-        $loginType = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'nim';
+        $loginField = filter_var($loginInput, FILTER_VALIDATE_EMAIL) ? 'email' : 'nim';
 
+        // Siapkan kredensial login
         $credentials = [
-            $loginType,
+            $loginField => $loginInput,
             'password' => $request->password,
-            'role' => $request->role
         ];
 
+        // Proses autentikasi
         if (Auth::attempt($credentials, $request->filled('remember'))) {
             $request->session()->regenerate();
-            // Arahkan ke dashboard sesuai role
 
-             return match ($request->role) {
-                'admin' => redirect()->route('admin.dashboard'),
-                'bendahara' => redirect()->route('bendahara.dashboard'),
-                default => redirect()->route('mahasiswa.dashboard'),
+            $user = Auth::user();
+
+            // Arahkan berdasarkan role, jika role tidak dikenali arahkan ke halaman default
+            return match ($user->role) {
+                'admin' => redirect('/kelola-data-kamar'),
+                'bendahara' => redirect('/cek-pembayaran'),
+                'mahasiswa' => redirect('/data-kamar'),
+                default => redirect('/'), // fallback tanpa error dulu
             };
         }
 
+
+        // Autentikasi gagal
         return back()->withErrors([
-            'nim' => 'NIM atau Email atau Password salah.',
+            'nim' => 'NIM/Email atau password salah.',
         ])->withInput($request->only('nim'));
     }
+
 
     public function logout(Request $request)
     {
