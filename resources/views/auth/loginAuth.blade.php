@@ -34,13 +34,11 @@
                         <!-- Login Card -->
                         <div class="card shadow-lg border-0 rounded-4">
                             <div class="card-body p-4">
-                                <h4 class="card-title text-center mb-4 fw-semibold">Login Mahasiswa</h4>
+                                <h4 class="card-title text-center mb-4 fw-semibold">Login</h4>
                                 {{-- Debug Sementara --}}
                                 <!-- Login Form -->
-                                <form method="POST" action="/login/user" id="loginForm">
+                                <form method="POST" action="/login" id="loginForm">
                                     @csrf
-
-                                    <input type="hidden" name="role" value="{{ $role }}">
 
                                     <!-- Email/NIM Input -->
                                     <div class="mb-3">
@@ -89,20 +87,19 @@
                                     </div>
 
                                     <!-- Remember Me & Forgot Password -->
-                                    @if ($role === 'mahasiswa')
-                                        <div class="d-flex justify-content-between align-items-center mb-4">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" name="remember"
-                                                    id="remember">
-                                                <label class="form-check-label text-sm" for="remember">
-                                                    Ingat Saya
-                                                </label>
-                                            </div>
-                                            <a href="#" class="text-decoration-none text-primary text-sm">
-                                                Lupa Password?
-                                            </a>
+                                    <!-- Remember Me & Forgot Password -->
+                                    <div class="d-flex justify-content-between align-items-center mb-4">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember"
+                                                id="remember">
+                                            <label class="form-check-label text-sm" for="remember">
+                                                Ingat Saya
+                                            </label>
                                         </div>
-                                    @endif
+                                        <a href="#" class="text-decoration-none text-primary text-sm">
+                                            Lupa Password?
+                                        </a>
+                                    </div>
 
                                     <!-- Login Button -->
                                     <div class="d-grid mb-3">
@@ -119,16 +116,14 @@
                                     </div>
 
                                     <!-- Register Link -->
-                                    @if ($role === 'mahasiswa')
-                                        <div class="text-center">
-                                            <p class="text-muted mb-0">
-                                                Belum punya akun?
-                                                <a href='/register' class="text-primary text-decoration-none fw-medium">
-                                                    Daftar Sekarang
-                                                </a>
-                                            </p>
-                                        </div>
-                                    @endif
+                                    <div class="text-center">
+                                        <p class="text-muted mb-0">
+                                            Belum punya akun?
+                                            <a href='/register' class="text-primary text-decoration-none fw-medium">
+                                                Daftar Sekarang
+                                            </a>
+                                        </p>
+                                    </div>
                                 </form>
                             </div>
                             <!-- Additional Info -->

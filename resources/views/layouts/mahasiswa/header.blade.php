@@ -19,21 +19,31 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2"
                         data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ $mahasiswa && $mahasiswa->foto ? asset('storage/' . $mahasiswa->foto) : asset('assets/images/profile/user-1.jpg') }}" alt="profile" width="35" height="35"
-                            class="rounded-circle">
+                        <img src="{{ $mahasiswa && $mahasiswa->foto ? asset('storage/' . $mahasiswa->foto) : asset('assets/images/profile/user-1.jpg') }}"
+                            alt="profile" width="35" height="35" class="rounded-circle">
                     </a>
                     <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
                         <div class="message-body p-3">
-                            <a href="/informasi-akun" class="d-flex align-items-center gap-2 dropdown-item  {{ Request()->is('informasi-akun*') ? 'active bg-primary rounded' : '' }}">
+                            <a href="/informasi-akun"
+                                class="d-flex align-items-center gap-2 dropdown-item  {{ Request()->is('informasi-akun*') ? 'active bg-primary rounded' : '' }}">
                                 <i class="ti ti-user fs-6"></i>
                                 <p class="mb-0 fs-3">My Profile</p>
                             </a>
-                            <a href="/ubah-password" class="d-flex align-items-center gap-2 dropdown-item  {{ Request()->is('ubah-pasword*') ? 'active bg-primary rounded' : '' }}">
+                            <a href="/ubah-password"
+                                class="d-flex align-items-center gap-2 dropdown-item  {{ Request()->is('ubah-pasword*') ? 'active bg-primary rounded' : '' }}">
                                 <i class="ti ti-key fs-6"></i>
                                 <p class="mb-0 fs-3">My Password</p>
                             </a>
 
-                            <a href="/logout" class="btn btn-outline-primary mt-2 d-block">Logout</a>
+                            <a href="#" class="btn btn-outline-primary mt-2 d-block"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Logout
+                            </a>
+
+                            <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                                @csrf
+                            </form>
+
                         </div>
                     </div>
                 </li>

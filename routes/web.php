@@ -5,54 +5,69 @@ use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\DashboardController;
-
-
+use Illuminate\Support\Facades\Auth;
 
 // ==========================
 // Route for Mahasiswa
 // ==========================
+// ====== Rute utama: redirect sesuai login status ======
+Route::get('/', function () {
+    if (Auth::check()) {
+        return match (Auth::user()->role) {
+            'admin' => redirect('/kelola-data-kamar'),
+            'bendahara' => redirect('/cek-pembayaran'),
+            default => redirect('/data-kamar'),
+        };
+    }
 
+    return redirect('/login');
+});
 
 Route::middleware('guest')->group(function () {
-    Route::redirect('/', '/login/mahasiswa');
-    Route::get('/login/{role}', [AuthController::class, 'showLoginForm'])->name('login');
-    Route::post('/login/user', [AuthController::class, 'login'])->name('login.submit');
-    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
-    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+
+    // Halaman login gabungan (untuk semua role)
+    Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+
+    // Submit login form
+    Route::post('/login', [AuthController::class, 'login']);
+
+    // Form registrasi (jika dibutuhkan)
+    Route::get('/register', [AuthController::class, 'showRegisterForm']);
+    Route::post('/register', [AuthController::class, 'register']);
 });
 
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Mahasiswa role protected routes
+// ======================= MAHASISWA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
+
     Route::get('/data-kamar', function () {
-        return view('mahasiswa.informasiDataKamar'); // contoh dashboard
+        return view('mahasiswa.informasiDataKamar');
     });
 
-    // Route for the Mahasiswa regstration room page
     Route::get('/registrasi-kamar', function () {
         return view('mahasiswa.pendaftaranKamar');
     });
 
-    // Route for Account Information page
     Route::get('/informasi-akun', [MahasiswaController::class, 'showProfile']);
-    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store'])->name('store.informasi-akun');
-    Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile'])->name('delete.photo');
-
-
-    Route::get('/logout', [AuthController::class, 'logout']);
-    Route::resource('/mahasiswa/dashboard', DashboardController::class);
+    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store']);
+    Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile']);
 });
 
-// Admin role protected routes
+// ======================= ADMIN ============================
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
-    Route::resource('/admin/dashboard', DashboardController::class);
+    Route::get('/kelola-data-kamar', function () {
+        return view('admin.dataKamar.kelolaDataKamar');
+    });
 });
 
-// Bendahara role protected routes
+// ======================= BENDAHARA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(function () {
-    Route::resource('/bendahara/dashboard', DashboardController::class);
+
+    Route::get('/cek-pembayaran', function () {
+        return view('bendahara.cekPembayaran');
+    });
 });
 
 
