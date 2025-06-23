@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Mahasiswa;
 use Flasher\Laravel\Facade\Flasher;
-
+use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class MahasiswaController extends Controller
 {
@@ -52,13 +53,18 @@ class MahasiswaController extends Controller
         $mahasiswa->umur = $request->age;
         $mahasiswa->alamat = $request->addressMahasiswa;
 
+        // Hapus foto lama jika ada dan user upload foto baru
         if ($request->hasFile('photo_mahasiswa')) {
+            if ($mahasiswa->foto && Storage::exists($mahasiswa->foto)) {
+                Storage::delete($mahasiswa->foto); // Hapus file lama
+            }
+
             $file = $request->file('photo_mahasiswa')->store('mahasiswa/profileMahasiswa');
             $mahasiswa->foto = $file;
         }
 
         $mahasiswa->save();
-        
+
         Flasher::addSuccess('Data berhasil disimpas000000n!');
         return redirect()->back();
     }
