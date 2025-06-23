@@ -24,7 +24,7 @@
                 <div class="container">
                     <h3 class="mb-4">Data Mahasiswa</h3>
                     <div class="card p-4">
-                        <form id="profile-form" method="POST" action="{{ route('store.informasi-akun') }}"
+                        <form id="profile-form" method="POST" action="{{ route('informasi-akun.store') }}"
                             enctype="multipart/form-data" data-delete-url="{{ route('delete.photo') }}"
                             data-csrf-token="{{ csrf_token() }}"
                             data-default-image="{{ asset('assets/images/profile/user-1.jpg') }}">

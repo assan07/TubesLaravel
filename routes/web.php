@@ -51,8 +51,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
     });
 
     Route::get('/informasi-akun', [MahasiswaController::class, 'showProfile']);
-    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store']);
-    Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile']);
+    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store'])->name('informasi-akun.store');
+    Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile'])->name('delete.photo');
 });
 
 // ======================= ADMIN ============================
