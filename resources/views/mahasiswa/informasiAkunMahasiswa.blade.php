@@ -34,7 +34,7 @@
                                 <div class="col-md-4 d-flex flex-column align-items-center">
                                     <div class="profile-photo">
                                         <img id="profileImage"
-                                            src="{{ $mahasiswa && $mahasiswa->foto ? asset('assets/images/mahasiswa/photoProfile/' . $mahasiswa->foto) : asset('assets/images/profile/user-1.jpg') }}"
+                                            src="{{ $mahasiswa && $mahasiswa->foto ? asset('storage/' . $mahasiswa->foto) : asset('assets/images/profile/user-1.jpg') }}"
                                             alt="Foto Profil" class="img-fluid rounded-circle"
                                             style="width: 150px; height: 150px; object-fit: cover;" />
 

@@ -3,6 +3,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
+use App\Http\Middleware\RoleMiddleware;
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -11,8 +12,14 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Middleware global jika ada (misalnya $middleware->append(...))
+        
+        // Tambahkan custom route middleware di sini
+        $middleware->alias([
+            'role' => RoleMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
-    })->create();
+        // Custom handler jika dibutuhkan
+    })
+    ->create();

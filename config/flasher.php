@@ -1,4 +1,4 @@
-<?php 
+<?php // config/flasher.php
 
 return [
     'plugins' => [
@@ -11,8 +11,10 @@ return [
                 '/vendor/flasher/sweetalert2.min.css',
             ],
             'options' => [
-                // Optional: Add global options here
-                // 'position' => 'center'
+                'toast' => true,
+                'position' => 'top-end',
+                'timer' => 2000,
+                'showConfirmButton' => false,
             ],
         ],
     ],

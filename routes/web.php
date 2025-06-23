@@ -1,20 +1,31 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\RoleMiddleware;
+use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\MahasiswaAuthController;
+use App\Http\Controllers\Mahasiswa\DashboardController;
+
+
 
 // ==========================
 // Route for Mahasiswa
 // ==========================
 
-Route::get('/', [MahasiswaAuthController::class, 'showLoginForm'])->name('login');
-Route::post('/login/user', [MahasiswaAuthController::class, 'login']);
 
-Route::get('/register', [MahasiswaAuthController::class, 'showRegisterForm']);
-Route::post('/register/user', [MahasiswaAuthController::class, 'register']);
+Route::middleware('guest')->group(function () {
+    Route::redirect('/', '/login/mahasiswa');
+    Route::get('/login/{role}', [AuthController::class, 'showLoginForm'])->name('login');
+    Route::post('/login/user', [AuthController::class, 'login'])->name('login.submit');
+    Route::get('/register', [AuthController::class, 'showRegisterForm'])->name('register');
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
+});
 
-Route::middleware('auth')->group(function () {
+
+Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+// Mahasiswa role protected routes
+Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
     Route::get('/data-kamar', function () {
         return view('mahasiswa.informasiDataKamar'); // contoh dashboard
     });
@@ -26,12 +37,24 @@ Route::middleware('auth')->group(function () {
 
     // Route for Account Information page
     Route::get('/informasi-akun', [MahasiswaController::class, 'showProfile']);
-    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store']) ->name('store.informasi-akun');
+    Route::post('/informasi-akun/store', [MahasiswaController::class, 'store'])->name('store.informasi-akun');
     Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile'])->name('delete.photo');
 
 
-    Route::get('/logout', [MahasiswaAuthController::class, 'logout']);
+    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::resource('/mahasiswa/dashboard', DashboardController::class);
 });
+
+// Admin role protected routes
+Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
+    Route::resource('/admin/dashboard', DashboardController::class);
+});
+
+// Bendahara role protected routes
+Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(function () {
+    Route::resource('/bendahara/dashboard', DashboardController::class);
+});
+
 
 
 // ==========================
@@ -53,31 +76,31 @@ Route::get('/admin/kelola-data-kamar', function () {
     return view('admin.dataKamar.kelolaDataKamar');
 });
 
-Route::get('admin/kelola-data-kamar/tambah-kamar', function(){
+Route::get('admin/kelola-data-kamar/tambah-kamar', function () {
     return view('admin.dataKamar.tambahKamar');
 });
 
-Route::get('admin/kelola-data-kamar/data-kamar/laki-laki', function(){
+Route::get('admin/kelola-data-kamar/data-kamar/laki-laki', function () {
     return view('admin.dataKamar.dataKamarLakilaki');
 });
 
-Route::get('admin/kelola-data-kamar/data-kamar/perempuan', function(){
+Route::get('admin/kelola-data-kamar/data-kamar/perempuan', function () {
     return view('admin.dataKamar.dataKamarPerempuan');
 });
 
-Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/detail', function(){
+Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/detail', function () {
     return view('admin.dataKamar.detailDataKamarPerempuan');
 });
 
-Route::get('admin/kelola-data-kamar/data-kamar/perempuan/detail', function(){
+Route::get('admin/kelola-data-kamar/data-kamar/perempuan/detail', function () {
     return view('admin.dataKamar.detailDataKamarPerempuan');
 });
 
-Route::get('admin/kelola-data-kamar/data-kamar/perempuan/edit', function(){
+Route::get('admin/kelola-data-kamar/data-kamar/perempuan/edit', function () {
     return view('admin.dataKamar.editDataKamarPerempuan');
 });
 
-Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/edit', function(){
+Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/edit', function () {
     return view('admin.dataKamar.editDataKamarLakilaki');
 });
 

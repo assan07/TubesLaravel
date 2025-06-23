@@ -17,8 +17,9 @@ return new class extends Migration
             $table->string('nim')->unique();
             $table->string('email')->unique();
             $table->string('password');
-            $table->string('role')->default('mahasiswa');
+            $table->enum('role', ['mahasiswa', 'admin', 'bendahara'])->default('mahasiswa');
             $table->boolean('is_approved')->default(false);
+            $table->rememberToken(); // Untuk fitur "Ingat Saya"
             $table->timestamps();
         });
 
