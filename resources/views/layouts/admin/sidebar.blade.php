@@ -23,7 +23,7 @@
                 {{-- Manage Room Data Panel --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Request::is('kelola-data-kamar*') ? 'active' : '' }}"
-                        href="/admin/kelola-data-kamar" aria-expanded="false" aria-current="page">
+                        href="/kelola-data-kamar" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-bed"></i>
                         </span>
