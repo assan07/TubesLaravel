@@ -9,15 +9,17 @@ return new class extends Migration {
     {
         Schema::create('pendaftaran_kamars', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('room_id');
             $table->string('nama');
             $table->string('nim')->unique();
             $table->string('email')->unique();
             $table->string('no_hp');
             $table->string('prodi');
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
-            $table->string('kamar');
             $table->date('tanggal_pendaftaran');
             $table->timestamps();
+
+            $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
 

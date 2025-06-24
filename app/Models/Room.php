@@ -13,4 +13,8 @@ class Room extends Model
         'jenis_kamar',
         'status'
     ];
+    public function pendaftaranKamars()
+    {
+        return $this->hasMany(PendaftaranKamar::class, 'room_id');
+    }
 }

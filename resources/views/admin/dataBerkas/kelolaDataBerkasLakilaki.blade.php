@@ -13,22 +13,47 @@
                     <h3 class="card-title text-center">Kelola Data Berkas Pendaftar Laki-Laki</h3>
                     <div class="card-info d-flex flex-column gap-3">
                         <div class="card-room-gay row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
+                            {{-- Card Pendaftar Baru --}}
                             <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div
-                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center" style="height: 7rem;">
-                                    <h1 style="font-weight: bolder; " >40</h1>
+                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
+                                    style="height: 7rem;">
+                                    <h1 style="font-weight: bolder;">{{ $stats['total'] }}</h1>
                                 </div>
                                 <strong>Pendaftar Baru</strong>
                             </div>
+                            {{-- End Card Pendaftar Baru --}}
+
+                            {{-- Card Pendaftar Terkonfirmasi --}}
                             <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div
-                                    class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center" style="height: 7rem;">
-                                    <h1 style="font-weight: bolder">21</h1>
+                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
+                                    style="height: 7rem;">
+                                    <h1 style="font-weight: bolder">{{ $stats['approved'] }}</h1>
                                 </div>
                                 <strong>Terkonfimasi</strong>
                             </div>
+                            {{-- End Card Pendaftar Terkonfirmasi --}}
+
+                            {{-- Card Pendaftar Pending --}}
+                            <div class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
+                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
+                                    style="height: 7rem;">
+                                    <h1 style="font-weight: bolder">{{ $stats['pending'] }}</h1>
+                                </div>
+                                <strong>Pending</strong>
+                            </div>
+                            {{-- End Card Pendaftar Pending --}}
+
+                            {{-- Card Pendaftar Rejected --}}
+                            <div class="card-room bg-danger w-100 rounded d-flex flex-column align-items-center p-2">
+                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
+                                    style="height: 7rem;">
+                                    <h1 style="font-weight: bolder">{{ $stats['rejected'] }}</h1>
+                                </div>
+                                <strong>Rejected</strong>
+                            </div>
+                            {{-- End Card Pendaftar Rejected --}}
+
                         </div>
-                     
                     </div>
                 </div>
             </div>
@@ -56,23 +81,28 @@
                                 </tr>
                             </thead>
                             <tbody>
-
-                                <tr>
-                                    <td>1</td>
-                                    <td>Hasan</td>
-                                    <td>22650062</td>
-                                    <td>Laki-Laki</td>
-                                    <td>12 Juni 2025</td>
-                                    <td>
-                                        <span class="badge bg-success btn-sm">Terkonfirmasi</span>
-                                    <td>
-                                        <a href="{{ url('/admin/kelola-berkas-pendaftran/laki-laki/detail') }}" class="btn btn-primary btn-sm">Cek Berkas</a>
-                                    </td>
-                                </tr>
-
+                                @foreach ($pendaftars as $no => $item)
+                                    <tr>
+                                        <td>{{ $no + 1 }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->no_hp }}</td>
+                                        <td>{{ $item->jenis_kelamin }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_pendaftaran)->translatedFormat('d F Y') }}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge bg-{{ $item->status_berkas == 'approved' ? 'success' : ($item->status_berkas == 'pending' ? 'warning' : 'danger') }}">
+                                                {{ ucfirst($item->status_berkas) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.berkas.laki.detail', $item->id) }}"
+                                                class="btn btn-primary btn-sm">Cek Berkas</a>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
-                        </table>
-                        {{-- end table data berkas  --}}
+                            {{-- end table data berkas  --}}
 
                     </div>
                 </div>

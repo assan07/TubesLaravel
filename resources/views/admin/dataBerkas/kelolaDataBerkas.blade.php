@@ -28,7 +28,7 @@
                                 <strong>Terkonfimasi</strong>
                             </div>
                         </div>
-                        <a href="/admin/kelola-berkas-pendaftran/laki-laki" class="btn btn-info w-100 ">Detail</a>
+                        <a href="{{ route('admin.berkas.laki') }}" class="btn btn-info w-100 ">Detail</a>
                     </div>
                 </div>
             </div>
