@@ -26,26 +26,49 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{-- Contoh data dummy, bisa di-loop pakai @foreach --}}
-                                <tr>
-                                    <td>Kamar A</td>
-                                    <td>A12</td>
-                                    <td><span class="text-success fs-4">✔</span></td>
-                                    <td><span class="text-danger fs-4">✘</span></td>
-                                    <td><span class="text-success fs-4">✔</span></td>
-                                    <td>
-                                        <a href="{{ url('admin/kelola-data-kamar/data-kamar/perempuan/detail') }}" class="btn btn-info btn-sm">Detail</a>
-                                        <a href="{{ url('admin/kelola-data-kamar/data-kamar/perempuan/edit') }}" class="btn btn-warning btn-sm">Edit</a>
-                                        <form action="#" method="POST" class="d-inline">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button class="btn btn-danger btn-sm"
-                                                onclick="return confirm('Hapus data ini?')">Hapus</button>
-                                        </form>
-                                    </td>
-                                </tr>
+                                @foreach ($kamarPerempuan as $kamar)
+                                    <tr>
+                                        <td>{{ $kamar->nama_kamar }}</td>
+                                        <td>{{ $kamar->no_kamar }}</td>
+                                        <td>
+                                            @if ($kamar->status == 'tersedia')
+                                                <span class="text-success fs-4">✔</span>
+                                            @else
+                                                <span class="text-danger fs-4">✘</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($kamar->status == 'diisi')
+                                                <span class="text-success fs-4">✔</span>
+                                            @else
+                                                <span class="text-danger fs-4">✘</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if ($kamar->status == 'maintenance')
+                                                <span class="text-success fs-4">✔</span>
+                                            @else
+                                                <span class="text-danger fs-4">✘</span>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{ url('kelola-data-kamar/data-kamar/' . $jenis_kamar . '/detail/' . $kamar->id) }}"
+                                                class="btn btn-info btn-sm">Detail</a>
 
-                                {{-- Tambahkan baris lain di sini --}}
+                                            <a href="{{ url('kelola-data-kamar/data-kamar/' . $jenis_kamar . '/edit/' . $kamar->id) }}"
+                                                class="btn btn-warning btn-sm">Edit</a>
+
+                                            <form
+                                                action="{{ url('kelola-data-kamar/data-kamar/' . $jenis_kamar . '/delete/' . $kamar->id) }}"
+                                                method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button class="btn btn-danger btn-sm"
+                                                    onclick="return confirm('Hapus data ini?')">Hapus</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -53,7 +76,5 @@
             </div>
         </div>
     </div>
-
-
 
 @endsection

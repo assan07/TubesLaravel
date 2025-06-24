@@ -15,30 +15,54 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-5 fw-bold">Nama Kamar</div>
-                            <div class="col-7">: Kamar A</div>
+                            <div class="col-7">: {{ $kamar->nama_kamar }}</div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-5 fw-bold">No. Kamar</div>
-                            <div class="col-7">: A21</div>
+                            <div class="col-7">: {{ $kamar->no_kamar }}</div>
                         </div>
                         <div class="row mb-3">
                             <div class="col-5 fw-bold">Lokasi</div>
-                            <div class="col-7">: L-3 Sayap Kanan</div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-5 fw-bold">Tersedia</div>
-                            <div class="col-7">: <span class="text-success">✔ Ya</span></div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-5 fw-bold">Diisi</div>
-                            <div class="col-7">: <span class="text-success">✔ Ya</span></div>
-                        </div>
-                        <div class="row mb-4">
-                            <div class="col-5 fw-bold">Maintenance</div>
-                            <div class="col-7">:<span class="text-danger">✘ Tidak</span></div>
+                            <div class="col-7">: {{ $kamar->lokasi_kamar }}</div>
                         </div>
 
-                        <a href="{{ url('admin/kelola-data-kamar/data-kamar/perempuan') }}" class="btn btn-secondary">
+                        {{-- Status: Tersedia --}}
+                        <div class="row mb-3">
+                            <div class="col-5 fw-bold">Tersedia</div>
+                            <div class="col-7">:
+                                @if ($kamar->status == 'tersedia')
+                                    <span class="text-success">✔ Ya</span>
+                                @else
+                                    <span class="text-danger">✘ Tidak</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{-- Status: Diisi --}}
+                        <div class="row mb-3">
+                            <div class="col-5 fw-bold">Diisi</div>
+                            <div class="col-7">:
+                                @if ($kamar->status == 'diisi')
+                                    <span class="text-success">✔ Ya</span>
+                                @else
+                                    <span class="text-danger">✘ Tidak</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        {{-- Status: Maintenance --}}
+                        <div class="row mb-4">
+                            <div class="col-5 fw-bold">Maintenance</div>
+                            <div class="col-7">:
+                                @if ($kamar->status == 'maintenance')
+                                    <span class="text-success">✔ Ya</span>
+                                @else
+                                    <span class="text-danger">✘ Tidak</span>
+                                @endif
+                            </div>
+                        </div>
+
+                        <a href="{{ url('kelola-data-kamar/data-kamar/perempuan') }}" class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                     </div>
