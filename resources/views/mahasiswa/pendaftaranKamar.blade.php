@@ -18,50 +18,89 @@
                 {{-- end card title --}}
                 {{-- form registration room --}}
                 <div class="card col-sm-12 col-md-12 d-flex flex-column p-4 gap-3">
-                    <form action="#" method="POST">
+
+                    <form action="{{ route('pendaftaran-kamar.store') }}" method="POST">
                         @csrf
+
                         <div class="form-group">
                             <label for="nama">Nama Lengkap</label>
-                            <input type="text" class="form-control" id="nama" name="nama" required>
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
+                                name="nama" value="{{ old('nama') }}">
+                            @error('nama')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="nim">NIM</label>
-                            <input type="text" class="form-control" id="nim" name="nim" required>
+                            <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nim"
+                                name="nim" value="{{ old('nim') }}">
+                            @error('nim')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
 
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email" required>
+                            <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
+                                name="email" value="{{ old('email') }}">
+                            @error('email')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="noHp">No.Hp</label>
-                            <input type="text" class="form-control" id="noHp" name="noHp" required>
+                            <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="noHp"
+                                name="no_hp" value="{{ old('no_hp') }}">
+                            @error('no_hp')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="prodi">Program Studi</label>
-                            <input type="text" class="form-control" id="prodi" name="prodi" required>
+                            <input type="text" class="form-control @error('prodi') is-invalid @enderror" id="prodi"
+                                name="prodi" value="{{ old('prodi') }}">
+                            @error('prodi')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="jenis_kelamin">Jenis Kelamin</label>
-                            <select class="form-control" id="jenis_kelamin" name="jenis_kelamin" required>
+                            <select class="form-control @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin"
+                                name="jenis_kelamin" value="{{ old('jenis_kelamin') }}">
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
+                            @error('jenis_kelamin')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="kamar">Kamar</label>
-                            <select class="form-control" id="kamar" name="kamar" required>
+                            <select class="form-control @error('kamar') is-invalid @enderror" id="kamar" name="kamar"
+                                value="{{ old('kamar') }}">
                                 <option value="">Pilih Kamar</option>
-                                <option value="">Kamar 1</option>
-                                <option value="">Kamar 2</option>
-                                <option value="">Kamar 3</option>
+                                <option value="Kamar1">Kamar 1</option>
+                                <option value="Kamar2">Kamar 2</option>
+                                <option value="Kamar3">Kamar 3</option>
                             </select>
+                            @error('kamar')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <div class="form-group">
                             <label for="tanggal_pendaftaran">Tanggal Pendaftaran</label>
-                            <input type="date" class="form-control" id="tanggal_pendaftaran" name="tanggal_pendaftaran"
-                                required>
+                            <input type="date" class="form-control @error('tanggal_pendaftaran') is-invalid @enderror"
+                                id="tanggal_pendaftaran" name="tanggal_pendaftaran"
+                                value="{{ old('tanggal_pendaftaran') }}">
+                            @error('tanggal_pendaftaran')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
                         </div>
+
                         <button type="submit" class="btn btn-primary w-100 mt-3">Daftar</button>
                     </form>
                 </div>

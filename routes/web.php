@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\DashboardController;
+use App\Http\Controllers\Mahasiswa\PendaftaranKamarController;
 
 // ==========================
 // Route for Mahasiswa
@@ -34,7 +35,7 @@ Route::middleware('guest')->group(function () {
 
     // Form registrasi (jika dibutuhkan)
     Route::get('/register', [AuthController::class, 'showRegisterForm']);
-    Route::post('/register', [AuthController::class, 'register']);
+    Route::post('/register', [AuthController::class, 'register'])->name('register.submit');
 });
 
 
@@ -50,6 +51,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
     Route::get('/registrasi-kamar', function () {
         return view('mahasiswa.pendaftaranKamar');
     });
+
+
+    Route::resource('pendaftaran-kamar', PendaftaranKamarController::class);
+
 
     Route::get('/informasi-akun', [MahasiswaController::class, 'showProfile']);
     Route::post('/informasi-akun/store', [MahasiswaController::class, 'store'])->name('informasi-akun.store');
