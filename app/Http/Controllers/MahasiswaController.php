@@ -65,7 +65,7 @@ class MahasiswaController extends Controller
 
         $mahasiswa->save();
 
-        Flasher::addSuccess('Data berhasil disimpas000000n!');
+        Flasher::addSuccess('Data berhasil disimpan!');
         return redirect()->back();
     }
 

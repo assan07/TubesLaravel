@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Flasher\Laravel\Facade\Flasher;
 
 class AdminController extends Controller
 {
@@ -17,18 +18,24 @@ class AdminController extends Controller
     public function approveAkun($id)
     {
         User::where('id', $id)->update(['is_approved' => true]);
-        return back()->with('success', 'Akun berhasil di-approve.');
+        Flasher::addSuccess('Akun berhasil di-approve!');
+        return back()->with('success');
     }
 
     public function pendingAkun($id)
     {
         User::where('id', $id)->update(['is_approved' => false]);
-        return back()->with('success', 'Akun diset ke pending.');
+
+        Flasher::addSuccess('Akun diset ke pending.');
+
+        return back()->with('success');
     }
 
     public function rejectAkun($id)
     {
         User::destroy($id);
-        return back()->with('success', 'Akun berhasil dihapus.');
+        
+        Flasher::addSuccess('Akun berhasil dihapus!');
+        return back()->with('success');
     }
 }

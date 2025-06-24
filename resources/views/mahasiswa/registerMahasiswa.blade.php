@@ -48,7 +48,7 @@
                             <p>Lengkapi data diri Anda untuk membuat akun</p>
                         </div>
 
-                        <form id="registerForm" action="{{ url('/register/user') }}" method="POST">
+                        <form id="registerForm" action="{{ route('register.submit') }}" method="POST">
                             @csrf
 
                             {{-- Nama --}}
@@ -102,7 +102,7 @@
                                 </div>
                             </div>
 
-                           {{-- Konfirmasi Password --}}
+                            {{-- Konfirmasi Password --}}
                             <div class="form-group">
                                 <label for="password_confirmation"><i class="fas fa-lock me-2"></i>Konfirmasi
                                     Password</label>
