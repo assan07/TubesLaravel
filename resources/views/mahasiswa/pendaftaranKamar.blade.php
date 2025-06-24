@@ -25,7 +25,7 @@
                         <div class="form-group">
                             <label for="nama">Nama Lengkap</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nama"
-                                name="nama" value="{{ old('nama') }}">
+                                name="nama" value="{{ old('nama', $user->nama) }}">
                             @error('nama')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label for="nim">NIM</label>
                             <input type="text" class="form-control @error('nama') is-invalid @enderror" id="nim"
-                                name="nim" value="{{ old('nim') }}">
+                                name="nim" value="{{ old('nama', $user->nim) }}">
                             @error('nim')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -42,7 +42,7 @@
                         <div class="form-group">
                             <label for="email">Email</label>
                             <input type="text" class="form-control @error('email') is-invalid @enderror" id="email"
-                                name="email" value="{{ old('email') }}">
+                                name="email" value=" {{ old('prodi', $user->email ?? '') }}">
                             @error('email')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -51,7 +51,7 @@
                         <div class="form-group">
                             <label for="noHp">No.Hp</label>
                             <input type="text" class="form-control @error('no_hp') is-invalid @enderror" id="noHp"
-                                name="no_hp" value="{{ old('no_hp') }}">
+                                name="no_hp" value="{{ old('prodi', $user->mahasiswa->phone ?? '') }}">
                             @error('no_hp')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -60,7 +60,7 @@
                         <div class="form-group">
                             <label for="prodi">Program Studi</label>
                             <input type="text" class="form-control @error('prodi') is-invalid @enderror" id="prodi"
-                                name="prodi" value="{{ old('prodi') }}">
+                                name="prodi" value="{{ old('prodi', $user->mahasiswa->prodi ?? '') }}">
                             @error('prodi')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -78,13 +78,18 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="kamar">Kamar</label>
-                            <select class="form-control @error('kamar') is-invalid @enderror" id="kamar" name="kamar"
-                                value="{{ old('kamar') }}">
+                            <label for="kamar">Kamar</label><br>
+                            <span class="fw-light" style="font-size: 11px"><Strong>Note: </Strong>Kode "L" / "P"
+                                diakhir nama kamar sebagai tanda jenis kamar.</span>
+                            <select class="form-control @error('kamar') is-invalid @enderror" id="kamar" name="kamar">
                                 <option value="">Pilih Kamar</option>
-                                <option value="Kamar1">Kamar 1</option>
-                                <option value="Kamar2">Kamar 2</option>
-                                <option value="Kamar3">Kamar 3</option>
+                                @foreach ($rooms as $room)
+                                    <option value="{{ $room->id }}" {{ old('kamar') == $room->id ? 'selected' : '' }}>
+                                        {{ $room->nama_kamar }}
+                                    </option>
+                                @endforeach
+
+
                             </select>
                             @error('kamar')
                                 <div class="invalid-feedback">{{ $message }}</div>

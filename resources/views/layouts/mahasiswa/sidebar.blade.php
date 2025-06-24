@@ -34,8 +34,8 @@
 
                 {{-- Registration Room Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('registrasi-kamar*') ? 'active bg-primary rounded' : '' }}"
-                        href="/registrasi-kamar" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('pendaftaran-kamar*') ? 'active bg-primary rounded' : '' }}"
+                        href="{{ route('pendaftaran-kamar.create') }}" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-door-enter"></i>
                         </span>

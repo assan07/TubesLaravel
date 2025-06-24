@@ -4,10 +4,12 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\KamarController;
-use App\Http\Controllers\MahasiswaController;
 
+use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\KamarController;
+use App\Http\Controllers\Admin\CekBerkasController;
+
+use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\PendaftaranKamarController;
 
 
@@ -50,10 +52,6 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
         return view('mahasiswa.informasiDataKamar');
     });
 
-    Route::get('/registrasi-kamar', function () {
-        return view('mahasiswa.pendaftaranKamar');
-    });
-
 
     Route::resource('pendaftaran-kamar', PendaftaranKamarController::class);
 
@@ -80,6 +78,15 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     Route::put('/akun/{id}/approve', [AdminController::class, 'approveAkun']);
     Route::put('/akun/{id}/pending', [AdminController::class, 'pendingAkun']);
     Route::delete('/akun/{id}', [AdminController::class, 'rejectAkun']);
+
+
+    // kelola data berkas 
+    Route::get('/kelola-berkas-pendaftaran/laki-laki', [CekBerkasController::class, 'lakiLaki'])->name('admin.berkas.laki');
+    Route::get('/kelola-berkas-pendaftaran/laki-laki/{id}/detail', [CekBerkasController::class, 'show'])->name('admin.berkas.laki.detail');
+    Route::put('/kelola-berkas-pendaftaran/update-status/{id}', [CekBerkasController::class, 'updateStatus'])
+        ->name('admin.berkas.update-status');
+    Route::get('/kelola-berkas-pendaftaran/unduh/{id}', [CekBerkasController::class, 'unduhBukti'])
+        ->name('admin.berkas.unduh');
 });
 
 // ======================= BENDAHARA ============================

@@ -14,37 +14,43 @@
                     <div class="info-row">
                         <div class="info-label">Nama Lengkap</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value">Hasan</div>
+                        <div class="info-value">{{ $data->nama }}</div>
                     </div>
 
                     <div class="info-row">
                         <div class="info-label">NIM</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value">123456789</div>
+                        <div class="info-value">{{ $data->nim }}</div>
                     </div>
 
                     <div class="info-row">
                         <div class="info-label">Jenis Kelamin</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value">Laki-Laki</div>
+                        <div class="info-value">{{ $data->jenis_kelamin }}</div>
                     </div>
 
                     <div class="info-row">
                         <div class="info-label">No. Handphone</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value">08123456789</div>
+                        <div class="info-value">{{ $data->no_hp }}</div>
                     </div>
 
                     <div class="info-row">
-                        <div class="info-label">No. Kamar</div>
+                        <div class="info-label">Email</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value">A12</div>
+                        <div class="info-value">{{ $data->email }}</div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-label">Nama Kamar</div>
+                        <div class="info-separator">:</div>
+                        <div class="info-value">{{ $data->room->nama_kamar ?? '-' }}</div>
                     </div>
 
                     <div class="info-row">
                         <div class="info-label">Tanggal Pendaftaran</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value">2023-10-01</div>
+                        <div class="info-value">{{ $data->tanggal_pendaftaran }}</div>
                     </div>
 
                     <div class="info-row">
@@ -56,19 +62,46 @@
                     <div class="info-row">
                         <div class="info-label">Status Berkas</div>
                         <div class="info-separator">:</div>
-                        <div class="info-value text-success">Approve</div>
+                        @if ($data->status_berkas == 'approved')
+                            <div class="info-value text-success">{{ $data->status_berkas }}</div>
+                        @elseif ($data->status_berkas == 'pending')
+                            <div class="info-value text-warning">{{ $data->status_berkas }}</div>
+                        @else
+                            <div class="info-value text-danger">{{ $data->status_berkas }}</div>
+                        @endif
                     </div>
-                    
+
                     <div class="btn-action d-flex justify-content-between">
                         <div class="mt-4 d-flex flex-wrap gap-2">
-                            <button type="button" class="btn btn-success btn-sm">Approve</button>
-                            <button type="button" class="btn btn-warning btn-sm">Pending</button>
-                            <button type="button" class="btn btn-danger btn-sm">Reject</button>
+                            <form action="{{ route('admin.berkas.update-status', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status_berkas" value="approved">
+                                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+                            </form>
+
+                            <form action="{{ route('admin.berkas.update-status', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status_berkas" value="pending">
+                                <button type="submit" class="btn btn-warning btn-sm">Pending</button>
+                            </form>
+
+                            <form action="{{ route('admin.berkas.update-status', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status_berkas" value="rejected">
+                                <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                            </form>
                         </div>
+
                         <div class="mt-4 d-flex flex-wrap gap-2">
                             <a href="{{ url('/admin/kelola-berkas-pendaftran/laki-laki') }}"
                                 class="btn btn-info btn-sm">Back</a>
-                            <a href="#" class="btn btn-secondary btn-sm">Download</a>
+                            <a href="{{ route('admin.berkas.unduh', $data->id) }}" class="btn btn-secondary btn-sm">
+                                Download Bukti
+                            </a>
+
                         </div>
                     </div>
 

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Mahasiswa;
 
+use App\Models\Room;
+use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\PendaftaranKamar;
-use App\Http\Controllers\Controller;
 use Flasher\Laravel\Facade\Flasher;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class PendaftaranKamarController extends Controller
 {
@@ -14,7 +17,6 @@ class PendaftaranKamarController extends Controller
      */
     public function index()
     {
-        // $pendaftarans = PendaftaranKamar::latest()->get();
         return view('mahasiswa.pendaftaranKamar');
     }
 
@@ -24,7 +26,13 @@ class PendaftaranKamarController extends Controller
 
     public function create()
     {
-        return view('pendaftaran_kamar.create');
+        // Ambil user yang sedang login
+        $user = Auth::user();
+
+        // Ambil kamar yang tersedia
+        $rooms = Room::where('status', 'tersedia')->get();
+
+        return view('mahasiswa.pendaftaranKamar', compact('rooms', 'user'));
     }
 
     /**
@@ -33,7 +41,7 @@ class PendaftaranKamarController extends Controller
 
     public function store(Request $request)
     {
-        // try {
+         $user = Auth::user();
         // Validasi inputan
         $rules = [
             'nama' => 'required|string|max:100',
@@ -42,7 +50,7 @@ class PendaftaranKamarController extends Controller
             'no_hp' => 'required|numeric|digits_between:1,13|unique:pendaftaran_kamars,no_hp',
             'prodi' => 'required|string|max:50',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'kamar' => 'required|string|max:50',
+            'kamar' => 'required|exists:rooms,id',
             'tanggal_pendaftaran' => 'required|date',
         ];
 
@@ -69,6 +77,7 @@ class PendaftaranKamarController extends Controller
 
         // Simpan data ke database
         PendaftaranKamar::create([
+            'room_id' => $request->kamar,
             'nama' => $request->nama,
             'nim' => $request->nim,
             'email' => $request->email,
@@ -77,18 +86,13 @@ class PendaftaranKamarController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'kamar' => $request->kamar,
             'tanggal_pendaftaran' => $request->tanggal_pendaftaran,
+            'status_berkas' => 'pending', // default saat mahasiswa mendaftar
         ]);
 
         // Tampilkan notifikasi sukses
         Flasher::addSuccess('Pendaftaran kamar berhasil!');
 
         return redirect()->route('pendaftaran-kamar.index');
-        // } catch (\Exception $e) {
-        //     // Jika ada error selain validasi, tampilkan notifikasi error
-        //     Flasher::addError('Terjadi kesalahan saat menyimpan data. Silakan coba lagi.');
-
-        //     return back()->withInput(); // balikin input sebelumnya
-        // }
     }
 
     /**
