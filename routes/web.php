@@ -5,8 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\KamarController;
 use App\Http\Controllers\MahasiswaController;
-use App\Http\Controllers\Mahasiswa\DashboardController;
 
 // ==========================
 // Route for Mahasiswa
@@ -58,9 +58,16 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
 
 // ======================= ADMIN ============================
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
-    Route::get('/kelola-data-kamar', function () {
-        return view('admin.dataKamar.kelolaDataKamar');
-    });
+    Route::get('/kelola-data-kamar', [KamarController::class, 'index']);
+
+    Route::get('/kelola-data-kamar/tambah-kamar', [KamarController::class, 'create']);
+    Route::post('/kelola-data-kamar/tambah-kamar/store', [KamarController::class, 'store']);
+    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}', [KamarController::class, 'indexByJenis']);
+    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}/detail/{id}', [KamarController::class, 'show']);
+    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}/edit/{id}', [KamarController::class, 'edit']);
+    Route::put('/kelola-data-kamar/data-kamar/{jenis_kamar}/update/{id}', [KamarController::class, 'update']);
+    Route::delete('/kelola-data-kamar/data-kamar/{jenis_kamar}/delete/{id}', [KamarController::class, 'destroy']);
+
 
     Route::get('/kelola-data-akun', [AdminController::class, 'kelolaAkun']);
     Route::put('/akun/{id}/approve', [AdminController::class, 'approveAkun']);
@@ -85,45 +92,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(functio
 // ===========================================================================================
 // Route for Admin
 // ==========================
-Route::get('/admin/login', function () {
-    return view('admin.auth.loginAdmin');
-});
 
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboardAdmin');
-});
 
-Route::get('/admin/kelola-data-kamar', function () {
-    return view('admin.dataKamar.kelolaDataKamar');
-});
-
-Route::get('admin/kelola-data-kamar/tambah-kamar', function () {
-    return view('admin.dataKamar.tambahKamar');
-});
-
-Route::get('admin/kelola-data-kamar/data-kamar/laki-laki', function () {
-    return view('admin.dataKamar.dataKamarLakilaki');
-});
-
-Route::get('admin/kelola-data-kamar/data-kamar/perempuan', function () {
-    return view('admin.dataKamar.dataKamarPerempuan');
-});
-
-Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/detail', function () {
-    return view('admin.dataKamar.detailDataKamarPerempuan');
-});
-
-Route::get('admin/kelola-data-kamar/data-kamar/perempuan/detail', function () {
-    return view('admin.dataKamar.detailDataKamarPerempuan');
-});
-
-Route::get('admin/kelola-data-kamar/data-kamar/perempuan/edit', function () {
-    return view('admin.dataKamar.editDataKamarPerempuan');
-});
-
-Route::get('admin/kelola-data-kamar/data-kamar/laki-laki/edit', function () {
-    return view('admin.dataKamar.editDataKamarLakilaki');
-});
 
 Route::get('/admin/kelola-data-penghuni', function () {
     return view('admin.dataPenghuni.kelolaDataPenghuni');
