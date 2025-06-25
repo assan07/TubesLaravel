@@ -104,4 +104,5 @@ class MahasiswaController extends Controller
             ], 500);
         }
     }
+
 }
