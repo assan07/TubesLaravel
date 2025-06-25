@@ -11,6 +11,7 @@ class Room extends Model
         'no_kamar',
         'lokasi_kamar',
         'jenis_kamar',
+        'harga',
         'status'
     ];
     public function pendaftaranKamars()

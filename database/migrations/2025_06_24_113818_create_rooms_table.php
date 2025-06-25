@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_kamar')->unique();
             $table->string('lokasi_kamar');
             $table->enum('jenis_kamar', ['laki-laki', 'perempuan']);
+            $table->string('harga');
             $table->enum('status', ['tersedia', 'diisi', 'maintenance'])->default('tersedia');
             $table->timestamps();
         });

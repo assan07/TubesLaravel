@@ -88,21 +88,32 @@ class AuthController extends Controller
 
             $user = Auth::user();
 
-            // Arahkan berdasarkan role, jika role tidak dikenali arahkan ke halaman default
+            // ✅ Cek apakah user sudah diapprove
+            if (!$user->is_approved) {
+                Auth::logout();
+
+                // Tambahkan notifikasi flash
+                return back()
+                    ->with('error', 'Akun Anda belum disetujui oleh admin.')
+                    ->withInput($request->only('nim'));
+            }
+
+            // Arahkan berdasarkan role
             return match ($user->role) {
                 'admin' => redirect('/kelola-data-kamar'),
                 'bendahara' => redirect('/cek-pembayaran'),
                 'mahasiswa' => redirect('/data-kamar'),
-                default => redirect('/'), // fallback tanpa error dulu
+                default => redirect('/'),
             };
         }
-
 
         // Autentikasi gagal
         return back()->withErrors([
             'nim' => 'NIM/Email atau password salah.',
         ])->withInput($request->only('nim'));
     }
+
+
 
 
     public function logout(Request $request)
