@@ -52,7 +52,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
     Route::get('/data-kamar', [MahasiswaKamarController::class, 'index']);
 
     Route::get('/pembayaran-kamar', [PembayaranController::class, 'create']);
-    Route::post('/pembayaran-kamar/payment', [PembayaranController::class, 'PaymentWhitMidtrans']);
+    Route::post('/pembayaran-kamar/payment', [PembayaranController::class, 'paymentWhitMidtrans']);
     Route::post('/pembayaran-kamar/success', [PembayaranController::class, 'PaymentSucces']);
 
     Route::resource('pendaftaran-kamar', PendaftaranKamarController::class);
@@ -65,22 +65,41 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
 
 // ======================= ADMIN ============================
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
-    Route::get('/kelola-data-kamar', [KamarController::class, 'index']);
-    Route::get('/search-data-kamar', [KamarController::class, 'search']);
-    Route::get('/kelola-data-kamar/tambah-kamar', [KamarController::class, 'create']);
-    Route::post('/kelola-data-kamar/tambah-kamar/store', [KamarController::class, 'store']);
-    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}', [KamarController::class, 'indexByJenis']);
-    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}/detail/{id}', [KamarController::class, 'show']);
-    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}/edit/{id}', [KamarController::class, 'edit']);
-    Route::put('/kelola-data-kamar/data-kamar/{jenis_kamar}/update/{id}', [KamarController::class, 'update']);
-    Route::delete('/kelola-data-kamar/data-kamar/{jenis_kamar}/delete/{id}', [KamarController::class, 'destroy']);
 
+
+    // =================== Data Kamar ========================
+    // ✅ Dashboard Kelola Kamar
+    Route::get('/kelola-data-kamar', [KamarController::class, 'index'])->name('admin.kamar.dashboard');
+
+    // ✅ Form Tambah Kamar
+    Route::get('/kelola-data-kamar/tambah-kamar', [KamarController::class, 'create'])->name('admin.kamar.create');
+    Route::post('/kelola-data-kamar/tambah-kamar/store', [KamarController::class, 'store'])->name('admin.kamar.store');
+
+    // ✅ List Kamar per Jenis (Laki-laki / Perempuan)
+    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}', [KamarController::class, 'indexByJenis'])->name('admin.kamar.jenis');
+
+    // ✅ Detail Kamar
+    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}/detail/{id}', [KamarController::class, 'show'])->name('admin.kamar.detail');
+
+    // ✅ Edit Kamar
+    Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}/edit/{id}', [KamarController::class, 'edit'])->name('admin.kamar.edit');
+    Route::put('/kelola-data-kamar/data-kamar/{jenis_kamar}/update/{id}', [KamarController::class, 'update'])->name('admin.kamar.update');
+
+    // ✅ Hapus Kamar
+    Route::delete('/kelola-data-kamar/data-kamar/{jenis_kamar}/delete/{id}', [KamarController::class, 'destroy'])->name('admin.kamar.destroy');
+
+    // ✅ (Opsional) Search Data Kamar
+    Route::get('/search-data-kamar', [KamarController::class, 'search'])->name('admin.kamar.search');
+
+
+    // ===================Data Akun=======================
     Route::get('/search-akun', [AdminController::class, 'search']);
     Route::get('/kelola-data-akun', [AdminController::class, 'kelolaAkun']);
     Route::put('/akun/{id}/approve', [AdminController::class, 'approveAkun']);
     Route::put('/akun/{id}/pending', [AdminController::class, 'pendingAkun']);
     Route::delete('/akun/{id}', [AdminController::class, 'rejectAkun']);
 
+    // ===================Data Berkas=======================
     // semua data berkas
     Route::get('/admin/kelola-berkas-pendaftaran', [CekBerkasController::class, 'indexAll'])->name('admin.berkas.all');
     // kelola data berkas 

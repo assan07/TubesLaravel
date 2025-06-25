@@ -58,7 +58,7 @@
 
                 {{-- Registration File Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('admin/kelola-berkas-pendaftran*') ? 'active bg-primary rounded' : '' }}"
+                    <a class="sidebar-link {{ Request()->is('admin/kelola-berkas-pendaftaran*') ? 'active bg-primary rounded' : '' }}"
                         href="{{ url('/admin/kelola-berkas-pendaftaran') }}" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-pencil-plus"></i>

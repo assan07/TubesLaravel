@@ -20,12 +20,13 @@
 
                     <div class="card shadow-sm p-4">
                         <div class="row">
-                            {{-- Foto Mahasiswa --}}
                             <div class="col-md-4 text-center">
-                                @if ($mahasiswa->foto)
-                                    <img src="{{ asset('storage/' . $mahasiswa->foto) }}" class="rounded-circle img-fluid mb-2" style="max-width: 120px;">
+                                @if ($mahasiswa && $mahasiswa->foto)
+                                    <img src="{{ asset('storage/' . $mahasiswa->foto) }}"
+                                        class="rounded-circle img-fluid mb-2" style="max-width: 120px;">
                                 @else
-                                    <img src="{{ asset('assets/images/profile/user-1.jpg') }}" class="rounded-circle img-fluid mb-2" style="max-width: 120px;">
+                                    <img src="{{ asset('assets/images/profile/user-1.jpg') }}"
+                                        class="rounded-circle img-fluid mb-2" style="max-width: 120px;">
                                 @endif
                                 <p class="text-muted">Foto Mahasiswa</p>
                             </div>
@@ -35,13 +36,15 @@
                                 <div class="mb-2"><strong>Nama Lengkap:</strong> {{ $user->nama }}</div>
                                 <div class="mb-2"><strong>Email:</strong> {{ $user->email }}</div>
                                 <div class="mb-2"><strong>NIM:</strong> {{ $user->nim }}</div>
-                                <div class="mb-2"><strong>Alamat:</strong> {{ $mahasiswa->alamat }}</div>
-                                <div class="mb-2"><strong>No. HP:</strong> {{ $mahasiswa->phone }}</div>
-                                <div class="mb-2"><strong>Harga Sewa per Bulan:</strong> Rp {{ number_format($harga, 0, ',', '.') }}</div>
+                                <div class="mb-2"><strong>Alamat:</strong> {{ $mahasiswa->alamat ?? '-' }}</div>
+                                <div class="mb-2"><strong>No. HP:</strong> {{ $mahasiswa->phone ?? '-' }}</div>
+                                <div class="mb-2"><strong>Harga Sewa per Bulan:</strong> Rp
+                                    {{ number_format($harga, 0, ',', '.') }}</div>
 
                                 {{-- Pilih Bulan --}}
                                 <div class="mb-4 mt-3">
-                                    <label for="bulan" class="form-label"><strong>Pilih Bulan Pembayaran:</strong></label>
+                                    <label for="bulan" class="form-label"><strong>Pilih Bulan
+                                            Pembayaran:</strong></label>
                                     <select class="form-control" id="bulan" name="bulan" required>
                                         <option value="" disabled selected>-- Pilih Bulan --</option>
                                         @foreach ($bulanList as $bulan)
