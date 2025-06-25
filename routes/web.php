@@ -79,14 +79,25 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     Route::put('/akun/{id}/pending', [AdminController::class, 'pendingAkun']);
     Route::delete('/akun/{id}', [AdminController::class, 'rejectAkun']);
 
-
+    // semua data berkas
+    Route::get('/admin/kelola-berkas-pendaftaran', [CekBerkasController::class, 'indexAll'])->name('admin.berkas.all');
     // kelola data berkas 
-    Route::get('/kelola-berkas-pendaftaran/laki-laki', [CekBerkasController::class, 'lakiLaki'])->name('admin.berkas.laki');
-    Route::get('/kelola-berkas-pendaftaran/laki-laki/{id}/detail', [CekBerkasController::class, 'show'])->name('admin.berkas.laki.detail');
-    Route::put('/kelola-berkas-pendaftaran/update-status/{id}', [CekBerkasController::class, 'updateStatus'])
-        ->name('admin.berkas.update-status');
-    Route::get('/kelola-berkas-pendaftaran/unduh/{id}', [CekBerkasController::class, 'unduhBukti'])
-        ->name('admin.berkas.unduh');
+    Route::get('/admin/kelola-berkas-pendaftaran/{gender}', [CekBerkasController::class, 'showByGender'])->name('admin.berkas.byGender');
+
+    // ✅ Route lihat berkas per jenis kelamin (laki-laki/perempuan)
+    Route::get('/admin/kelola-berkas-pendaftaran/berkas/{gender}', [CekBerkasController::class, 'showByGender'])->name('admin.berkas.byGender');
+
+    // ✅ Route detail 1 pendaftar
+    Route::get('/admin/kelola-berkas-pendaftaran/berkas/detail/{id}', [CekBerkasController::class, 'show'])->name('admin.berkas.detail');
+
+    // ✅ Route update status (approve/pending/reject)
+    Route::put('/admin/kelola-berkas-pendaftaran/berkas/update-status/{id}', [CekBerkasController::class, 'updateStatus'])->name('admin.berkas.update-status');
+
+    // ✅ Route download PDF
+    Route::get('/admin/kelola-berkas-pendaftaran/berkas/download/{id}', [CekBerkasController::class, 'unduhBukti'])->name('admin.berkas.download');
+
+    // ✅ Route hapus berkas
+    Route::delete('/admin/kelola-berkas-pendaftaran/berkas/delete/{id}', [CekBerkasController::class, 'destroy'])->name('admin.berkas.delete');
 });
 
 // ======================= BENDAHARA ============================

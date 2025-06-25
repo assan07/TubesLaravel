@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         return $this->hasOne(Mahasiswa::class);
     }
+    
+    public function pendaftaranKamar()
+    {
+        return $this->hasOne(PendaftaranKamar::class, 'user_id');
+    }
 }

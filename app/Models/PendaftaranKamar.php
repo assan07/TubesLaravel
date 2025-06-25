@@ -10,6 +10,7 @@ class PendaftaranKamar extends Model
     use HasFactory;
 
     protected $fillable = [
+        'user_id',
         'room_id',
         'nama',
         'nim',
@@ -24,4 +25,5 @@ class PendaftaranKamar extends Model
     {
         return $this->belongsTo(Room::class, 'room_id');
     }
+    
 }

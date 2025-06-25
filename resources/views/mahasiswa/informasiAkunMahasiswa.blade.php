@@ -45,7 +45,11 @@
                                         <i class="fas fa-camera"></i> Unggah Foto
                                     </button>
                                     <input type="file" id="photoInputMahasiswa" name="photo_mahasiswa"
+                                        class="form-control @error('photo_mahasiswa') is-invalid @enderror"
                                         style="display: none" onchange="previewImage(event)" />
+                                    @error('photo_mahasiswa')
+                                        <div class="invalid-feedback text-center">{{ $message }}</div>
+                                    @enderror
                                     {{-- button delete foto --}}
                                     <button type="button" id="deletePhotoBtn" class="btn btn-danger mt-2"
                                         onclick="deletePhotoProfile()">
@@ -62,7 +66,7 @@
                                         <div class="col-md-6">
                                             <label for="fullName"><i class="fas fa-user"></i> Nama Lengkap</label>
                                             <input type="text" class="form-control" id="namaMahasiswa"
-                                                name="namaMahasiswa" value="{{ $user->nama }}" required readonly />
+                                                name="namaMahasiswa" value="{{ $user->nama }}" readonly />
                                         </div>
                                         <!-- NIM Mahasiswa -->
                                         <div class="col-md-6">
@@ -78,55 +82,69 @@
                                         <!-- No. Handphone Mahasiswa -->
                                         <div class="col-md-6">
                                             <label for="phone"><i class="fas fa-phone"></i> No. Handphone</label>
-                                            <input type="text" class="form-control" id="phoneMahasiswa"
-                                                name="phoneMahasiswa" placeholder="No. Handphone"
-                                                value="{{ old('phoneMahasiswa', $mahasiswa->phone ?? '') }}" required />
+                                            <input type="text"
+                                                class="form-control @error('phoneMahasiswa') is-invalid @enderror"
+                                                id="phoneMahasiswa" name="phoneMahasiswa" placeholder="No. Handphone"
+                                                value="{{ old('phoneMahasiswa', $mahasiswa->phone ?? '') }}" />
+                                            @error('phoneMahasiswa')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
                                         </div>
                                         <!-- Prodi Mahasiswa -->
                                         <div class="col-md-6">
                                             <label for="prodi"><i class="fas fa-user-graduate"></i> Program
                                                 Studi</label>
-                                            <input type="text" class="form-control" id="prodiMahasiswa"
-                                                name="prodiMahasiswa" placeholder="Program Studi"
-                                                value="{{ old('prodiMahasiswa', $mahasiswa->prodi ?? '') }}" required />
+                                            <input type="text"
+                                                class="form-control @error('prodiMahasiswa') is-invalid @enderror"
+                                                id="prodiMahasiswa" name="prodiMahasiswa" placeholder="Program Studi"
+                                                value="{{ old('prodiMahasiswa', $mahasiswa->prodi ?? '') }}" />
+                                            @error('prodiMahasiswa')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
                                         </div>
                                     </div>
 
-                                    <!-- Email & Payment Cycle -->
+                                    <!-- Email & Gender -->
                                     <div class="row mb-3">
                                         <!-- Email Mahasiswa -->
                                         <div class="col-md-6">
                                             <label for="email"><i class="fas fa-envelope"></i> Email</label>
                                             <input type="email" class="form-control" id="emailMahasiswa"
-                                                name="emailMahasiswa" value="{{ $user->email }}" required readonly />
+                                                name="emailMahasiswa" value="{{ $user->email }}" readonly />
                                         </div>
 
-                                        <!-- Payment Cycle -->
+                                        <!-- Gender -->
                                         <div class="col-md-6">
                                             <label for="gender"><i class="fa-solid fa-person-half-dress"></i> Jenis
                                                 Kelamin</label>
-                                            <select class="form-control" id="paymentCycle" name="paymentCycle">
+                                            <select class="form-control @error('gender') is-invalid @enderror"
+                                                id="gender" name="gender">
                                                 <option value="" disabled
-                                                    {{ old('paymentCycle', $mahasiswa->gender ?? '') == '' ? 'selected' : '' }}>
+                                                    {{ old('gender', $mahasiswa->gender ?? '') == '' ? 'selected' : '' }}>
                                                     Pilih Jenis Kelamin</option>
                                                 <option value="lakilaki"
-                                                    {{ old('paymentCycle', $mahasiswa->gender ?? '') == 'lakilaki' ? 'selected' : '' }}>
+                                                    {{ old('gender', $mahasiswa->gender ?? '') == 'lakilaki' ? 'selected' : '' }}>
                                                     Laki-Laki</option>
                                                 <option value="perempuan"
-                                                    {{ old('paymentCycle', $mahasiswa->gender ?? '') == 'perempuan' ? 'selected' : '' }}>
+                                                    {{ old('gender', $mahasiswa->gender ?? '') == 'perempuan' ? 'selected' : '' }}>
                                                     Perempuan</option>
                                             </select>
+                                            @error('gender')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
                                         </div>
                                     </div>
 
-                                    <!-- Semester & Remining Cycle -->
+                                    <!-- Semester & Umur -->
                                     <div class="row mb-3">
                                         <!-- Semester Mahasiswa -->
                                         <div class="col-md-6">
                                             <label for="semester"><i class="fas fa-graduation-cap"></i>
                                                 Semester</label>
-                                            <select class="form-control" id="semesterMahasiswa" name="semesterMahasiswa"
-                                                required>
+                                            <select class="form-control @error('semesterMahasiswa') is-invalid @enderror"
+                                                id="semesterMahasiswa" name="semesterMahasiswa">
                                                 @for ($i = 1; $i <= 14; $i++)
                                                     <option value="{{ $i }}"
                                                         {{ old('semesterMahasiswa', $mahasiswa->semester ?? '') == $i ? 'selected' : '' }}>
@@ -134,23 +152,34 @@
                                                     </option>
                                                 @endfor
                                             </select>
+                                            @error('semesterMahasiswa')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
                                         </div>
 
-                                        <!-- Remining Cycle -->
+                                        <!-- Umur -->
                                         <div class="col-md-6">
                                             <label for="age"><i class="fa-solid fa-user-tie"></i> Umur</label>
-                                            <input type="text" class="form-control" id="age" name="age"
-                                                placeholder="Umur Mahasiswa"
+                                            <input type="text" class="form-control @error('age') is-invalid @enderror"
+                                                id="age" name="age" placeholder="Umur Mahasiswa"
                                                 value="{{ old('age', $mahasiswa->umur ?? '') }}" />
+                                            @error('age')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+
                                         </div>
                                     </div>
 
                                     <!-- Address Mahasiswa -->
                                     <div class="mb-3">
                                         <label for="address"><i class="fas fa-map-marker-alt"></i> Alamat</label>
-                                        <textarea class="form-control" id="addressMahasiswa" name="addressMahasiswa" rows="3" placeholder="Alamat"
-                                            required>{{ old('addressMahasiswa', $mahasiswa->alamat ?? '') }}</textarea>
-                                        </textarea>
+                                        <textarea class="form-control @error('addressMahasiswa') is-invalid @enderror" id="addressMahasiswa"
+                                            name="addressMahasiswa" rows="3" placeholder="Alamat">{{ old('addressMahasiswa', $mahasiswa->alamat ?? '') }}</textarea>
+                                        @error('addressMahasiswa')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
+
                                     </div>
 
                                     <!-- Button Save -->

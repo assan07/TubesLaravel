@@ -10,7 +10,7 @@
         <div class="card-info-regis-room d-flex gap-2">
             <div class="card-info-gay card w-100">
                 <div class="card-header">
-                    <h3 class="card-title text-center">Kelola Data Berkas Pendaftar Laki-Laki</h3>
+                    <h3 class="card-title text-center">Kelola Data Berkas Pendaftar {{ $gender }}</h3>
                     <div class="card-info d-flex flex-column gap-3">
                         <div class="card-room-gay row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
                             {{-- Card Pendaftar Baru --}}
@@ -96,7 +96,7 @@
                                             </span>
                                         </td>
                                         <td>
-                                            <a href="{{ route('admin.berkas.laki.detail', $item->id) }}"
+                                            <a href="{{ route('admin.berkas.detail', $item->id) }}"
                                                 class="btn btn-primary btn-sm">Cek Berkas</a>
                                         </td>
                                     </tr>
