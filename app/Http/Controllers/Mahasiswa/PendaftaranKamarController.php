@@ -6,9 +6,12 @@ use App\Models\Room;
 use App\Models\Mahasiswa;
 use Illuminate\Http\Request;
 use App\Models\PendaftaranKamar;
+
 use Flasher\Laravel\Facade\Flasher;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
+use App\Models\User;
 
 class PendaftaranKamarController extends Controller
 {
@@ -17,7 +20,13 @@ class PendaftaranKamarController extends Controller
      */
     public function index()
     {
-        return view('mahasiswa.pendaftaranKamar');
+        $user = Auth::user();
+        // Ambil kamar yang tersedia
+        $rooms = Room::where('status', 'tersedia')->get();
+
+        $pendaftaran = $user->pendaftaranKamar;
+
+        return view('mahasiswa.pendaftaranKamar', compact('pendaftaran', 'rooms', 'user'));
     }
 
     /**
@@ -32,7 +41,9 @@ class PendaftaranKamarController extends Controller
         // Ambil kamar yang tersedia
         $rooms = Room::where('status', 'tersedia')->get();
 
-        return view('mahasiswa.pendaftaranKamar', compact('rooms', 'user'));
+        $pendaftaran = $user->pendaftaranKamar;
+
+        return view('mahasiswa.pendaftaranKamar', compact('pendaftaran', 'rooms', 'user'));
     }
 
     /**
@@ -41,7 +52,7 @@ class PendaftaranKamarController extends Controller
 
     public function store(Request $request)
     {
-         $user = Auth::user();
+        $user = Auth::user();
         // Validasi inputan
         $rules = [
             'nama' => 'required|string|max:100',
@@ -75,8 +86,15 @@ class PendaftaranKamarController extends Controller
         ];
         $request->validate($rules, $messages);
 
+        if (PendaftaranKamar::where('user_id', $user->id)->exists()) {
+            Flasher::addError('Anda sudah mendaftar.');
+
+            return redirect()->back();
+        }
+
         // Simpan data ke database
         PendaftaranKamar::create([
+            'user_id' => $user->id,
             'room_id' => $request->kamar,
             'nama' => $request->nama,
             'nim' => $request->nim,
@@ -106,40 +124,60 @@ class PendaftaranKamarController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PendaftaranKamar $pendaftaran_kamar)
+    public function edit($id)
     {
-        return view('pendaftaran_kamar.edit', compact('pendaftaran_kamar'));
+        $pendaftaran = PendaftaranKamar::findOrFail($id);
+        $rooms = Room::where('status', 'tersedia')->get();
+
+        return view('mahasiswa.editBerkasPendaftaran', compact('pendaftaran', 'rooms'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PendaftaranKamar $pendaftaran_kamar)
+    public function update(Request $request, $id)
     {
-        $validated = $request->validate([
+        $pendaftaran = PendaftaranKamar::findOrFail($id);
+
+        $rules = [
             'nama' => 'required|string|max:100',
-            'nim' => 'required|string|max:20|unique:pendaftaran_kamars,nim,' . $pendaftaran_kamar->id,
-            'email' => 'required|email|unique:pendaftaran_kamars,email,' . $pendaftaran_kamar->id,
-            'noHp' => 'required|string|max:15',
+            'nim' => 'required|numeric|digits_between:1,11|unique:pendaftaran_kamars,nim,' . $id,
+            'email' => 'required|email|unique:pendaftaran_kamars,email,' . $id,
+            'no_hp' => 'required|numeric|digits_between:1,13|unique:pendaftaran_kamars,no_hp,' . $id,
             'prodi' => 'required|string|max:50',
             'jenis_kelamin' => 'required|in:Laki-laki,Perempuan',
-            'kamar' => 'required|string|max:50',
+            'room_id' => 'required|exists:rooms,id', // kolom relasi kamar
             'tanggal_pendaftaran' => 'required|date',
-        ]);
+        ];
 
-        $pendaftaran_kamar->update([
-            'nama' => $validated['nama'],
-            'nim' => $validated['nim'],
-            'email' => $validated['email'],
-            'no_hp' => $validated['noHp'],
-            'prodi' => $validated['prodi'],
-            'jenis_kelamin' => $validated['jenis_kelamin'],
-            'kamar' => $validated['kamar'],
-            'tanggal_pendaftaran' => $validated['tanggal_pendaftaran'],
-        ]);
+        $messages = [
+            'nama.required' => 'Nama wajib diisi.',
+            'nim.required' => 'NIM wajib diisi.',
+            'nim.numeric' => 'NIM harus berupa angka.',
+            'nim.digits_between' => 'Max NIM adalah 11 digit.',
+            'nim.unique' => 'NIM sudah terdaftar.',
+            'email.required' => 'Email wajib diisi.',
+            'email.email' => 'Format email tidak valid.',
+            'email.unique' => 'Email sudah digunakan.',
+            'no_hp.required' => 'No. HP wajib diisi.',
+            'no_hp.numeric' => 'No. HP harus berupa angka.',
+            'no_hp.digits_between' => 'Max No. HP adalah 13 digit.',
+            'no_hp.unique' => 'No. HP sudah terdaftar.',
+            'prodi.required' => 'Program studi wajib diisi.',
+            'jenis_kelamin.required' => 'Jenis kelamin wajib dipilih.',
+            'room_id.required' => 'Pilih kamar terlebih dahulu.',
+            'room_id.exists' => 'Kamar yang dipilih tidak valid.',
+            'tanggal_pendaftaran.required' => 'Tanggal pendaftaran tidak boleh kosong.',
+        ];
 
-        return redirect()->route('pendaftaran-kamar.index')->with('success', 'Data diperbarui.');
+        $validated = $request->validate($rules, $messages);
+
+        $pendaftaran->update($validated);
+
+        Flasher::addSuccess('Berkas pendaftaran berhasil diperbarui!');
+        return redirect()->route('pendaftaran-kamar.index');
     }
+
 
     /**
      * Remove the specified resource from storage.

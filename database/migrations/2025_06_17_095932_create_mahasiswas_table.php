@@ -15,9 +15,9 @@ return new class extends Migration
             $table->string('prodi');
             $table->enum('gender', ['lakilaki', 'perempuan']);
             $table->integer('semester');
-            $table->integer('umur')->nullable();
+            $table->integer('umur');
             $table->text('alamat');
-            $table->string('foto')->nullable();
+            $table->string('foto');
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mahasiswas');
+        Schema::dropIfExists('mahasiswa');
     }
 };

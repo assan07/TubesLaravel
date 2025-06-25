@@ -16,19 +16,20 @@
                             <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                                 <div
                                     class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">40</h1>
+                                    <h1 style="font-weight: bolder">{{ $stats['laki']['total'] }}</h1>
                                 </div>
                                 <strong>Pendaftar Baru</strong>
                             </div>
                             <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
                                 <div
                                     class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">21</h1>
+                                    <h1 style="font-weight: bolder">{{ $stats['laki']['approved'] }}</h1>
                                 </div>
                                 <strong>Terkonfimasi</strong>
                             </div>
                         </div>
-                        <a href="{{ route('admin.berkas.laki') }}" class="btn btn-info w-100 ">Detail</a>
+                        <a href="{{ route('admin.berkas.byGender', ['gender' => 'Laki-laki']) }}"
+                            class="btn btn-info w-100 ">Detail</a>
                     </div>
                 </div>
             </div>
@@ -43,19 +44,20 @@
                             <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                                 <div
                                     class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">40</h1>
+                                    <h1 style="font-weight: bolder">{{ $stats['perempuan']['total'] }}</h1>
                                 </div>
                                 <strong>Pendaftar Baru</strong>
                             </div>
                             <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
                                 <div
                                     class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                    <h1 style="font-weight: bolder">21</h1>
+                                    <h1 style="font-weight: bolder">{{ $stats['laki']['approved'] }}</h1>
                                 </div>
                                 <strong>Terkonfimasi</strong>
                             </div>
                         </div>
-                        <a href="/admin/kelola-berkas-pendaftran/perempuan" class="btn btn-info w-100 ">Detail</a>
+                        <a href="{{ route('admin.berkas.byGender', ['gender' => 'Perempuan']) }}"
+                            class="btn btn-info w-100 ">Detail</a>
                     </div>
                 </div>
             </div>
@@ -83,31 +85,36 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Hasan</td>
-                                    <td>22650062</td>
-                                    <td>Laki-Laki</td>
-                                    <td>12 Juni 2025</td>
-                                    <td>
-                                        <span class="badge bg-success btn-sm">Approve</span>
-                                    <td>
-                                        <a href="{{ url('/admin/kelola-berkas-pendaftran/laki-laki/detail') }}" class="btn btn-primary btn-sm">Cek Berkas</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Siti</td>
-                                    <td>22650063</td>
-                                    <td>Perempuan</td>
-                                    <td>12 Juli 2025</td>
-                                    <td>
-                                        <span class="badge bg-warning btn-sm">Pendding</span>
-                                    <td>
-                                        <a href="{{ url('/admin/kelola-berkas-pendaftran/perempuan/detail') }}" class="btn btn-primary btn-sm">Cek Berkas</a>
-                                    </td>
-                                </tr>
-
+                                @forelse ($latest as $index => $item)
+                                    <tr>
+                                        <td>{{ $index + 1 }}</td>
+                                        <td>{{ $item->nama }}</td>
+                                        <td>{{ $item->no_hp }}</td>
+                                        <td>{{ $item->jenis_kelamin }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($item->tanggal_pendaftaran)->translatedFormat('d M Y') }}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="badge bg-{{ $item->status_berkas === 'approved'
+                                                    ? 'success'
+                                                    : ($item->status_berkas === 'pending'
+                                                        ? 'warning text-dark'
+                                                        : 'danger') }}">
+                                                {{ ucfirst($item->status_berkas) }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.berkas.detail', $item->id) }}"
+                                                class="btn btn-sm btn-primary">
+                                                Cek Berkas
+                                            </a>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="7" class="text-center">Belum ada data pendaftaran.</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         {{-- end table data berkas  --}}

@@ -62,6 +62,7 @@
                     <div class="info-row">
                         <div class="info-label">Status Berkas</div>
                         <div class="info-separator">:</div>
+
                         @if ($data->status_berkas == 'approved')
                             <div class="info-value text-success">{{ $data->status_berkas }}</div>
                         @elseif ($data->status_berkas == 'pending')
@@ -96,11 +97,31 @@
                         </div>
 
                         <div class="mt-4 d-flex flex-wrap gap-2">
-                            <a href="{{ url('/admin/kelola-berkas-pendaftran/laki-laki') }}"
-                                class="btn btn-info btn-sm">Back</a>
-                            <a href="{{ route('admin.berkas.unduh', $data->id) }}" class="btn btn-secondary btn-sm">
-                                Download Bukti
+                            {{-- Btn Back --}}
+                            <a href="{{ route('admin.berkas.byGender', ['gender' => $gender]) }}"
+                                class="btn btn-info btn-sm">
+                                <i class="ti ti-logout fw-bold" style="font-size:1rem "></i>
                             </a>
+                            {{-- End Btn Back --}}
+
+                            {{-- Btn Download --}}
+                            <a href="{{ route('admin.berkas.download', $data->id) }}" class="btn btn-secondary btn-sm">
+                                <i class="ti ti-download fw-bold" style="font-size:1rem "></i>
+                            </a>
+                            {{-- End Btn Download --}}
+
+                            {{-- Btn Delete --}}
+                            <form action="{{ route('admin.berkas.delete', $data->id) }}" method="POST"
+                                onsubmit="return confirm('Yakin ingin menghapus berkas ini?')" style="display: inline;">
+                                @csrf
+                                @method('DELETE')
+                                <button
+                                    class="btn btn-danger btn-sm {{ $data->status_berkas == 'rejected' ? '' : 'd-none' }}">
+                                    <i class="ti ti-trash fw-bold" style="font-size:1rem"></i>
+                                </button>
+                            </form>
+
+                            {{-- EndBtn Delete --}}
 
                         </div>
                     </div>

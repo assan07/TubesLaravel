@@ -9,6 +9,7 @@ return new class extends Migration {
     {
         Schema::create('pendaftaran_kamars', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->after('id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('room_id');
             $table->string('nama');
             $table->string('nim')->unique();
