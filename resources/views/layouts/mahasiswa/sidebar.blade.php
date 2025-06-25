@@ -46,8 +46,8 @@
 
                 {{-- Paymen Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('payment*') ? 'active bg-primary rounded' : '' }}"
-                        href="#" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('pembayaran-kamar*') ? 'active bg-primary rounded' : '' }}"
+                        href="/pembayaran-kamar" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-cash"></i>
                         </span>

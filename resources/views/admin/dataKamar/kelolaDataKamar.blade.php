@@ -12,8 +12,12 @@
                  <div class="card">
                      <div class="card-header d-flex align-items-center justify-center justify-content-between">
                          <div class="search-room d-flex align-items-center justify-center">
-                             <label for="search">Search</label>
-                             <input type="text" class="form-control mx-2" placeholder="Cari Nama Kamar">
+                             <form action="{{ url('/search-data-kamar') }}" method="GET"
+                                 class="d-flex align-items-center w-50">
+                                 <label for="search">Search</label>
+                                 <input type="text" class="form-control mx-2" placeholder="Cari Nama Kamar"
+                                     value="{{ request('search') }}">
+                             </form>
                          </div>
                          <div class="title">
                              <h4>Informasi Data Kamar</h4>
