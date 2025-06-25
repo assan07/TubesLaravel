@@ -54,24 +54,26 @@
                                                         {{ $user->is_approved ? 'Approve' : 'Pending' }}
                                                     </span>
                                                 </td>
-                                                <td>
+                                                <td class="d-flex gap-1">
                                                     <form action="/akun/{{ $user->id }}/approve" method="POST"
                                                         class="d-inline">
                                                         @csrf @method('PUT')
-                                                        <button type="submit"
-                                                            class="btn btn-success btn-sm">Approve</button>
+                                                        <button type="submit" class="btn btn-success btn-sm"><i
+                                                                class="ti ti-browser-check" style="font-size: 1rem"></i></button>
                                                     </form>
                                                     <form action="/akun/{{ $user->id }}/pending" method="POST"
                                                         class="d-inline">
                                                         @csrf @method('PUT')
                                                         <button type="submit"
-                                                            class="btn btn-warning btn-sm">Pending</button>
+                                                            class="btn btn-warning btn-sm"><i
+                                                                class="ti ti-clock" style="font-size: 1rem"></i></button>
                                                     </form>
                                                     <form action="/akun/{{ $user->id }}" method="POST"
                                                         class="d-inline"
                                                         onsubmit="return confirm('Yakin ingin menghapus akun ini?');">
                                                         @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm">Reject</button>
+                                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                                class="ti ti-trash-x" style="font-size: 1rem"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

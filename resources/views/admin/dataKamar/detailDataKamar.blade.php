@@ -1,8 +1,6 @@
 @extends('layouts.admin.app')
 
-@section('title', 'Informasi Data Kamar Laki-Laki - Sistem Asrama Unidayan')
-@section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/admin/informasidatakamar.css') }}"> --}}
+@section('title', 'Informasi Data Kamar ' . ucfirst($kamar->jenis_kamar) . ' - Sistem Asrama Unidayan')
 
 @section('main-content')
     <div class="container mt-4">
@@ -62,7 +60,9 @@
                             </div>
                         </div>
 
-                        <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki') }}" class="btn btn-secondary">
+                        {{-- Tombol Kembali --}}
+                        <a href="{{ url('kelola-data-kamar/data-kamar/' . $kamar->jenis_kamar) }}"
+                            class="btn btn-secondary">
                             <i class="fas fa-arrow-left"></i> Kembali
                         </a>
                     </div>
@@ -70,5 +70,4 @@
             </div>
         </div>
     </div>
-
 @endsection

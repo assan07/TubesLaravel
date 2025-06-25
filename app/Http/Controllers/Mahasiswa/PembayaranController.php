@@ -2,23 +2,28 @@
 
 namespace App\Http\Controllers\Mahasiswa;
 
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Services\MidtransService;
+
 use App\Models\User;
+use App\Models\Room;
 use App\Models\Mahasiswa;
 use App\Models\Pembayaran;
-use Illuminate\Http\Request;
-use App\Services\MidtransService;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
+use Flasher\Laravel\Facade\Flasher;
 
 class PembayaranController extends Controller
 {
     public function create()
     {
         $user = Auth::user();
+
+        // Ambil data mahasiswa (boleh null jika belum isi)
         $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
 
-        // Ambil harga dari salah satu record di tabel rooms (asumsi semua kamar harganya sama)
-        $harga = \App\Models\Room::value('harga'); // ambil nilai 'harga' dari 1 record pertama
+        // Ambil harga salah satu kamar, fallback ke 0 jika tidak ada data
+        $harga = Room::value('harga') ?? 0;
 
         $bulanList = [
             'januari',
@@ -38,30 +43,38 @@ class PembayaranController extends Controller
         return view('mahasiswa.pembayaranKamar', compact('user', 'mahasiswa', 'harga', 'bulanList'));
     }
 
-
-    public function PaymentWhitMidtrans(Request $request)
+    public function paymentWhitMidtrans(Request $request)
     {
         $user = Auth::user();
         $bulan = $request->bulan;
 
+        // Validasi input
+        if (!$bulan) {
+            return back()->with('error', 'Bulan pembayaran wajib dipilih.');
+        }
+
         // Ambil harga dari salah satu record Room
         $harga = \App\Models\Room::value('harga');
 
-        // ✅ VALIDASI: Cek apakah user sudah membayar untuk bulan ini
+        // ✅ VALIDASI harga harus ada dan lebih dari 0
+        if (!$harga || $harga <= 0) {
+            Flasher::addError('Harga Belum Ditentukan');
+            return back();
+        }
+
+        // Cek duplikasi pembayaran
         $existing = Pembayaran::where('user_id', $user->id)
             ->where('bulan', $bulan)
             ->where('tahun', date('Y'))
             ->first();
 
         if ($existing) {
-            // Jika validasi gagal, kembali ke halaman sebelumnya dengan pesan error
-            return back()->with('error', 'Kamu sudah membayar untuk bulan ' . ucfirst($bulan) . '.');
+            Flasher::addError('Kamu sudah membayar untuk bulan ' . ucfirst($bulan) . '.');
+            return back();
         }
 
-        // Buat unique order ID
         $orderId = 'ORDER-' . time();
 
-        // Siapkan parameter untuk Midtrans
         $params = [
             'transaction_details' => [
                 'order_id' => $orderId,
@@ -81,45 +94,39 @@ class PembayaranController extends Controller
             ],
         ];
 
-        // Buat Snap Token Midtrans
         $snap = MidtransService::createTransaction($params);
 
-        // Kirim token ke view
         return view('mahasiswa.snap', [
             'snapToken' => $snap->token,
             'orderId' => $orderId,
             'bulan' => $bulan,
-            'harga' => $harga
+            'harga' => $harga,
         ]);
     }
-
 
     public function PaymentSucces(Request $request)
     {
         $data = $request->all();
         $user = Auth::user();
 
-        // Validasi minimal data yang dibutuhkan
-        if (!isset($data['midtrans_result']) || !isset($data['bulan'])) {
-            return response()->json(['error' => 'Data tidak lengkap'], 400);
+        if (!isset($data['midtrans_result'], $data['bulan'])) {
+            return response()->json(['error' => 'Data tidak lengkap.'], 400);
         }
 
         $result = $data['midtrans_result'];
 
-        // Cek jika status transaksi berhasil
         if (($result['transaction_status'] ?? '') !== 'settlement') {
-            return response()->json(['error' => 'Transaksi belum berhasil diselesaikan'], 422);
+            return response()->json(['error' => 'Transaksi belum berhasil diselesaikan.'], 422);
         }
 
-        // Simpan ke tabel pembayaran
         Pembayaran::create([
             'user_id' => $user->id,
             'bulan' => $data['bulan'],
             'tahun' => date('Y'),
-            'tanggal_bayar' => $data['midtrans_result']['transaction_time'],
+            'tanggal_bayar' => $result['transaction_time'],
             'status' => 'sudah',
             'jenis_pembayaran' => 'Non Cash',
-            'harga' => $data['midtrans_result']['gross_amount']
+            'harga' => $result['gross_amount'],
         ]);
 
         return response()->json(['message' => 'Pembayaran berhasil disimpan.']);
