@@ -49,6 +49,13 @@
                                      placeholder="Contoh: Lantai 1 / Sayap Timur" required>
                              </div>
 
+                             {{-- Harga Kamar --}}
+                             <div class="mb-3">
+                                 <label for="harga" class="form-label">Harga Kamar</label>
+                                 <input type="text" class="form-control" id="harga" name="harga"
+                                     placeholder="250000" required>
+                             </div>
+
 
                              {{-- Status --}}
                              <div class="mb-3">

@@ -43,6 +43,7 @@ class KamarController extends Controller
             'no_kamar' => 'required|string|max:50|unique:rooms,no_kamar',
             'lokasi_kamar' => 'required|string|max:255',
             'jenis_kamar' => 'required|in:laki-laki,perempuan',
+            'harga' => 'required|string',
             'status' => 'required|in:tersedia,diisi,maintenance',
         ]);
 
@@ -51,6 +52,7 @@ class KamarController extends Controller
             'no_kamar' => $request->no_kamar,
             'lokasi_kamar' => $request->lokasi_kamar,
             'jenis_kamar' => $request->jenis_kamar,
+            'harga' => $request->harga,
             'status' => $request->status,
         ]);
 
@@ -123,5 +125,34 @@ class KamarController extends Controller
         $room->delete();
 
         return redirect("/kelola-data-kamar/data-kamar/$jenis_kamar")->with('success', 'Data kamar berhasil dihapus.');
+    }
+
+    public function search(Request $request)
+    {
+        $search = $request->input('search');
+
+        $rooms = Room::query()
+            ->when($search, function ($query, $search) {
+                $query->where('nama_kamar', 'like', "%{$search}%");
+            })
+            ->get();
+
+        // Hitung data per gender
+        $data = [
+            'laki' => [
+                'total' => $rooms->where('jenis_kelamin', 'laki-laki')->count(),
+                'tersedia' => $rooms->where('jenis_kelamin', 'laki-laki')->where('status', 'tersedia')->count(),
+                'diisi' => $rooms->where('jenis_kelamin', 'laki-laki')->where('status', 'diisi')->count(),
+                'maintenance' => $rooms->where('jenis_kelamin', 'laki-laki')->where('status', 'maintenance')->count(),
+            ],
+            'perempuan' => [
+                'total' => $rooms->where('jenis_kelamin', 'perempuan')->count(),
+                'tersedia' => $rooms->where('jenis_kelamin', 'perempuan')->where('status', 'tersedia')->count(),
+                'diisi' => $rooms->where('jenis_kelamin', 'perempuan')->where('status', 'diisi')->count(),
+                'maintenance' => $rooms->where('jenis_kelamin', 'perempuan')->where('status', 'maintenance')->count(),
+            ],
+        ];
+
+        return view('admin.informasi-data-kamar', compact('data'));
     }
 }

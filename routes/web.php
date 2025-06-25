@@ -8,8 +8,9 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\KamarController;
 use App\Http\Controllers\Admin\CekBerkasController;
-
+use App\Http\Controllers\Mahasiswa\KamarController as MahasiswaKamarController;
 use App\Http\Controllers\Mahasiswa\MahasiswaController;
+use App\Http\Controllers\Mahasiswa\PembayaranController;
 use App\Http\Controllers\Mahasiswa\PendaftaranKamarController;
 
 
@@ -48,10 +49,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // ======================= MAHASISWA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
 
-    Route::get('/data-kamar', function () {
-        return view('mahasiswa.informasiDataKamar');
-    });
+    Route::get('/data-kamar', [MahasiswaKamarController::class, 'index']);
 
+    Route::get('/pembayaran-kamar', [PembayaranController::class, 'create']);
+    Route::post('/pembayaran-kamar/payment', [PembayaranController::class, 'PaymentWhitMidtrans']);
+    Route::post('/pembayaran-kamar/success', [PembayaranController::class, 'PaymentSucces']);
 
     Route::resource('pendaftaran-kamar', PendaftaranKamarController::class);
 
@@ -64,7 +66,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
 // ======================= ADMIN ============================
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
     Route::get('/kelola-data-kamar', [KamarController::class, 'index']);
-
+    Route::get('/search-data-kamar', [KamarController::class, 'search']);
     Route::get('/kelola-data-kamar/tambah-kamar', [KamarController::class, 'create']);
     Route::post('/kelola-data-kamar/tambah-kamar/store', [KamarController::class, 'store']);
     Route::get('/kelola-data-kamar/data-kamar/{jenis_kamar}', [KamarController::class, 'indexByJenis']);
@@ -73,7 +75,7 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     Route::put('/kelola-data-kamar/data-kamar/{jenis_kamar}/update/{id}', [KamarController::class, 'update']);
     Route::delete('/kelola-data-kamar/data-kamar/{jenis_kamar}/delete/{id}', [KamarController::class, 'destroy']);
 
-
+    Route::get('/search-akun', [AdminController::class, 'search']);
     Route::get('/kelola-data-akun', [AdminController::class, 'kelolaAkun']);
     Route::put('/akun/{id}/approve', [AdminController::class, 'approveAkun']);
     Route::put('/akun/{id}/pending', [AdminController::class, 'pendingAkun']);

@@ -22,28 +22,28 @@
                          <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">40</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['total'] }}</h1>
                              </div>
                              <strong>Total</strong>
                          </div>
                          <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">12</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['tersedia'] }}</h1>
                              </div>
                              <strong>Tersedia</strong>
                          </div>
                          <div class="card-room bg-info w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">20</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['diisi'] }}</h1>
                              </div>
                              <strong>Diisi</strong>
                          </div>
                          <div class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">3</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['maintenance'] }}</h1>
                              </div>
                              <strong>Maintenanca</strong>
                          </div>
@@ -58,28 +58,28 @@
                          <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">40</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['total'] }}</h1>
                              </div>
                              <strong>Total</strong>
                          </div>
                          <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">12</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['tersedia'] }}</h1>
                              </div>
                              <strong>Tersedia</strong>
                          </div>
                          <div class="card-room bg-info w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">20</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['diisi'] }}</h1>
                              </div>
                              <strong>Diisi</strong>
                          </div>
                          <div class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">3</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['maintenance'] }}</h1>
                              </div>
                              <strong>Maintenanca</strong>
                          </div>
