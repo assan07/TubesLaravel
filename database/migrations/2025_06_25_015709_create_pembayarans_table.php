@@ -13,14 +13,25 @@ return new class extends Migration
     {
         Schema::create('pembayarans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id'); // relasi ke users
-            $table->string('bulan'); // contoh: 'januari', 'februari'
-            $table->year('tahun'); // supaya bisa dilacak per tahun juga
-            $table->date('tanggal_bayar')->nullable(); // tanggal transaksi
-            $table->enum('status', ['belum', 'sudah'])->default('belum'); // status pembayaran
+
+            // Relasi ke pengguna (penghuni)
+            $table->unsignedBigInteger('user_id');
+
+            // Periode pembayaran
+            $table->string('bulan'); // Januari, Februari, dst
+            $table->year('tahun');
+
+            // Informasi pembayaran
+            $table->date('tanggal_bayar')->nullable(); // bisa kosong jika belum bayar
+            $table->enum('status_pembayaran', ['pending', 'lunas', 'terlambat'])->default('pending');
             $table->enum('jenis_pembayaran', ['Cash', 'Non Cash']);
-            $table->string('harga');
+
+            // Harga disarankan pakai integer
+            $table->unsignedBigInteger('harga'); // lebih baik daripada string
+
             $table->timestamps();
+
+            // Relasi
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }

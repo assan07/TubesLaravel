@@ -15,6 +15,7 @@ use App\Http\Controllers\Mahasiswa\KamarController as MahasiswaKamarController;
 use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\PembayaranController;
 use App\Http\Controllers\Mahasiswa\PendaftaranKamarController;
+use App\Http\Controllers\Bendahara\PembayaranController as BendaharaPembayaranController;
 
 
 // ==========================
@@ -142,9 +143,7 @@ Route::get('/admin/kelola-data-penghuni', function () {
 // ======================= BENDAHARA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(function () {
 
-    Route::get('/cek-pembayaran', function () {
-        return view('bendahara.cekPembayaran');
-    });
+    Route::get('/cek-pembayaran', [BendaharaPembayaranController::class, 'index'])->name('pembayaran.index');
 
     Route::get('/detail-pembayaran', function () {
         return view('bendahara.detailPembayaran');

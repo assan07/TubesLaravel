@@ -176,166 +176,73 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="text-center">1</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                                            H
+                            @foreach ($pembayarans as $index => $pembayaran)
+                                <tr>
+                                    <td class="text-center">{{ $loop->iteration }}</td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="avatar-sm bg-primary text-white rounded-circle d-flex align-items-center justify-content-center me-2">
+                                                {{ strtoupper(substr($pembayaran->user->name, 0, 1)) }}
+                                            </div>
+                                            <div>
+                                                <div class="fw-medium">{{ $pembayaran->user->name }}</div>
+                                                <small class="text-muted">ID: {{ $pembayaran->user->id }}</small>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <div class="fw-medium">Hasan</div>
-                                            <small class="text-muted">ID: HSN001</small>
+                                    </td>
+                                    <td>—</td> <!-- jika belum ada info kamar -->
+                                    <td><span class="badge bg-light text-dark">—</span></td>
+                                    <td class="text-end fw-bold">
+                                        Rp {{ number_format($pembayaran->harga, 0, ',', '.') }}
+                                    </td>
+                                    <td class="text-center">
+                                        <div>{{ \Carbon\Carbon::parse($pembayaran->tanggal_bayar)->format('d M Y') }}</div>
+                                        <small
+                                            class="text-muted">{{ \Carbon\Carbon::parse($pembayaran->tanggal_bayar)->format('H:i') }}
+                                            WIB</small>
+                                    </td>
+                                    <td class="text-center">
+                                        @php
+                                            $status = $pembayaran->status_pembayaran;
+                                            $badgeClass = match ($status) {
+                                                'lunas' => 'success',
+                                                'pending' => 'warning',
+                                                'terlambat' => 'danger',
+                                                default => 'secondary',
+                                            };
+                                        @endphp
+                                        <span class="badge bg-{{ $badgeClass }}">{{ ucfirst($status) }}</span>
+                                    </td>
+                                    <td class="text-center">
+                                        <div class="btn-group" role="group">
+                                            <a href="{{ route('pembayaran.show', $pembayaran->id) }}"
+                                                class="btn btn-sm btn-outline-primary" title="Lihat Detail">
+                                                <i class="ti ti-eye"></i>
+                                            </a>
+                                            <a href="#" class="btn btn-sm btn-outline-success"
+                                                title="Print Receipt">
+                                                <i class="ti ti-printer"></i>
+                                            </a>
+                                            <a href="{{ route('pembayaran.edit', $pembayaran->id) }}"
+                                                class="btn btn-sm btn-outline-secondary" title="Edit">
+                                                <i class="ti ti-edit"></i>
+                                            </a>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fw-medium">Kamar-A1_L</div>
-                                    <small class="text-muted">Kapasitas: 2 orang</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-light text-dark">L1-Sayap kiri</span>
-                                </td>
-                                <td class="text-end fw-bold text-success">Rp 250.000</td>
-                                <td class="text-center">
-                                    <div>12 Jan 2025</div>
-                                    <small class="text-muted">14:30 WIB</small>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge bg-success">Lunas</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group">
-                                        <a href="{{ url('/detail-pembayaran') }}" class="btn btn-sm btn-outline-primary"
-                                            title="Lihat Detail">
-                                            <i class="ti ti-eye"></i>
-                                        </a>
-                                        <a href="{{ url('#') }}" class="btn btn-sm btn-outline-success"
-                                            title="Print Receipt">
-                                            <i class="ti ti-printer"></i>
-                                        </a>
-                                        <a href="{{ url('/edit-pembayaran') }}" class="btn btn-sm btn-outline-secondary"
-                                            title="Edit">
-                                            <i class="ti ti-edit"></i>
-                                        </a>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">2</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="avatar-sm bg-warning text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                                            A
-                                        </div>
-                                        <div>
-                                            <div class="fw-medium">Ahmad Rizki</div>
-                                            <small class="text-muted">ID: ARZ002</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fw-medium">Kamar-B2_L</div>
-                                    <small class="text-muted">Kapasitas: 3 orang</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-light text-dark">L2-Sayap kanan</span>
-                                </td>
-                                <td class="text-end fw-bold text-warning">Rp 300.000</td>
-                                <td class="text-center">
-                                    <div>10 Jan 2025</div>
-                                    <small class="text-muted">09:15 WIB</small>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge bg-warning">Pending</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                            title="Lihat Detail">
-                                            <i class="ti ti-eye"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-success"
-                                            title="Print Receipt">
-                                            <i class="ti ti-printer"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" title="Edit">
-                                            <i class="ti ti-edit"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="text-center">3</td>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="avatar-sm bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-2">
-                                            S
-                                        </div>
-                                        <div>
-                                            <div class="fw-medium">Siti Nurhaliza</div>
-                                            <small class="text-muted">ID: SNH003</small>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="fw-medium">Kamar-C1_P</div>
-                                    <small class="text-muted">Kapasitas: 2 orang</small>
-                                </td>
-                                <td>
-                                    <span class="badge bg-light text-dark">L1-Sayap tengah</span>
-                                </td>
-                                <td class="text-end fw-bold text-danger">Rp 275.000</td>
-                                <td class="text-center">
-                                    <div>05 Jan 2025</div>
-                                    <small class="text-muted">16:45 WIB</small>
-                                </td>
-                                <td class="text-center">
-                                    <span class="badge bg-danger">Terlambat</span>
-                                </td>
-                                <td class="text-center">
-                                    <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
-                                            title="Lihat Detail">
-                                            <i class="ti ti-eye"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-success"
-                                            title="Print Receipt">
-                                            <i class="ti ti-printer"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" title="Edit">
-                                            <i class="ti ti-edit"></i>
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>
             </div>
             <div class="card-footer d-flex justify-content-between align-items-center">
                 <div class="text-muted">
-                    Menampilkan 1-3 dari 56 data pembayaran
+                    Menampilkan {{ $pembayarans->firstItem() }} - {{ $pembayarans->lastItem() }} dari total
+                    {{ $pembayarans->total() }} data pembayaran
                 </div>
-                <nav>
-                    <ul class="pagination pagination-sm mb-0">
-                        <li class="page-item disabled">
-                            <a class="page-link" href="#" tabindex="-1">Previous</a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                        </li>
-                    </ul>
-                </nav>
+                {{ $pembayarans->links('pagination::bootstrap-5') }}
             </div>
         </div>
     </div>
-
-
 @endsection
