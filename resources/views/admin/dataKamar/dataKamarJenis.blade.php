@@ -8,15 +8,9 @@
 
     <div class="row justify-content-center">
         <div class="col-12">
-            {{-- Info Filter By Status  --}}
-            @if (request('status'))
-                <div class="mb-2">
-                    <span class="badge bg-secondary">Filter: {{ ucfirst(request('status')) }}</span>
-                    <a href="{{ url()->current() }}" class="btn btn-sm btn-outline-secondary ms-2">Reset</a>
-                </div>
-            @endif
+
             {{-- Form pencarian kamar --}}
-            <div class="search-room d-flex align-items-center mb-2 w-100">
+            <div class="search-room d-flex align-items-center justify-content-between mb-2 w-100 gap-5">
                 <form action="{{ url()->current() }}" method="GET" class="d-flex align-items-center w-50">
                     <label for="search" class="me-1 w-50">Cari Nama Kamar:</label>
                     <select name="search" id="search" class="form-select" onchange="this.form.submit()">
@@ -28,6 +22,13 @@
                         @endforeach
                     </select>
                 </form>
+                {{-- Info Filter By Status  --}}
+                @if (request('status'))
+                    <div class="mb-2">
+                        <span class="btn btn-sm bg-secondary " style="color: #FFFF">Filter: {{ ucfirst(request('status')) }}</span>
+                        <a href="{{ url()->current() }}" class="btn btn-sm btn-outline-secondary ms-2">Reset</a>
+                    </div>
+                @endif
             </div>
 
 
