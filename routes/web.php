@@ -136,26 +136,21 @@ Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(functio
     Route::get('/cek-pembayaran', function () {
         return view('bendahara.cekPembayaran');
     });
+
+    Route::get('/detail-pembayaran', function () {
+        return view('bendahara.detailPembayaran');
+    });
+
+    Route::get('/edit-pembayaran', function () {
+        return view('bendahara.editPembayaran');
+    });
+
+    Route::get('/export-pembayaran', function () {
+        return view('bendahara.exportData');
+    });
+    Route::get('/form-pembayaran', function () {
+        return view('bendahara.formPembayaran');
+    });
 });
 
 // ======================= END BENDAHARA ============================
-
-
-
-
-
-
-
-
-
-// ==========================
-// End Route for Admin
-// ==========================
-
-// ====================================================================
-// Route for Bendahara
-// ==========================
-
-// ==========================
-// End Route for Bendahara
-// ==========================g
