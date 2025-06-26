@@ -96,6 +96,7 @@
                              </div>
                          </a>
 
+
                          {{-- Tersedia --}}
                          <a href="{{ url('kelola-data-kamar/data-kamar/perempuan?status=tersedia') }}"
                              class="col-xl-3 col-md-6">
@@ -133,7 +134,6 @@
                                  </div>
                              </div>
                          </a>
-
                          {{-- Maintenance --}}
                          <a href="{{ url('kelola-data-kamar/data-kamar/perempuan?status=maintenance') }}"
                              class="col-xl-3 col-md-6">
@@ -156,9 +156,7 @@
                      </div>
                  </div>
              </div>
-
          </div>
      </div>
-
 
  @endsection

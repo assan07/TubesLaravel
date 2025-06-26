@@ -12,18 +12,19 @@ use App\Models\Room;
 use App\Models\Mahasiswa;
 use App\Models\Pembayaran;
 use Flasher\Laravel\Facade\Flasher;
+use App\Models\PendaftaranKamar;
 
 class PembayaranController extends Controller
 {
     public function create()
     {
-        $user = Auth::user();
+        $user = User::with('pendaftaranKamar.room')->findOrFail(Auth::id());
 
-        // Ambil data mahasiswa (boleh null jika belum isi)
+        // Ambil data mahasiswa
         $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
 
-        // Ambil harga salah satu kamar, fallback ke 0 jika tidak ada data
-        $harga = Room::value('harga') ?? 0;
+        // Ambil harga kamar yang ditempati user (jika ada)
+        $harga = optional($user->pendaftaranKamar?->room)->harga ?? 0;
 
         $bulanList = [
             'januari',
@@ -48,21 +49,31 @@ class PembayaranController extends Controller
         $user = Auth::user();
         $bulan = $request->bulan;
 
-        // Validasi input
         if (!$bulan) {
             return back()->with('error', 'Bulan pembayaran wajib dipilih.');
         }
 
-        // Ambil harga dari salah satu record Room
-        $harga = \App\Models\Room::value('harga');
+        // Ambil data pendaftaran kamar + relasi room
+        $pendaftaran = PendaftaranKamar::with('room')->where('user_id', $user->id)->first();
 
-        // ✅ VALIDASI harga harus ada dan lebih dari 0
-        if (!$harga || $harga <= 0) {
-            Flasher::addError('Harga Belum Ditentukan');
+        if (!$pendaftaran) {
+            Flasher::addError('Silahkan daftar kamar terlebih dahulu sebelum melakukan pembayaran.');
             return back();
         }
 
-        // Cek duplikasi pembayaran
+        if ($pendaftaran->status_berkas !== 'approved') {
+            Flasher::addError('Status berkas Anda belum disetujui oleh admin. Pembayaran belum bisa dilakukan.');
+            return back();
+        }
+
+        $harga = optional($pendaftaran->room)->harga;
+
+        if (!$harga || $harga <= 0) {
+            Flasher::addError('Harga kamar belum ditentukan. Silahkan hubungi admin.');
+            return back();
+        }
+
+        // Cek pembayaran duplikat
         $existing = Pembayaran::where('user_id', $user->id)
             ->where('bulan', $bulan)
             ->where('tahun', date('Y'))
@@ -103,6 +114,7 @@ class PembayaranController extends Controller
             'harga' => $harga,
         ]);
     }
+
 
     public function PaymentSucces(Request $request)
     {

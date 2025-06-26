@@ -34,8 +34,8 @@
 
                 {{-- Manage Residents Data Panel --}}
                 <li class="sidebar-item">
-                    <a class="sidebar-link {{ Request()->is('admin/registrasi-kamar*') ? 'active bg-primary rounded' : '' }}"
-                        href="/admin/kelola-data-penghuni" aria-expanded="false" aria-current="page">
+                    <a class="sidebar-link {{ Request()->is('penghuni*') ? 'active bg-primary rounded' : '' }}"
+                        href="/penghuni" aria-expanded="false" aria-current="page">
                         <span>
                             <i class="ti ti-door-enter"></i>
                         </span>

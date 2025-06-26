@@ -55,82 +55,87 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        {{-- Midtrans Snap.js --}}
+        <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 
-    {{-- Midtrans Snap.js --}}
-    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script>
 
-    <script type="text/javascript">
-        document.getElementById('pay-button').onclick = function() {
-            window.snap.pay('{{ $snapToken }}', {
-                onSuccess: function(result) {
-                    // Kirim data ke backend
-                    fetch("{{ url('/pembayaran-kamar/success') }}", {
-                            method: "POST",
-                            headers: {
-                                "Content-Type": "application/json",
-                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                            },
-                            body: JSON.stringify({
-                                midtrans_result: result,
-                                bulan: "{{ $bulan }}"
+        {{-- <script src="https://app.midtrans.com/snap/snap.js" data-client-key="{{ env('MIDTRANS_CLIENT_KEY') }}"></script> --}}
+
+
+        <script type="text/javascript">
+            document.getElementById('pay-button').onclick = function() {
+                window.snap.pay('{{ $snapToken }}', {
+                    onSuccess: function(result) {
+                        // Kirim data ke backend
+                        fetch("{{ url('/pembayaran-kamar/success') }}", {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                                },
+                                body: JSON.stringify({
+                                    midtrans_result: result,
+                                    bulan: "{{ $bulan }}"
+                                })
                             })
-                        })
-                        .then(async response => {
-                            const data = await response.json();
-                            if (!response.ok) {
-                                throw new Error(data.message || 'Gagal menyimpan data pembayaran.');
-                            }
+                            .then(async response => {
+                                const data = await response.json();
+                                if (!response.ok) {
+                                    throw new Error(data.message || 'Gagal menyimpan data pembayaran.');
+                                }
 
-                            // Tampilkan notifikasi sukses
-                            showPaymentModal(
-                                'success',
-                                '<i class="bi bi-check-circle-fill text-success fs-3"></i>',
-                                'Pembayaran Berhasil!',
-                                'Tagihan kamar Anda telah berhasil dibayar.'
-                            );
+                                // Tampilkan notifikasi sukses
+                                showPaymentModal(
+                                    'success',
+                                    '<i class="bi bi-check-circle-fill text-success fs-3"></i>',
+                                    'Pembayaran Berhasil!',
+                                    'Tagihan kamar Anda telah berhasil dibayar.'
+                                );
 
-                            // Redirect setelah pengguna menekan tombol OK
-                            document.getElementById('redirectButton').addEventListener('click',
-                                function() {
-                                    window.location.href = "{{ url('/pembayaran-kamar') }}";
-                                });
-                        })
-                        .catch(error => {
-                            alert("Gagal menyimpan data pembayaran.");
-                            console.error('ERROR:', error.message);
-                        });
-                },
-                onPending: function(result) {
-                    showPaymentModal(
-                        'warning',
-                        '<i class="bi bi-exclamation-triangle-fill text-warning fs-3"></i>',
-                        'Pembayaran Pending',
-                        'Pembayaran belum selesai. Silakan cek status transaksi.'
-                    );
-                },
-                onError: function(result) {
-                    showPaymentModal(
-                        'danger',
-                        '<i class="bi bi-x-circle-fill text-danger fs-3"></i>',
-                        'Pembayaran Gagal',
-                        'Terjadi kesalahan saat memproses pembayaran.'
-                    );
-                }
-            });
-        };
+                                // Redirect setelah pengguna menekan tombol OK
+                                document.getElementById('redirectButton').addEventListener('click',
+                                    function() {
+                                        window.location.href = "{{ url('/pembayaran-kamar') }}";
+                                    });
+                            })
+                            .catch(error => {
+                                alert("Gagal menyimpan data pembayaran.");
+                                console.error('ERROR:', error.message);
+                            });
+                    },
+                    onPending: function(result) {
+                        showPaymentModal(
+                            'warning',
+                            '<i class="bi bi-exclamation-triangle-fill text-warning fs-3"></i>',
+                            'Pembayaran Pending',
+                            'Pembayaran belum selesai. Silakan cek status transaksi.'
+                        );
+                    },
+                    onError: function(result) {
+                        showPaymentModal(
+                            'danger',
+                            '<i class="bi bi-x-circle-fill text-danger fs-3"></i>',
+                            'Pembayaran Gagal',
+                            'Terjadi kesalahan saat memproses pembayaran.'
+                        );
+                    }
+                });
+            };
 
-        // Fungsi untuk menampilkan modal notifikasi
-        function showPaymentModal(status, iconHtml, title, message) {
-            const modalIcon = document.getElementById('modal-icon');
-            const modalTitle = document.getElementById('modal-title');
-            const modalMessage = document.getElementById('modal-message');
+            // Fungsi untuk menampilkan modal notifikasi
+            function showPaymentModal(status, iconHtml, title, message) {
+                const modalIcon = document.getElementById('modal-icon');
+                const modalTitle = document.getElementById('modal-title');
+                const modalMessage = document.getElementById('modal-message');
 
-            modalIcon.innerHTML = iconHtml;
-            modalTitle.textContent = title;
-            modalMessage.textContent = message;
+                modalIcon.innerHTML = iconHtml;
+                modalTitle.textContent = title;
+                modalMessage.textContent = message;
 
-            const paymentModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('paymentModal'));
-            paymentModal.show();
-        }
-    </script>
+                const paymentModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('paymentModal'));
+                paymentModal.show();
+            }
+        </script>
+    @endpush
 @endsection

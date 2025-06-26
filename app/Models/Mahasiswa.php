@@ -23,5 +23,9 @@ class Mahasiswa extends Model
         return $this->belongsTo(User::class);
     }
 
-    
+    public function pendaftaranKamar()
+    {
+        return $this->hasOne(PendaftaranKamar::class, 'user_id');
+    }
+
 }
