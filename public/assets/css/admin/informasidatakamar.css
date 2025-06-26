@@ -4,13 +4,6 @@
     height: 30px;
 }
 
-.card-room {
-    height: 10rem;
-}
-
-.sub-card {
-    height: 8rem;
-}
 
 .avatar-sm {
     width: 32px;
@@ -41,16 +34,9 @@
         flex-direction: column;
     }
     .card-room-girl {
+        display: flex;
         flex-direction: column;
     }
-}
-
-.card-room{
-    height: 10rem;
-}
-
-.sub-card{
-    height: 8rem;
 }
 
 @media (min-width: 320px) and (max-width: 440px ) {
@@ -59,6 +45,7 @@
         flex-direction: column;
     }
     .card-room-girl{
+        display: flex;
         flex-direction: column;
     }
 }
