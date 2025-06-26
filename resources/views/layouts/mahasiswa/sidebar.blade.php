@@ -44,7 +44,7 @@
                 </li>
                 {{-- End Registration Room Panel --}}
 
-                {{-- Paymen Panel --}}
+                {{-- Payment Panel --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link {{ Request()->is('pembayaran-kamar*') ? 'active bg-primary rounded' : '' }}"
                         href="/pembayaran-kamar" aria-expanded="false" aria-current="page">
@@ -55,6 +55,18 @@
                     </a>
                 </li>
                 {{-- End Payment Panel --}}
+
+                {{-- Payment history --}}
+                <li class="sidebar-item">
+                    <a class="sidebar-link {{ Request()->is('riwayat-pembayaran*') ? 'active bg-primary rounded' : '' }}"
+                        href="{{ url('/riwayat-pembayaran') }}" aria-expanded="false" aria-current="page">
+                        <span>
+                            <i class="ti ti-cash"></i>
+                        </span>
+                        <span class="hide-menu">Riwayar Pembayaran</span>
+                    </a>
+                </li>
+                {{-- End Payment history --}}
 
 
             <div class="card-sidebar-buttom d-flex flex-column flex-wrap-reverse p-lg-2 p-md-1 p-1">

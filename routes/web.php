@@ -59,6 +59,9 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
     Route::post('/pembayaran-kamar/payment', [PembayaranController::class, 'paymentWhitMidtrans']);
     Route::post('/pembayaran-kamar/success', [PembayaranController::class, 'PaymentSucces']);
 
+    // ✅ Mahasiswa: Lihat riwayat pembayaran
+    Route::get('/riwayat-pembayaran', [\App\Http\Controllers\Mahasiswa\PembayaranController::class, 'riwayat'])->name('mahasiswa.riwayat');
+
     Route::resource('pendaftaran-kamar', PendaftaranKamarController::class);
 
 

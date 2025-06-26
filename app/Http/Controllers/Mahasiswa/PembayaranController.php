@@ -20,11 +20,16 @@ class PembayaranController extends Controller
     {
         $user = User::with('pendaftaranKamar.room')->findOrFail(Auth::id());
 
-        // Ambil data mahasiswa
         $mahasiswa = Mahasiswa::where('user_id', $user->id)->first();
+        $pendaftaran = $user->pendaftaranKamar;
 
-        // Ambil harga kamar yang ditempati user (jika ada)
-        $harga = optional($user->pendaftaranKamar?->room)->harga ?? 0;
+        // ✅ Cek apakah mahasiswa sudah punya kamar
+        if (!$pendaftaran || !$pendaftaran->room || !$pendaftaran->room->nama_kamar) {
+            Flasher::addError('Anda belum memiliki kamar. Silakan lakukan pendaftaran kamar terlebih dahulu.');
+            return redirect()->back();
+        }
+
+        $harga = optional($pendaftaran->room)->harga ?? 0;
 
         $bulanList = [
             'januari',
@@ -41,8 +46,9 @@ class PembayaranController extends Controller
             'desember'
         ];
 
-        return view('mahasiswa.pembayaranKamar', compact('user', 'mahasiswa', 'harga', 'bulanList'));
+        return view('mahasiswa.pembayaranKamar', compact('user', 'mahasiswa', 'harga', 'bulanList', 'pendaftaran'));
     }
+
 
     public function paymentWhitMidtrans(Request $request)
     {
@@ -142,5 +148,33 @@ class PembayaranController extends Controller
         ]);
 
         return response()->json(['message' => 'Pembayaran berhasil disimpan.']);
+    }
+
+
+    // ✅ Menampilkan riwayat pembayaran mahasiswa
+    public function riwayat()
+    {
+        $bulanList = [
+            'januari' => 'Januari',
+            'februari' => 'Februari',
+            'maret' => 'Maret',
+            'april' => 'April',
+            'mei' => 'Mei',
+            'juni' => 'Juni',
+            'juli' => 'Juli',
+            'agustus' => 'Agustus',
+            'september' => 'September',
+            'oktober' => 'Oktober',
+            'november' => 'November',
+            'desember' => 'Desember',
+        ];
+        $user = Auth::user();
+
+        $riwayat = Pembayaran::with(['user.pendaftaranKamar.room']) // include relasi sampai ke room
+            ->where('user_id', $user->id)
+            ->orderByDesc('tanggal_bayar')
+            ->get();
+
+        return view('mahasiswa.riwayatPembayaran', compact('riwayat', 'bulanList'));
     }
 }
