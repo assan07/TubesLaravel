@@ -216,7 +216,7 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
-                                            <a href="{{ route('pembayaran.show', $pembayaran->id) }}"
+                                            <a href="#"
                                                 class="btn btn-sm btn-outline-primary" title="Lihat Detail">
                                                 <i class="ti ti-eye"></i>
                                             </a>
@@ -224,7 +224,7 @@
                                                 title="Print Receipt">
                                                 <i class="ti ti-printer"></i>
                                             </a>
-                                            <a href="{{ route('pembayaran.edit', $pembayaran->id) }}"
+                                            <a href="#"
                                                 class="btn btn-sm btn-outline-secondary" title="Edit">
                                                 <i class="ti ti-edit"></i>
                                             </a>

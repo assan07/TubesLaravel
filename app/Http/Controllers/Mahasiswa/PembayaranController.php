@@ -136,9 +136,9 @@ class PembayaranController extends Controller
             'bulan' => $data['bulan'],
             'tahun' => date('Y'),
             'tanggal_bayar' => $result['transaction_time'],
-            'status' => 'sudah',
+            'status_pembayaran' => 'lunas', // ✅ harus cocok dengan enum
             'jenis_pembayaran' => 'Non Cash',
-            'harga' => $result['gross_amount'],
+            'harga' => (int) $result['gross_amount'], // casting ke integer kalau perlu
         ]);
 
         return response()->json(['message' => 'Pembayaran berhasil disimpan.']);
