@@ -55,21 +55,47 @@ class KamarController extends Controller
         return redirect('/kelola-data-kamar')->with('success', 'Data kamar berhasil disimpan.');
     }
 
-    // ✅ Tampilkan kamar berdasarkan jenis: laki-laki / perempuan
-    public function indexByJenis($jenis_kamar)
+    public function indexByJenis(Request $request, $jenis_kamar)
     {
-        $kamarList = Room::where('jenis_kamar', $jenis_kamar)->get();
+        // Mulai query
+        $query = Room::where('jenis_kamar', $jenis_kamar);
 
-        // Hitung data berdasarkan jenis_kamar yang sama
+        // Filter Berdasrkan Status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        // Filter berdasarkan nama kamar jika ada
+        if ($request->filled('search')) {
+            $query->where('nama_kamar', $request->search);
+        }
+
+        // Ambil hasil filter
+        $kamarList = $query->get();
+
+        // Untuk dropdown list kamar (ambil semua tanpa filter)
+        $allKamar = Room::where('jenis_kamar', $jenis_kamar)->get();
+
+        // Statistik (dari semua kamar jenis ini, tanpa filter search)
         $data = [
-            'total' => $kamarList->count(),
-            'tersedia' => $kamarList->where('status', 'tersedia')->count(),
-            'diisi' => $kamarList->where('status', 'diisi')->count(),
-            'maintenance' => $kamarList->where('status', 'maintenance')->count(),
+            'total' => $allKamar->count(),
+            'tersedia' => $allKamar->where('status', 'tersedia')->count(),
+            'diisi' => $allKamar->where('status', 'diisi')->count(),
+            'maintenance' => $allKamar->where('status', 'maintenance')->count(),
         ];
 
-        return view('admin.dataKamar.dataKamarJenis', compact('kamarList', 'jenis_kamar', 'data'));
+        // List dropdown kamar unik
+        $namaKamarList = $allKamar->pluck('nama_kamar')->unique()->sort();
+
+        return view('admin.dataKamar.dataKamarJenis', [
+            'kamarList' => $kamarList,
+            'data' => $data,
+            'jenis_kamar' => $jenis_kamar,
+            'namaKamarList' => $namaKamarList,
+        ]);
     }
+
+
 
     // ✅ Tampilkan detail kamar
     public function show($jenis_kamar, $id)
@@ -82,7 +108,7 @@ class KamarController extends Controller
     public function edit($jenis_kamar, $id)
     {
         $kamar = Room::where('jenis_kamar', $jenis_kamar)->findOrFail($id);
-        return view('admin.dataKamar.formKamar', compact('kamar'));
+        return view('admin.dataKamar.formDataKamar', compact('kamar'));
     }
 
     // ✅ Update data kamar
@@ -133,6 +159,6 @@ class KamarController extends Controller
             ],
         ];
 
-        return view('admin.dataKamar.kelolaDataKamar', compact('data'));
+        return view('admin.dataKamar.dataKamarJenis', compact('data'));
     }
 }

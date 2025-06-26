@@ -96,10 +96,10 @@
 
                             {{-- Tombol --}}
                             <div class="d-grid gap-3">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-primary"><i class=""></i>
                                     {{ isset($kamar) ? 'Update Data Kamar' : 'Simpan Data Kamar' }}
                                 </button>
-                                <a href="{{ url('/admin/kelola-data-kamar') }}" class="btn btn-info">Kembali</a>
+                                <a href="{{ url('/kelola-data-kamar') }}" class="btn btn-info"><i class="ti ti-login" style="font-size: 1rem"></i>Kembali</a>
                             </div>
                         </form>
                     </div>
