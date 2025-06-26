@@ -24,8 +24,8 @@
 
                         {{-- Manage Room Data Panel --}}
                         <li class="sidebar-item">
-                            <a class="sidebar-link {{ Request::is('admin/kelola-data-kamar*') ? 'active' : '' }}"
-                                href="/admin/kelola-data-kamar" aria-expanded="false" aria-current="page">
+                            <a class="sidebar-link {{ Request::is('cek-pembayaran*') ? 'active' : '' }}"
+                                href="/cek-pembayaran" aria-expanded="false" aria-current="page">
                                 <span>
                                     <i class="ti ti-credit-card"></i>
                                 </span>

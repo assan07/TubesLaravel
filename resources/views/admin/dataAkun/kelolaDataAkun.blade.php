@@ -65,14 +65,7 @@
                                                         class="d-inline">
                                                         @csrf @method('PUT')
                                                         <button type="submit"
-                                                            class="btn btn-warning btn-sm"><i
-                                                                class="ti ti-clock" style="font-size: 1rem"></i></button>
-                                                    </form>
-                                                    <form action="/akun/{{ $user->id }}" method="POST"
-                                                        class="d-inline"
-                                                        onsubmit="return confirm('Yakin ingin menghapus akun ini?');">
-                                                        @csrf @method('DELETE')
-                                                        <button type="submit" class="btn btn-danger btn-sm"><i
+                                                            class="btn btn-danger btn-sm"><i
                                                                 class="ti ti-trash-x" style="font-size: 1rem"></i></button>
                                                     </form>
                                                 </td>

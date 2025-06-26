@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\KamarController;
 use App\Http\Controllers\Admin\CekBerkasController;
+use App\Http\Controllers\admin\PenghuniController;
 use App\Http\Controllers\Mahasiswa\KamarController as MahasiswaKamarController;
 use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\PembayaranController;
@@ -121,6 +122,11 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
 
     // ✅ Route hapus berkas
     Route::delete('/admin/kelola-berkas-pendaftaran/berkas/delete/{id}', [CekBerkasController::class, 'destroy'])->name('admin.berkas.delete');
+
+    Route::get('/penghuni', [PenghuniController::class, 'index']);
+    Route::get('/penghuni/{id}/edit', [PenghuniController::class, 'edit']);
+    Route::put('/penghuni/{id}', [PenghuniController::class, 'update']);
+    Route::delete('/penghuni/{id}', [PenghuniController::class, 'destroy']);
 });
 
 
