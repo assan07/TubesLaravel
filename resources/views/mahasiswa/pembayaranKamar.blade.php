@@ -36,8 +36,10 @@
                                 <div class="mb-2"><strong>Nama Lengkap:</strong> {{ $user->nama }}</div>
                                 <div class="mb-2"><strong>Email:</strong> {{ $user->email }}</div>
                                 <div class="mb-2"><strong>NIM:</strong> {{ $user->nim }}</div>
-                                <div class="mb-2"><strong>Alamat:</strong> {{ $mahasiswa->alamat ?? '-' }}</div>
                                 <div class="mb-2"><strong>No. HP:</strong> {{ $mahasiswa->phone ?? '-' }}</div>
+                                <div class="mb-2"><strong>Nama Kamar:</strong>
+                                    {{ optional($pendaftaran->room)->nama_kamar ?? '-' }}</div>
+
                                 <div class="mb-2"><strong>Harga Sewa per Bulan:</strong> Rp
                                     {{ number_format($harga, 0, ',', '.') }}</div>
 
