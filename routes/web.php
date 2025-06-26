@@ -62,6 +62,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
     Route::post('/informasi-akun/store', [MahasiswaController::class, 'store'])->name('informasi-akun.store');
     Route::post('/informasi-akun/delete-photo', [MahasiswaController::class, 'deletePhotoProfile'])->name('delete.photo');
 });
+// ====================End Route for Mahasiswa=================================
+
 
 // ======================= ADMIN ============================
 Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function () {
@@ -121,6 +123,13 @@ Route::middleware(['auth', RoleMiddleware::class . ':admin'])->group(function ()
     Route::delete('/admin/kelola-berkas-pendaftaran/berkas/delete/{id}', [CekBerkasController::class, 'destroy'])->name('admin.berkas.delete');
 });
 
+
+Route::get('/admin/kelola-data-penghuni', function () {
+    return view('admin.dataPenghuni.kelolaDataPenghuni');
+});
+
+// =======================END  ADMIN ============================
+
 // ======================= BENDAHARA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(function () {
 
@@ -129,45 +138,14 @@ Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(functio
     });
 });
 
-
-
-// ==========================
-// End Route for Mahasiswa
-// ==========================
-
-// ===========================================================================================
-// Route for Admin
-// ==========================
+// ======================= END BENDAHARA ============================
 
 
 
-Route::get('/admin/kelola-data-penghuni', function () {
-    return view('admin.dataPenghuni.kelolaDataPenghuni');
-});
 
-Route::get('/admin/kelola-data-akun', function () {
-    return view('admin.dataAkun.kelolaDataAkun');
-});
 
-Route::get('/admin/kelola-berkas-pendaftran', function () {
-    return view('admin.dataBerkas.kelolaDataBerkas');
-});
 
-Route::get('/admin/kelola-berkas-pendaftran/laki-laki', function () {
-    return view('admin.dataBerkas.kelolaDataBerkasLakilaki');
-});
 
-Route::get('/admin/kelola-berkas-pendaftran/laki-laki/detail', function () {
-    return view('admin.dataBerkas.detailBerkasPendaftaranLakilaki');
-});
-
-Route::get('/admin/kelola-berkas-pendaftran/perempuan', function () {
-    return view('admin.dataBerkas.kelolaDataBerkasPerempuan');
-});
-
-Route::get('/admin/kelola-berkas-pendaftran/perempuan/detail', function () {
-    return view('admin.dataBerkas.detailBerkasPendaftaranPerempuan');
-});
 
 
 // ==========================
