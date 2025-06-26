@@ -14,7 +14,7 @@ class Pembayaran extends Model
         'bulan',
         'tahun',
         'tanggal_bayar',
-        'status',
+        'status_pembayaran',
         'jenis_pembayaran',
         'harga',
     ];
@@ -23,5 +23,10 @@ class Pembayaran extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function pendaftaran()
+    {
+        return $this->hasOne(PendaftaranKamar::class, 'user_id', 'user_id');
     }
 }

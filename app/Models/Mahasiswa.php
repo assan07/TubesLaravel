@@ -28,4 +28,8 @@ class Mahasiswa extends Model
         return $this->hasOne(PendaftaranKamar::class, 'user_id');
     }
 
+    public function room()
+    {
+        return $this->belongsTo(Room::class);
+    }
 }
