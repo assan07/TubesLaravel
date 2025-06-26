@@ -12,15 +12,6 @@
                  <div class="card">
                      {{-- Header bagian atas: Form search + Judul + Tombol Tambah --}}
                      <div class="card-header d-flex align-items-center justify-content-between">
-                         {{-- Form pencarian kamar --}}
-                         <div class="search-room d-flex align-items-center">
-                             <form action="{{ url('/search-data-kamar') }}" method="GET"
-                                 class="d-flex align-items-center w-50">
-                                 <label for="search">Search</label>
-                                 <input type="text" class="form-control mx-2" name="search" id="search"
-                                     placeholder="Cari Nama Kamar" value="{{ request('search') }}"> {{-- isi tetap muncul setelah pencarian --}}
-                             </form>
-                         </div>
 
                          {{-- Judul halaman --}}
                          <div class="title">
@@ -39,7 +30,7 @@
                      <h1><strong>Kamar Laki-Laki</strong></h1>
                      <div class="card-room-guy row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
 
-                         {{-- Total --}}
+                         {{-- Total: tanpa filter --}}
                          <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki') }}"
                              class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
@@ -50,7 +41,7 @@
                          </a>
 
                          {{-- Tersedia --}}
-                         <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki') }}"
+                         <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki?status=tersedia') }}"
                              class="card-room bg-success w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
@@ -60,7 +51,7 @@
                          </a>
 
                          {{-- Diisi --}}
-                         <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki') }}"
+                         <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki?status=diisi') }}"
                              class="card-room bg-info w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
@@ -70,7 +61,7 @@
                          </a>
 
                          {{-- Maintenance --}}
-                         <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki') }}"
+                         <a href="{{ url('kelola-data-kamar/data-kamar/laki-laki?status=maintenance') }}"
                              class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
@@ -78,6 +69,7 @@
                              </div>
                              <strong class="text-white mt-1">Maintenance</strong>
                          </a>
+
                      </div>
                  </div>
 
@@ -86,45 +78,46 @@
                      <h1><strong>Kamar Perempuan</strong></h1>
                      <div class="card-room-girl row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
 
-                         {{-- Total --}}
+                         {{-- Total: tanpa filter --}}
                          <a href="{{ url('kelola-data-kamar/data-kamar/perempuan') }}"
                              class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['total'] }}</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['total'] }}</h1>
                              </div>
                              <strong class="text-white mt-1">Total</strong>
                          </a>
 
                          {{-- Tersedia --}}
-                         <a href="{{ url('kelola-data-kamar/data-kamar/perempuan') }}"
+                         <a href="{{ url('kelola-data-kamar/data-kamar/perempuan?status=tersedia') }}"
                              class="card-room bg-success w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['tersedia'] }}</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['tersedia'] }}</h1>
                              </div>
                              <strong class="text-white mt-1">Tersedia</strong>
                          </a>
 
                          {{-- Diisi --}}
-                         <a href="{{ url('kelola-data-kamar/data-kamar/perempuan') }}"
+                         <a href="{{ url('kelola-data-kamar/data-kamar/perempuan?status=diisi') }}"
                              class="card-room bg-info w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['diisi'] }}</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['diisi'] }}</h1>
                              </div>
                              <strong class="text-white mt-1">Diisi</strong>
                          </a>
 
                          {{-- Maintenance --}}
-                         <a href="{{ url('kelola-data-kamar/data-kamar/perempuan') }}"
+                         <a href="{{ url('kelola-data-kamar/data-kamar/perempuan?status=maintenance') }}"
                              class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
                              <div
                                  class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['maintenance'] }}</h1>
+                                 <h1 style="font-weight: bolder">{{ $data['laki']['maintenance'] }}</h1>
                              </div>
                              <strong class="text-white mt-1">Maintenance</strong>
                          </a>
+
                      </div>
                  </div>
              </div>
