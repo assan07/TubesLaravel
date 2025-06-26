@@ -1,0 +1,19 @@
+.export-option {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .export-option:hover {
+            border-color: #4e73df;
+            box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+        }
+
+        .export-option.selected {
+            border-color: #4e73df;
+            background-color: rgba(78, 115, 223, 0.1);
+        }
+
+        .form-check-input:checked {
+            background-color: #4e73df;
+            border-color: #4e73df;
+        }

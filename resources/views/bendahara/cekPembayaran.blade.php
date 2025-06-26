@@ -14,14 +14,14 @@
                 <p class="text-muted mb-0">Kelola dan pantau pembayaran kamar asrama</p>
             </div>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary btn-sm">
+                <a href="{{ url('/export-pembayaran') }}" class="btn btn-outline-primary btn-sm">
                     <i class="ti ti-download me-1"></i>
                     Export Data
-                </button>
-                <button class="btn btn-primary btn-sm">
+                </a>
+                <a href="{{ url('/form-pembayaran') }}" class="btn btn-primary btn-sm">
                     <i class="ti ti-plus me-1"></i>
                     Tambah Pembayaran
-                </button>
+                </a>
             </div>
         </div>
 
@@ -207,17 +207,18 @@
                                 </td>
                                 <td class="text-center">
                                     <div class="btn-group" role="group">
-                                        <button type="button" class="btn btn-sm btn-outline-primary"
+                                        <a href="{{ url('/detail-pembayaran') }}" class="btn btn-sm btn-outline-primary"
                                             title="Lihat Detail">
                                             <i class="ti ti-eye"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-success"
+                                        </a>
+                                        <a href="{{ url('#') }}" class="btn btn-sm btn-outline-success"
                                             title="Print Receipt">
                                             <i class="ti ti-printer"></i>
-                                        </button>
-                                        <button type="button" class="btn btn-sm btn-outline-secondary" title="Edit">
+                                        </a>
+                                        <a href="{{ url('/edit-pembayaran') }}" class="btn btn-sm btn-outline-secondary"
+                                            title="Edit">
                                             <i class="ti ti-edit"></i>
-                                        </button>
+                                        </a>
                                     </div>
                                 </td>
                             </tr>
