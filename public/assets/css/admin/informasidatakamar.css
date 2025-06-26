@@ -1,22 +1,45 @@
-.search-room{
+.search-room {
     width: 400px;
     height: 30px;
 }
 
-.card-room{
+.card-room {
     height: 10rem;
 }
 
-.sub-card{
+.sub-card {
     height: 8rem;
 }
 
-@media (min-width: 320px) and (max-width: 440px ) {
-    .card-room-guy{
+.avatar-sm {
+    width: 32px;
+    height: 32px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.border-left-primary {
+    border-left: 0.25rem solid #4e73df !important;
+}
+
+.border-left-success {
+    border-left: 0.25rem solid #1cc88a !important;
+}
+
+.border-left-warning {
+    border-left: 0.25rem solid #f6c23e !important;
+}
+
+.border-left-info {
+    border-left: 0.25rem solid #3ba5e7 !important;
+}
+
+@media (min-width: 320px) and (max-width: 440px) {
+    .card-room-guy {
         display: flex;
         flex-direction: column;
     }
-    .card-room-girl{
+    .card-room-girl {
         flex-direction: column;
     }
 }

@@ -9,7 +9,7 @@ return new class extends Migration {
     {
         Schema::create('pendaftaran_kamars', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->after('id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->unsignedBigInteger('room_id');
             $table->string('nama');
             $table->string('nim')->unique();
@@ -19,7 +19,6 @@ return new class extends Migration {
             $table->enum('jenis_kelamin', ['Laki-laki', 'Perempuan']);
             $table->date('tanggal_pendaftaran');
             $table->timestamps();
-
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
         });
     }
