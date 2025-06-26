@@ -11,26 +11,29 @@ class KamarController extends Controller
     // ✅ Halaman dashboard kelola data kamar
     public function index()
     {
-        $kamarLaki = Room::where('jenis_kamar', 'laki-laki');
-        $kamarPerempuan = Room::where('jenis_kamar', 'perempuan');
+        // Ambil query builder (belum dijalankan)
+        $queryLaki = Room::where('jenis_kamar', 'laki-laki');
+        $queryPerempuan = Room::where('jenis_kamar', 'perempuan');
 
+        // Gunakan clone() agar tidak saling memengaruhi saat dihitung
         $data = [
             'laki' => [
-                'total' => $kamarLaki->count(),
-                'tersedia' => $kamarLaki->where('status', 'tersedia')->count(),
-                'diisi' => $kamarLaki->where('status', 'diisi')->count(),
-                'maintenance' => $kamarLaki->where('status', 'maintenance')->count(),
+                'total' => (clone $queryLaki)->count(),
+                'tersedia' => (clone $queryLaki)->where('status', 'tersedia')->count(),
+                'diisi' => (clone $queryLaki)->where('status', 'diisi')->count(),
+                'maintenance' => (clone $queryLaki)->where('status', 'maintenance')->count(),
             ],
             'perempuan' => [
-                'total' => $kamarPerempuan->count(),
-                'tersedia' => $kamarPerempuan->where('status', 'tersedia')->count(),
-                'diisi' => $kamarPerempuan->where('status', 'diisi')->count(),
-                'maintenance' => $kamarPerempuan->where('status', 'maintenance')->count(),
+                'total' => (clone $queryPerempuan)->count(),
+                'tersedia' => (clone $queryPerempuan)->where('status', 'tersedia')->count(),
+                'diisi' => (clone $queryPerempuan)->where('status', 'diisi')->count(),
+                'maintenance' => (clone $queryPerempuan)->where('status', 'maintenance')->count(),
             ],
         ];
 
         return view('admin.dataKamar.kelolaDataKamar', compact('data'));
     }
+
 
     // ✅ Tampilkan form tambah kamar
     public function create()
