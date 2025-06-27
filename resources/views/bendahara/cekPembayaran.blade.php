@@ -32,67 +32,58 @@
                 <h2 class="h3 mb-0 text-gray-800">Informasi Pembayaran Kamar</h2>
                 <p class="text-muted mb-0">Kelola dan pantau pembayaran kamar asrama</p>
             </div>
-            <div class="d-flex gap-2">
-                <a href="{{ url('/export-pembayaran') }}" class="btn btn-outline-primary btn-sm">
-                    <i class="ti ti-download me-1"></i>
-                    Export Data
-                </a>
-                <a href="{{ url('/form-pembayaran') }}" class="btn btn-primary btn-sm">
-                    <i class="ti ti-plus me-1"></i>
-                    Tambah Pembayaran
-                </a>
-            </div>
         </div>
 
         <!-- Filter & Search Section -->
-        <div class="card shadow-sm mb-4">
-            <div class="card-body">
-                <div class="row g-3">
-                    <div class="col-md-4">
-                        <label class="form-label fw-medium">Cari Penghuni/Kamar</label>
-                        <div class="input-group">
-                            <span class="input-group-text bg-light">
-                                <i class="ti ti-search text-muted"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Masukkan nama penghuni atau kamar..."
-                                id="searchInput">
+        <form method="GET" action="{{ route('pembayaran.index') }}" id="filterForm">
+            <div class="card shadow-sm mb-4">
+                <div class="card-body">
+                    <div class="row g-3">
+                        <div class="col-md-4">
+                            <label class="form-label fw-medium">Cari Penghuni/Kamar</label>
+                            <div class="input-group">
+                                <span class="input-group-text bg-light">
+                                    <i class="ti ti-search text-muted"></i>
+                                </span>
+                                <input type="text" class="form-control" name="search" id="searchInput"
+                                    placeholder="Masukkan nama penghuni atau kamar..." value="{{ request('search') }}">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label fw-medium">Filter Bulan</label>
-                        <select id="filterSelect" class="form-select">
-                            @foreach ($bulanOptions as $option)
-                                @php
-                                    $isSelected = request('filter_bulan') == $option['bulan'] . '|' . $option['tahun'];
-                                @endphp
-                                <option value="{{ $option['bulan'] }}|{{ $option['tahun'] }}"
-                                    {{ $isSelected ? 'selected' : '' }}>
-                                    {{ ucfirst($option['bulan']) }} {{ $option['tahun'] }}
+
+                        <div class="col-md-3">
+                            <label class="form-label fw-medium">Filter Bulan</label>
+                            <select id="filterSelect" name="filter_bulan" class="form-select">
+                                @foreach ($bulanOptions as $option)
+                                    @php
+                                        $isSelected =
+                                            request('filter_bulan') == $option['bulan'] . '|' . $option['tahun'];
+                                    @endphp
+                                    <option value="{{ $option['bulan'] }}|{{ $option['tahun'] }}"
+                                        {{ $isSelected ? 'selected' : '' }}>
+                                        {{ ucfirst($option['bulan']) }} {{ $option['tahun'] }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label class="form-label fw-medium">Status Pembayaran</label>
+                            <select name="status_pembayaran" id="statusSelect" class="form-select">
+                                @php $selectedStatus = request('status_pembayaran'); @endphp
+                                <option value="" {{ $selectedStatus === null ? 'selected' : '' }}>Semua Status
                                 </option>
-                            @endforeach
-                        </select>
-                    </div>
-                    <div class="col-md-3">
-                        <label class="form-label fw-medium">Status Pembayaran</label>
-                        <select class="form-select">
-                            <option selected>Semua Status</option>
-                            <option value="lunas">Lunas</option>
-                            <option value="pending">Pending</option>
-                            <option value="overdue">Terlambat</option>
-                        </select>
-                    </div>
-                    <div class="col-md-2">
-                        <label class="form-label fw-medium">&nbsp;</label>
-                        <div class="d-grid">
-                            <button class="btn btn-primary">
-                                <i class="ti ti-filter me-1"></i>
-                                Filter
-                            </button>
+                                <option value="lunas" {{ $selectedStatus === 'lunas' ? 'selected' : '' }}>Lunas</option>
+                                <option value="pending" {{ $selectedStatus === 'pending' ? 'selected' : '' }}>Pending
+                                </option>
+                                <option value="terlambat" {{ $selectedStatus === 'terlambat' ? 'selected' : '' }}>Terlambat
+                                </option>
+                            </select>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
+
 
         <!-- Statistics Cards -->
         <div class="row g-3 mb-4">
@@ -184,10 +175,21 @@
                         <i class="ti ti-dots-vertical"></i>
                     </button>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#"><i class="ti ti-refresh me-1"></i>Refresh Data</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="ti ti-file-export me-1"></i>Export Excel</a>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('pembayaran.index') }}">
+                                <i class="ti ti-refresh me-1"></i>Refresh
+                            </a>
                         </li>
-                        <li><a class="dropdown-item" href="#"><i class="ti ti-file-type-pdf me-1"></i>Export PDF</a>
+                        <li>
+                            <a class="dropdown-item" href="{{ route('bendahara.export.excel', request()->query()) }}">
+                                <i class="ti ti-file-text me-1"></i>Export Excel
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item"
+                                href="{{ route('bendahara.export.pdf') }}?filter_bulan={{ request('filter_bulan') }}&search={{ request('search') }}">
+                                <i class="ti ti-file-export me-1"></i>Export PDF
+                            </a>
                         </li>
                     </ul>
                 </div>
@@ -275,10 +277,6 @@
                                                 title="Lihat Detail">
                                                 <i class="ti ti-eye"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-outline-success"
-                                                title="Print Receipt">
-                                                <i class="ti ti-printer"></i>
-                                            </a>
                                             <a href="#" class="btn btn-sm btn-outline-secondary" title="Edit">
                                                 <i class="ti ti-edit"></i>
                                             </a>
@@ -304,15 +302,23 @@
     @push('scripts')
         <script>
             document.addEventListener("DOMContentLoaded", function() {
+                const form = document.getElementById('filterForm');
                 const filterSelect = document.getElementById('filterSelect');
-                if (filterSelect) {
-                    filterSelect.addEventListener('change', function() {
-                        const selectedValue = this.value;
-                        const url = new URL(window.location.href);
-                        url.searchParams.set('filter_bulan', selectedValue);
-                        window.location.href = url.toString(); // otomatis refresh halaman
-                    });
-                }
+                const statusSelect = document.getElementById('statusSelect');
+                const searchInput = document.getElementById('searchInput');
+
+                // Submit otomatis saat bulan/status berubah
+                filterSelect.addEventListener('change', () => form.submit());
+                statusSelect.addEventListener('change', () => form.submit());
+
+                // Delay pencarian agar tidak submit tiap huruf diketik
+                let typingTimer;
+                searchInput.addEventListener('input', () => {
+                    clearTimeout(typingTimer);
+                    typingTimer = setTimeout(() => {
+                        form.submit();
+                    }, 600); // jeda 600ms setelah selesai mengetik
+                });
             });
         </script>
     @endpush

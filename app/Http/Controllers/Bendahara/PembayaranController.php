@@ -15,6 +15,17 @@ class PembayaranController extends Controller
     {
         App::setLocale('id');
 
+        // Redirect jika filter_bulan belum ada
+        if (!$request->has('filter_bulan')) {
+            $now = Carbon::now();
+            $defaultFilter = strtolower($now->translatedFormat('F')) . '|' . $now->year;
+
+            return redirect()->route('pembayaran.index', array_merge(
+                $request->query(),
+                ['filter_bulan' => $defaultFilter]
+            ));
+        }
+
         // Mapping bulan Indonesia ke English
         $bulanMap = [
             'januari' => 'January',
@@ -31,29 +42,20 @@ class PembayaranController extends Controller
             'desember' => 'December',
         ];
 
-        if ($request->has('filter_bulan')) {
-            [$bulan, $tahun] = explode('|', $request->input('filter_bulan'));
-        } else {
-            $now = Carbon::now();
-            $bulan = strtolower($now->translatedFormat('F'));
-            $tahun = $now->year;
-        }
+        // Ambil bulan dan tahun dari filter
+        [$bulan, $tahun] = explode('|', $request->input('filter_bulan'));
 
-        // Konversi nama bulan Indonesia ke format English agar bisa diparsing Carbon
         $bulanEn = $bulanMap[$bulan] ?? null;
-        if (!$bulanEn) {
-            abort(400, 'Bulan tidak valid.');
-        }
+        if (!$bulanEn) abort(400, 'Bulan tidak valid.');
 
-        // Ambil awal bulan dari filter (ex: 2025-06-01)
         $selectedDate = Carbon::createFromFormat('F Y', "$bulanEn $tahun")->startOfMonth();
         $now = Carbon::now()->startOfMonth();
-
-        // Tentukan status default: jika bulan yang difilter == sekarang, maka pending, else terlambat
         $statusDefault = $selectedDate->equalTo($now) ? 'pending' : 'terlambat';
 
-        // Ambil semua penghuni (yang sudah di-approve), gabungkan dengan pembayaran bulan tersebut
-        $penghuni = DB::table('pendaftaran_kamars')
+        // Ambil nilai pencarian (nama penghuni / kamar)
+        $search = $request->input('search');
+
+        $query = DB::table('pendaftaran_kamars')
             ->join('users', 'pendaftaran_kamars.user_id', '=', 'users.id')
             ->join('rooms', 'pendaftaran_kamars.room_id', '=', 'rooms.id')
             ->leftJoin('pembayarans', function ($join) use ($bulan, $tahun) {
@@ -62,26 +64,36 @@ class PembayaranController extends Controller
                     ->where('pembayarans.tahun', '=', $tahun);
             })
             ->where('pendaftaran_kamars.status_berkas', 'approved')
-            ->select(
-                'users.nama',
-                'users.nim',
-                'rooms.nama_kamar',
-                'rooms.no_kamar',
-                'rooms.lokasi_kamar',
-                'pembayarans.harga',
-                'pembayarans.status_pembayaran',
-                'pembayarans.tanggal_bayar',
-                'pembayarans.created_at as pembayaran_created_at',
-                DB::raw("
-                    CASE 
-                        WHEN pembayarans.status_pembayaran IS NOT NULL THEN pembayarans.status_pembayaran
-                        ELSE '$statusDefault'
-                    END as status_final
-                ")
-            )
-            ->paginate(10);
+            ->whereMonth('pendaftaran_kamars.tanggal_pendaftaran', '<=', $selectedDate->month)
+            ->whereYear('pendaftaran_kamars.tanggal_pendaftaran', '<=', $selectedDate->year);
 
-        // Hitung statistik dari hasil query penghuni
+        // Tambahkan filter pencarian jika ada
+        if ($search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('users.nama', 'like', "%$search%")
+                    ->orWhere('rooms.nama_kamar', 'like', "%$search%");
+            });
+        }
+
+        $penghuni = $query->select(
+            'users.nama',
+            'users.nim',
+            'rooms.nama_kamar',
+            'rooms.no_kamar',
+            'rooms.lokasi_kamar',
+            'pembayarans.harga',
+            'pembayarans.status_pembayaran',
+            'pembayarans.tanggal_bayar',
+            'pembayarans.created_at as pembayaran_created_at',
+            DB::raw("
+            CASE 
+                WHEN pembayarans.status_pembayaran IS NOT NULL THEN pembayarans.status_pembayaran
+                ELSE '$statusDefault'
+            END as status_final
+        ")
+        )->paginate(10)->appends($request->query());
+
+        // Hitung statistik dari hasil query
         $statistik = [
             'total_pembayaran' => $penghuni->sum('harga'),
             'lunas' => $penghuni->filter(fn($item) => $item->status_final === 'lunas')->count(),
