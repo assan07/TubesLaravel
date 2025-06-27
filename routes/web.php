@@ -17,6 +17,8 @@ use App\Http\Controllers\Mahasiswa\PembayaranController;
 use App\Http\Controllers\Mahasiswa\PendaftaranKamarController;
 use App\Http\Controllers\Bendahara\PembayaranController as BendaharaPembayaranController;
 
+use App\Http\Controllers\Mahasiswa\PasswordController;
+
 
 // ==========================
 // Route for Mahasiswa
@@ -53,6 +55,11 @@ Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 // ======================= MAHASISWA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(function () {
 
+    // ubah password
+    Route::get('/ubah-password', [PasswordController::class, 'edit'])->name('password.edit');
+    Route::post('/ubah-password', [PasswordController::class, 'update'])->name('password.update');
+
+
     Route::get('/data-kamar', [MahasiswaKamarController::class, 'index']);
 
     Route::get('/pembayaran-kamar', [PembayaranController::class, 'create']);
@@ -61,6 +68,8 @@ Route::middleware(['auth', RoleMiddleware::class . ':mahasiswa'])->group(functio
 
     // ✅ Mahasiswa: Lihat riwayat pembayaran
     Route::get('/riwayat-pembayaran', [\App\Http\Controllers\Mahasiswa\PembayaranController::class, 'riwayat'])->name('mahasiswa.riwayat');
+    Route::get('/riwayat/download/{id}', [PembayaranController::class, 'downloadBukti'])->name('riwayat.download');
+    Route::delete('/riwayat/delete/{id}', [PembayaranController::class, 'destroy'])->name('riwayat.destroy');
 
     Route::resource('pendaftaran-kamar', PendaftaranKamarController::class);
 

@@ -76,7 +76,8 @@
                                 },
                                 body: JSON.stringify({
                                     midtrans_result: result,
-                                    bulan: "{{ $bulan }}"
+                                    bulan: "{{ $bulan }}",
+                                    room_id: "{{ $room_id }}"
                                 })
                             })
                             .then(async response => {

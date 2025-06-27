@@ -17,15 +17,14 @@ class Mahasiswa extends Model
         'alamat',
         'foto'
     ];
-
+// relasi ke user
     public function user()
     {
         return $this->belongsTo(User::class);
     }
-
+    // relasi ke pendaftran kamar
     public function pendaftaranKamar()
     {
         return $this->hasOne(PendaftaranKamar::class, 'user_id');
     }
-
 }

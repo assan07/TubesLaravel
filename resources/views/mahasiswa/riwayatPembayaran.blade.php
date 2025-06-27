@@ -22,6 +22,7 @@
                             <th>Tanggal Bayar</th>
                             <th>Nominal</th>
                             <th>Status</th>
+                            <th>Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -49,6 +50,18 @@
                                         <span class="badge bg-warning text-dark">Menunggu</span>
                                     @endif
                                 </td>
+                                <td class=" d-flex gap-2">
+                                    <a href="{{ route('riwayat.download', $item->id) }}" class="btn btn-sm btn-success"><i
+                                            class="ti ti-file-download"></i></a>
+
+                                    <form action="{{ route('riwayat.destroy', $item->id) }}" method="POST"
+                                        class="d-inline delete-form">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="ti ti-trash"
+                                                style="font-size: 1rem"></i></button>
+                                    </form>
+                                </td>
                             </tr>
                         @empty
                             <tr>
@@ -61,4 +74,8 @@
             </div>
         </div>
     </div>
+    @push('scripts')
+        {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+        <script src="{{ asset('assets/js/mahasiswa/riwayatPembayaran.js') }}"></script>
+    @endpush
 @endsection

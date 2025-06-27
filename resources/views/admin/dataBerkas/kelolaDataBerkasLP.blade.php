@@ -2,64 +2,100 @@
 
 @section('title', 'Kelola Data Berkas - Sistem Asrama Unidayan')
 @section('css')
-    {{-- <link rel="stylesheet" href="{{ asset('assets/css/mahasiswa/informasidatakamar.css') }}"> --}}
+    <link rel="stylesheet" href="{{ asset('assets/css/admin/informasidataberkasLP.css') }}">
 
 @section('main-content')
     <div class="container-fluid">
-        {{-- card info regist guy --}}
-        <div class="card-info-regis-room d-flex gap-2">
-            <div class="card-info-gay card w-100">
-                <div class="card-header">
-                    <h3 class="card-title text-center">Kelola Data Berkas Pendaftar {{ $gender }}</h3>
-                    <div class="card-info d-flex flex-column gap-3">
-                        <div class="card-room-gay row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
-                            {{-- Card Pendaftar Baru --}}
-                            <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
-                                    style="height: 7rem;">
-                                    <h1 style="font-weight: bolder;">{{ $stats['total'] }}</h1>
+        {{-- Card Info Regist --}}
+        <div class="card-info-regis-room">
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">
+                        Kelola Data Berkas Pendaftar {{ $gender }}
+                    </h6>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        {{-- Card Pendaftar Baru --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-primary shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                Pendaftar Baru
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                {{ $stats['total'] }}
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <strong>Pendaftar Baru</strong>
                             </div>
-                            {{-- End Card Pendaftar Baru --}}
-
-                            {{-- Card Pendaftar Terkonfirmasi --}}
-                            <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
-                                    style="height: 7rem;">
-                                    <h1 style="font-weight: bolder">{{ $stats['approved'] }}</h1>
-                                </div>
-                                <strong>Terkonfimasi</strong>
-                            </div>
-                            {{-- End Card Pendaftar Terkonfirmasi --}}
-
-                            {{-- Card Pendaftar Pending --}}
-                            <div class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
-                                    style="height: 7rem;">
-                                    <h1 style="font-weight: bolder">{{ $stats['pending'] }}</h1>
-                                </div>
-                                <strong>Pending</strong>
-                            </div>
-                            {{-- End Card Pendaftar Pending --}}
-
-                            {{-- Card Pendaftar Rejected --}}
-                            <div class="card-room bg-danger w-100 rounded d-flex flex-column align-items-center p-2">
-                                <div class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center"
-                                    style="height: 7rem;">
-                                    <h1 style="font-weight: bolder">{{ $stats['rejected'] }}</h1>
-                                </div>
-                                <strong>Rejected</strong>
-                            </div>
-                            {{-- End Card Pendaftar Rejected --}}
-
                         </div>
+                        {{-- End Card Pendaftar Baru --}}
+
+                        {{-- Card Pendaftar Terkonfirmasi --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-success shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                Terkonfirmasi
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                {{ $stats['approved'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- End Card Pendaftar Terkonfirmasi --}}
+
+                        {{-- Card Pendaftar Pending --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-warning shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                Pending
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                {{ $stats['pending'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- End Card Pendaftar Pending --}}
+
+                        {{-- Card Pendaftar Rejected --}}
+                        <div class="col-xl-3 col-md-6 mb-4">
+                            <div class="card border-left-danger shadow h-100">
+                                <div class="card-body">
+                                    <div class="row no-gutters align-items-center">
+                                        <div class="col mr-2">
+                                            <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">
+                                                Rejected
+                                            </div>
+                                            <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                {{ $stats['rejected'] }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {{-- End Card Pendaftar Rejected --}}
                     </div>
                 </div>
             </div>
-            {{-- end card info regist guy --}}
         </div>
-        {{-- end card info regist --}}
+        {{-- End Card Info Regist --}}
 
         {{-- table data berkas --}}
 

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Services\MidtransService;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 use App\Models\User;
 use App\Models\Room;
@@ -118,6 +119,7 @@ class PembayaranController extends Controller
             'orderId' => $orderId,
             'bulan' => $bulan,
             'harga' => $harga,
+            'room_id' => $pendaftaran->room_id,
         ]);
     }
 
@@ -136,9 +138,15 @@ class PembayaranController extends Controller
         if (($result['transaction_status'] ?? '') !== 'settlement') {
             return response()->json(['error' => 'Transaksi belum berhasil diselesaikan.'], 422);
         }
+        $request->validate([
+            'room_id' => 'required|exists:rooms,id',
+            'bulan' => 'required|string',
+            'midtrans_result' => 'required|array',
+        ]);
 
         Pembayaran::create([
             'user_id' => $user->id,
+            'room_id' => $request->room_id,
             'bulan' => $data['bulan'],
             'tahun' => date('Y'),
             'tanggal_bayar' => $result['transaction_time'],
@@ -176,5 +184,24 @@ class PembayaranController extends Controller
             ->get();
 
         return view('mahasiswa.riwayatPembayaran', compact('riwayat', 'bulanList'));
+    }
+
+    public function downloadBukti($id)
+    {
+
+        $riwayat = Pembayaran::with(['user', 'mahasiswa', 'room'])->findOrFail($id);
+
+        $pdf = Pdf::loadView('mahasiswa.buktiPembayaran', compact('riwayat'));
+
+        return $pdf->download('bukti-pembayaran-' . $riwayat->user->nim . '.pdf');
+    }
+
+    public function destroy($id)
+    {
+        $pembayaran = Pembayaran::findOrFail($id);
+        $pembayaran->delete();
+
+        Flasher::addSuccess('Riwayat pembayaran berhasil dihapus.');
+        return redirect()->back();
     }
 }
