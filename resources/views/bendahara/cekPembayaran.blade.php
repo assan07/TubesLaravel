@@ -273,11 +273,11 @@
                                     </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
-                                            <a href="#" class="btn btn-sm btn-outline-primary"
-                                                title="Lihat Detail">
+                                            <a href="{{ route('bendahara.detail-pembayaran', [$row->user_id, $bulan, $tahun]) }}"
+                                                class="btn btn-sm btn-outline-primary" title="Lihat Detail">
                                                 <i class="ti ti-eye"></i>
                                             </a>
-                                            <a href="#" class="btn btn-sm btn-outline-secondary" title="Edit">
+                                            <a href="{{ route('bendahara.pembayaran.edit', [$row->user_id, $bulan, $tahun]) }}" class="btn btn-sm btn-outline-secondary" title="Edit">
                                                 <i class="ti ti-edit"></i>
                                             </a>
                                         </div>
@@ -285,7 +285,6 @@
                                 </tr>
                             @endforeach
                         </tbody>
-
                     </table>
                 </div>
             </div>

@@ -150,21 +150,10 @@ Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(functio
     Route::get('/cek-pembayaran', [BendaharaPembayaranController::class, 'index'])->name('pembayaran.index');
     Route::get('/bendahara/pembayaran/export-excel', [ExportPembayaranController::class, 'exportExcel'])->name('bendahara.export.excel');
     Route::get('/bendahara/pembayaran/export-pdf', [ExportPembayaranController::class, 'exportPDF'])->name('bendahara.export.pdf');
-
-    Route::get('/detail-pembayaran', function () {
-        return view('bendahara.detailPembayaran');
-    });
-
-    Route::get('/edit-pembayaran', function () {
-        return view('bendahara.editPembayaran');
-    });
-
-    Route::get('/export-pembayaran', function () {
-        return view('bendahara.exportData');
-    });
-    Route::get('/form-pembayaran', function () {
-        return view('bendahara.formPembayaran');
-    });
+    Route::get('/bendahara/detail-pembayaran/{user_id}/{bulan}/{tahun}', [BendaharaPembayaranController::class, 'detail'])
+        ->name('bendahara.detail-pembayaran');
+    Route::get('/bendahara/pembayaran/{user_id}/{bulan}/{tahun}/edit', [BendaharaPembayaranController::class, 'edit'])->name('bendahara.pembayaran.edit');
+    Route::put('/bendahara/pembayaran/{user_id}/{bulan}/{tahun}', [BendaharaPembayaranController::class, 'update'])->name('bendahara.pembayaran.update');
 });
 
 // ======================= END BENDAHARA ============================
