@@ -27,7 +27,7 @@
                             {{-- <div class="logo-container mb-3">
                                     <i class="fas fa-building fa-3x text-primary"></i>
                                 </div> --}}
-                            <h2 class="fw-bold text-dark mb-2">Selamat Datang test</h2>
+                            <h2 class="fw-bold text-dark mb-2">Selamat Datang</h2>
                             <p class="text-muted">Sistem Manajemen Asrama Mahasiswa Unidayan</p>
                         </div>
 

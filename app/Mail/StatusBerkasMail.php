@@ -21,6 +21,6 @@ class StatusBerkasMail extends Mailable
     public function build()
     {
         return $this->subject('Status Pendaftaran Kamar Asrama Anda')
-            ->view('admin.dataBerkas.emailStatusBerkas');
+            ->view('emails.adminEmailStatusBerkas');
     }
 }
