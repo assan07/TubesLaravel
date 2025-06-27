@@ -82,7 +82,7 @@
 
                         <div class="form-group">
                             <label for="new_password_confirmation" class="form-label">
-                                <i class="fas fa-check-circle"></i>Konfirmasi Password Baru
+                                <i class="fas fa-check-circle"></i>Konfirmasi Password
                             </label>
                             <div class="password-input-wrapper">
                                 <input type="password" name="new_password_confirmation" id="new_password_confirmation"
