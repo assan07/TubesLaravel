@@ -1,94 +1,169 @@
- @extends('layouts.mahasiswa.app')
+@extends('layouts.mahasiswa.app')
 
- @section('title', 'Informasi Data Kamar - Sistem Asrama Unidayan')
- @section('css')
-     <link rel="stylesheet" href="{{ asset('assets/css/mahasiswa/informasidatakamar.css') }}">
+@section('title', 'Informasi Data Kamar - Sistem Asrama Unidayan')
 
- @section('main-content')
+@section('css')
+    <link rel="stylesheet" href="{{ asset('assets/css/mahasiswa/informasidatakamar.css') }}">
 
-     <div class="container">
-         <div class="row justify-content-center">
-             <div class="col-md-12 d-flex flex-column ">
-                 <div class="card">
-                     <div class="card-header text-center">
-                         <h4>Informasi Data Kamar</h4>
-                     </div>
-                 </div>
-                 {{--card room boy info --}}
+@section('main-content')
+    <div class="page-container">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12">
+                    <!-- Page Header -->
+                    <div class="page-header text-center">
+                        <h4>Informasi Data Kamar Asrama</h4>
+                    </div>
 
-                 <div class="room-guy card col-sm-12 col-md-12 d-flex flex-column p-4 gap-3">
-                     <h1><strong>Kamar Laki-Laki</strong></h1>
-                     <div class="card-room-guy row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
-                         <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['laki']['total'] }}</h1>
-                             </div>
-                             <strong>Total</strong>
-                         </div>
-                         <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['laki']['tersedia'] }}</h1>
-                             </div>
-                             <strong>Tersedia</strong>
-                         </div>
-                         <div class="card-room bg-info w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['laki']['diisi'] }}</h1>
-                             </div>
-                             <strong>Diisi</strong>
-                         </div>
-                         <div class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['laki']['maintenance'] }}</h1>
-                             </div>
-                             <strong>Maintenanca</strong>
-                         </div>
-                     </div>
-                 </div>
-                 {{-- end card room boy info --}}
-                 
-                 {{--card room girl info --}}
-                 <div class="room-girl card col-sm-12 col-md-12 d-flex flex-column p-4 gap-3">
-                     <h1><strong>Kamar Perempuan</strong></h1>
-                     <div class="card-room-girl row-lg-12 col-md-12 col-sm-12 d-flex gap-3">
-                         <div class="card-room bg-primary w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['total'] }}</h1>
-                             </div>
-                             <strong>Total</strong>
-                         </div>
-                         <div class="card-room bg-secondary w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['tersedia'] }}</h1>
-                             </div>
-                             <strong>Tersedia</strong>
-                         </div>
-                         <div class="card-room bg-info w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['diisi'] }}</h1>
-                             </div>
-                             <strong>Diisi</strong>
-                         </div>
-                         <div class="card-room bg-warning w-100 rounded d-flex flex-column align-items-center p-2">
-                             <div
-                                 class="sub-card bg-white w-100 rounded d-flex align-items-center justify-content-center p-2 text-center">
-                                 <h1 style="font-weight: bolder">{{ $data['perempuan']['maintenance'] }}</h1>
-                             </div>
-                             <strong>Maintenanca</strong>
-                         </div>
-                     </div>
-                 </div>
-                 {{--end card room girl info --}}
-                 
-             </div>
-         </div>
-     </div>
+                    <!-- Kamar Laki-Laki Section -->
+                    <div class="room-section">
+                        <h2 class="section-title">Kamar Laki-Laki</h2>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-primary shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Total
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['laki']['total'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
- @endsection
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-success shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    Tersedia
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['laki']['tersedia'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-info shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    Terisi
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['laki']['diisi'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-warning shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    Maintenance
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['laki']['maintenance'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kamar Perempuan Section -->
+                    <div class="room-section">
+                        <h2 class="section-title">Kamar Perempuan</h2>
+                        <div class="row">
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-primary shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    Total
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['perempuan']['total'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-success shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
+                                                    Tersedia
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['perempuan']['tersedia'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-info shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-info text-uppercase mb-1">
+                                                    Terisi
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['laki']['diisi'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xl-3 col-md-6 mb-2">
+                                <div class="card border-left-warning shadow h-100">
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
+                                                    Maintenance
+                                                </div>
+                                                <div class="h5 mb-0 font-weight-bold text-gray-800">
+                                                    {{ $data['perempuan']['maintenance'] }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection

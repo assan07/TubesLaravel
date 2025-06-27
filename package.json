@@ -1,17 +1,23 @@
 {
-  "name": "vite",
-  "description": "Include Bootstrap's source Sass and individual JavaScript plugins with Vite.",
-  "version": "0.0.0",
-  "private": true,
-  "stackblitz": {
-    "startCommand": "npm start"
-  },
-  "devDependencies": {
-    "sass": "^1.54.8"
-  },
-  "dependencies": {
-    "apexcharts": "^3.37.0",
-    "bootstrap": "^5.2.3",
-    "jquery": "^3.6.3"
-  }
+    "name": "vite",
+    "description": "Include Bootstrap's source Sass and individual JavaScript plugins with Vite.",
+    "version": "0.0.0",
+    "private": true,
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build"
+    },
+    "stackblitz": {
+        "startCommand": "npm start"
+    },
+    "devDependencies": {
+        "sass": "^1.54.8",
+        "vite": "^7.0.0"
+    },
+    "dependencies": {
+        "apexcharts": "^3.37.0",
+        "bootstrap": "^5.2.3",
+        "jquery": "^3.6.3",
+        "sweetalert2": "^11.22.1"
+    }
 }
