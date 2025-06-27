@@ -16,6 +16,7 @@ use App\Http\Controllers\Mahasiswa\MahasiswaController;
 use App\Http\Controllers\Mahasiswa\PembayaranController;
 use App\Http\Controllers\Mahasiswa\PendaftaranKamarController;
 use App\Http\Controllers\Bendahara\PembayaranController as BendaharaPembayaranController;
+use App\Http\Controllers\Bendahara\ExportPembayaranController;
 
 use App\Http\Controllers\Mahasiswa\PasswordController;
 
@@ -156,6 +157,8 @@ Route::get('/admin/kelola-data-penghuni', function () {
 Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(function () {
 
     Route::get('/cek-pembayaran', [BendaharaPembayaranController::class, 'index'])->name('pembayaran.index');
+    Route::get('/bendahara/pembayaran/export-excel', [ExportPembayaranController::class, 'exportExcel'])->name('bendahara.export.excel');
+    Route::get('/bendahara/pembayaran/export-pdf', [ExportPembayaranController::class, 'exportPDF'])->name('bendahara.export.pdf');
 
     Route::get('/detail-pembayaran', function () {
         return view('bendahara.detailPembayaran');

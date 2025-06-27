@@ -18,4 +18,9 @@ class Room extends Model
     {
         return $this->hasMany(PendaftaranKamar::class, 'room_id');
     }
+
+    public function mahasiswas()
+    {
+        return $this->hasMany(Mahasiswa::class);
+    }
 }

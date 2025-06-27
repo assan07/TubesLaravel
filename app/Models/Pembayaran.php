@@ -15,7 +15,7 @@ class Pembayaran extends Model
         'bulan',
         'tahun',
         'tanggal_bayar',
-        'status',
+        'status_pembayaran',
         'jenis_pembayaran',
         'harga',
     ];
@@ -25,16 +25,19 @@ class Pembayaran extends Model
     {
         return $this->belongsTo(User::class);
     }
-
     // relasi ke mahasiswa
-   public function mahasiswa()
-{
-    return $this->belongsTo(Mahasiswa::class, 'user_id', 'user_id');
-}
+    public function mahasiswa()
+    {
+        return $this->belongsTo(Mahasiswa::class, 'user_id', 'user_id');
+    }
 
     // relasi ke room
     public function room()
     {
-        return $this->belongsTo(Room::class,'room_id');
+        return $this->belongsTo(Room::class, 'room_id');
+    }
+    public function pendaftaran()
+    {
+        return $this->hasOne(PendaftaranKamar::class, 'user_id', 'user_id');
     }
 }
