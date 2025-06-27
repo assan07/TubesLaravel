@@ -21,7 +21,7 @@ class PembayaranController extends Controller
             $now = Carbon::now();
             $defaultFilter = strtolower($now->translatedFormat('F')) . '|' . $now->year;
 
-            return redirect()->route('pembayaran.index', array_merge(
+            return redirect()->route('bendahara.pembayaran.index', array_merge(
                 $request->query(),
                 ['filter_bulan' => $defaultFilter]
             ));
@@ -159,7 +159,7 @@ class PembayaranController extends Controller
             ->first();
 
         if (!$pembayaran) {
-            return redirect()->route('pembayaran.index')->with('error', 'Data tidak ditemukan.');
+            return redirect()->route('bendahara.pembayaran.index')->with('error', 'Data tidak ditemukan.');
         }
 
         return view('bendahara.detailPembayaran', [
@@ -216,7 +216,7 @@ class PembayaranController extends Controller
             ->first();
 
         if (!$data) {
-            return redirect()->route('pembayaran.index')->with('error', 'Data tidak ditemukan.');
+            return redirect()->route('bendahara.pembayaran.index')->with('error', 'Data tidak ditemukan.');
         }
 
         return view('bendahara.editPembayaran', [
@@ -276,6 +276,6 @@ class PembayaranController extends Controller
             DB::table('pembayarans')->insert($data);
         }
 
-        return redirect()->route('pembayaran.index')->with('success', 'Status pembayaran berhasil diperbarui.');
+        return redirect()->route('bendahara.pembayaran.index')->with('success', 'Status pembayaran berhasil diperbarui.');
     }
 }

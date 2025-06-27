@@ -35,7 +35,7 @@
         </div>
 
         <!-- Filter & Search Section -->
-        <form method="GET" action="{{ route('pembayaran.index') }}" id="filterForm">
+        <form method="GET" action="{{ route('bendahara.pembayaran.index') }}" id="filterForm">
             <div class="card shadow-sm mb-4">
                 <div class="card-body">
                     <div class="row g-3">
@@ -176,7 +176,7 @@
                     </button>
                     <ul class="dropdown-menu">
                         <li>
-                            <a class="dropdown-item" href="{{ route('pembayaran.index') }}">
+                            <a class="dropdown-item" href="{{ route('bendahara.pembayaran.index') }}">
                                 <i class="ti ti-refresh me-1"></i>Refresh
                             </a>
                         </li>

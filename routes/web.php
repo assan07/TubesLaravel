@@ -29,7 +29,7 @@ Route::get('/', function () {
     if (Auth::check()) {
         return match (Auth::user()->role) {
             'admin' => redirect('/kelola-data-kamar'),
-            'bendahara' => redirect('/cek-pembayaran'),
+            'bendahara' => redirect('bendahara/cek-pembayaran'),
             default => redirect('/data-kamar'),
         };
     }
@@ -156,7 +156,7 @@ Route::get('/admin/kelola-data-penghuni', function () {
 // ======================= BENDAHARA ============================
 Route::middleware(['auth', RoleMiddleware::class . ':bendahara'])->group(function () {
 
-    Route::get('/cek-pembayaran', [BendaharaPembayaranController::class, 'index'])->name('pembayaran.index');
+    Route::get('/bendahara/cek-pembayaran', [BendaharaPembayaranController::class, 'index'])->name('bendahara.pembayaran.index');
     Route::get('/bendahara/pembayaran/export-excel', [ExportPembayaranController::class, 'exportExcel'])->name('bendahara.export.excel');
     Route::get('/bendahara/pembayaran/export-pdf', [ExportPembayaranController::class, 'exportPDF'])->name('bendahara.export.pdf');
     Route::get('/bendahara/detail-pembayaran/{user_id}/{bulan}/{tahun}', [BendaharaPembayaranController::class, 'detail'])

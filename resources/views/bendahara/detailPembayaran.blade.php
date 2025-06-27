@@ -13,7 +13,7 @@
                 <p class="text-muted mb-0">Informasi lengkap pembayaran kamar asrama</p>
             </div>
             <div class="d-flex gap-2">
-                <a href="{{ route('pembayaran.index') }}" class="btn btn-outline-secondary">
+                <a href="{{ route('bendahara.pembayaran.index') }}" class="btn btn-outline-secondary">
                     <i class="ti ti-arrow-left me-1"></i>
                     Kembali
                 </a>
