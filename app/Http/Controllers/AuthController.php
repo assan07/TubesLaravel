@@ -101,7 +101,7 @@ class AuthController extends Controller
             // Arahkan berdasarkan role
             return match ($user->role) {
                 'admin' => redirect('/kelola-data-kamar'),
-                'bendahara' => redirect('/cek-pembayaran'),
+                'bendahara' => redirect('bendahara/cek-pembayaran'),
                 'mahasiswa' => redirect('/data-kamar'),
                 default => redirect('/'),
             };
