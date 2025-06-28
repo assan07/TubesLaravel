@@ -4,7 +4,7 @@
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="/" class="text-nowrap logo-img d-flex justify-center align-content-center">
                 <img src="{{ asset('assets/images/auth_img/hostel.png') }}" width="50" alt="" />
-                <span class="fw-bolder fs-5 text-center mt-2">Si-Asrama UI</span>
+                <span class="fw-bolder fs-5 text-center mt-2">Si-Asrama</span>
             </a>
             <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
                 <i class="ti ti-x fs-8"></i>

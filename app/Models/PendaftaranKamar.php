@@ -21,6 +21,7 @@ class PendaftaranKamar extends Model
         'tanggal_pendaftaran',
         'status_berkas',
     ];
+    
     public function room()
     {
         return $this->belongsTo(Room::class, 'room_id');
