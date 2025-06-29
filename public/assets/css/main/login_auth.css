@@ -31,7 +31,6 @@ body {
 .form-control:focus {
     border-color: #667eea;
     box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
-    transform: translateY(-2px);
 }
 
 .input-group-text {
@@ -73,16 +72,27 @@ body {
 }
 
 .image-overlay {
+    width: 100%;
+    height: 75%;
+    top: 10px;
+    left: 80px;
     z-index: 1;
+    transition: all 0.2s ease-in-out;
+    animation: slideInRight 0.8s ease-out;
 }
 
-.image-container img {
-    z-index: -5;
+.image-overlay img {
+    border-radius: 11px;
     width: 50%;
-    height: 50%;
+    height: 36rem;
     margin-left: 580px;
-    animation: alternate-reverse 10s infinite;
 }
+
+/* .image-container img {
+    opacity: 0;
+    z-index: -5;
+    animation: alternate-reverse 10s infinite;
+} */
 
 .welcome-content {
     z-index: 2;
@@ -108,6 +118,18 @@ body {
     from {
         opacity: 0;
         transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
     }
 
     to {

@@ -41,6 +41,16 @@ class UserSeeder extends Seeder
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'nama' => 'Hasan',
+                'nim' => '22650062',
+                'email' => 'hasanwkl04@gmail.com',
+                'password' => Hash::make('Hzn1234567'),
+                'role' => 'mahasiswa',
+                'is_approved' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         ]);
     }
 }

@@ -25,15 +25,13 @@
                     <div class="left-content col-lg-11 col-md-5 d-none d-md-block position-absolute ">
                         <div class="image-container col-lg-12 h-100 w-100 position-relative ">
                             <div class="overlay"></div>
-                            <div class="content-welcome">
+                            <div class="content-welcome d-flex flex-column align-items-start">
                                 <div class="university-icon">
                                     <i class="fas fa-university"></i>
                                 </div>
-                                <h1>Selamat Datang</h1>
-
                             </div>
-                            <img src="{{ asset('assets/images/auth_img/hostel.png') }}" alt="Background Image"
-                                class="img-fluid h-50 w-50 object-fit-cover">
+                            <img src="{{ asset('assets/images/auth_img/asrama2.jpg') }}" alt="Background Image"
+                                class="img-fluid object-fit-cover">
                         </div>
                     </div>
                 </div>

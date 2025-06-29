@@ -12,7 +12,7 @@
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/mahasiswa/login_mahasiswa.css') }}">
+    <link rel="stylesheet" href="{{ asset('assets/css/main/login_auth.css') }}">
 </head>
 
 <body>
@@ -87,7 +87,6 @@
                                     </div>
 
                                     <!-- Remember Me & Forgot Password -->
-                                    <!-- Remember Me & Forgot Password -->
                                     <div class="d-flex justify-content-between align-items-center mb-4">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="remember"
@@ -143,13 +142,13 @@
                 <div class="rigth-side col-lg-11 col-md-5 d-none d-md-block position-absolute ">
                     <div class="image-container col-lg-12 h-100 w-100 position-relative ">
                         <!-- Background Overlay -->
-                        <div class="image-overlay position-absolute w-100 h-100"></div>
+                        <div class="image-overlay position-absolute "><img
+                                src="{{ asset('assets/images/auth_img/asrama.jpeg') }}" alt="Gedung Asrama Mahasiswa"
+                                class=" object-fit-cover overflow-hidden"></div>
 
                         <!-- Background Image -->
-                        <img src="{{ asset('assets/images/auth_img/hostel.png') }}" alt="Gedung Asrama Mahasiswa"
-                            class=" object-fit-cover overflow-hidden">
-
-
+                        {{-- <img src="{{ asset('assets/images/auth_img/asrama.jpeg') }}" alt="Gedung Asrama Mahasiswa"
+                            class=" object-fit-cover overflow-hidden"> --}}
 
                         <!-- Bottom Info -->
                         <div class="position-absolute bottom-0 start-0 w-100 p-2">
