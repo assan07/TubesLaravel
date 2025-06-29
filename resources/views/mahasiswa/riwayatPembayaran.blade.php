@@ -51,14 +51,14 @@
                                     @endif
                                 </td>
                                 <td class=" d-flex gap-2">
-                                    <a href="{{ route('riwayat.download', $item->id) }}" class="btn btn-sm btn-success"><i
-                                            class="ti ti-file-download"></i></a>
+                                    <a href="{{ route('riwayat.download', $item->id) }}" class="btn btn-sm btn-success" title="Unduh Bukti"><i
+                                            class="ti ti-file-download" ></i></a>
 
                                     <form action="{{ route('riwayat.destroy', $item->id) }}" method="POST"
-                                        class="d-inline delete-form">
+                                        class="d-inline delete-form" title="Hapus">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="ti ti-trash"
+                                        <button type="submit" class="btn btn-danger btn-sm" ><i class="ti ti-trash"
                                                 style="font-size: 1rem"></i></button>
                                     </form>
                                 </td>

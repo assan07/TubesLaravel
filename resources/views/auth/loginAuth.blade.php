@@ -20,13 +20,10 @@
         <div class="container-fluid vh-100">
             <div class="row h-100 g-0 ">
                 <!-- Left Side - Login Form -->
-                <div class="col-lg-6 col-md-7 d-flex align-items-center justify-content-center p-4">
+                <div class="col-lg-6 col-md-7 d-flex align-items-center justify-content-center ml-52">
                     <div class="login-card-container w-100">
                         <!-- Logo & Title -->
-                        <div class="text-center mb-4">
-                            {{-- <div class="logo-container mb-3">
-                                    <i class="fas fa-building fa-3x text-primary"></i>
-                                </div> --}}
+                        <div class="text-center mb-2">
                             <h2 class="fw-bold text-dark mb-2">Selamat Datang</h2>
                             <p class="text-muted">Sistem Manajemen Asrama Mahasiswa Unidayan</p>
                         </div>

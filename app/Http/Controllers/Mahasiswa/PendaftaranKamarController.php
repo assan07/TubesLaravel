@@ -127,7 +127,7 @@ class PendaftaranKamarController extends Controller
     public function edit($id)
     {
         $pendaftaran = PendaftaranKamar::findOrFail($id);
-        $rooms = Room::where('status', 'tersedia')->get();
+        $rooms = Room::all();
 
         return view('mahasiswa.editBerkasPendaftaran', compact('pendaftaran', 'rooms'));
     }

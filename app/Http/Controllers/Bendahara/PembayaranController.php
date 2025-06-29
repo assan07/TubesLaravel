@@ -75,6 +75,7 @@ class PembayaranController extends Controller
                     ->orWhere('rooms.nama_kamar', 'like', "%$search%");
             });
         }
+       
 
         $penghuni = $query->select(
             'users.id as user_id',
